@@ -1,0 +1,183 @@
+{
+  "info": {
+    "_postman_id": "d9a0c8a8-bf08-4a88-9d05-a9b0a1d2d2c1",
+    "name": "Dwellix Authentication",
+    "description": "Postman collection for the Dwellix authentication module.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "verificationToken",
+      "value": ""
+    },
+    {
+      "key": "resetToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/signup",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Alex Morgan\",\n  \"email\": \"alex@dwellix.com\",\n  \"phoneNumber\": \"+15551234567\",\n  \"password\": \"StrongPass!123\"\n}"
+        }
+      },
+      "response": [
+        {
+          "name": "Signup success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"Account created for alex@dwellix.com. Verify your email to continue.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alex@dwellix.com\",\n  \"password\": \"StrongPass!123\",\n  \"rememberMe\": true\n}"
+        }
+      },
+      "response": [
+        {
+          "name": "Login success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"user\": {\n    \"id\": \"b7e2d9ce-fdc4-4e2c-8d81-7f7b91e1d211\",\n    \"fullName\": \"Alex Morgan\",\n    \"email\": \"alex@dwellix.com\",\n    \"phoneNumber\": \"+15551234567\",\n    \"role\": \"ROLE_USER\",\n    \"emailVerified\": true,\n    \"lastLoginAt\": \"2026-07-07T12:00:00Z\"\n  },\n  \"tokens\": {\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"tokenType\": \"Bearer\",\n    \"expiresInSeconds\": 900\n  },\n  \"message\": \"Login successful.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/logout"
+      },
+      "response": [
+        {
+          "name": "Logout success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"Logged out successfully.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Refresh Token",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/refresh"
+      },
+      "response": [
+        {
+          "name": "Refresh success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"user\": {\n    \"id\": \"b7e2d9ce-fdc4-4e2c-8d81-7f7b91e1d211\",\n    \"fullName\": \"Alex Morgan\",\n    \"email\": \"alex@dwellix.com\",\n    \"phoneNumber\": \"+15551234567\",\n    \"role\": \"ROLE_USER\",\n    \"emailVerified\": true,\n    \"lastLoginAt\": \"2026-07-07T12:00:00Z\"\n  },\n  \"tokens\": {\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"tokenType\": \"Bearer\",\n    \"expiresInSeconds\": 900\n  },\n  \"message\": \"Token refreshed.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Forgot Password",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/forgot-password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alex@dwellix.com\"\n}"
+        }
+      },
+      "response": [
+        {
+          "name": "Forgot password success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"If the account exists, a reset link will be sent shortly.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Reset Password",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/reset-password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{resetToken}}\",\n  \"password\": \"NewStrongPass!123\",\n  \"confirmPassword\": \"NewStrongPass!123\"\n}"
+        }
+      },
+      "response": [
+        {
+          "name": "Reset password success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"Password updated successfully.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Verify Email",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/v1/auth/verify-email",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{verificationToken}}\"\n}"
+        }
+      },
+      "response": [
+        {
+          "name": "Verify email success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"Email verified successfully.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Me",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+        ],
+        "url": "{{baseUrl}}/api/v1/auth/me"
+      },
+      "response": [
+        {
+          "name": "Me success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"id\": \"b7e2d9ce-fdc4-4e2c-8d81-7f7b91e1d211\",\n  \"fullName\": \"Alex Morgan\",\n  \"email\": \"alex@dwellix.com\",\n  \"phoneNumber\": \"+15551234567\",\n  \"role\": \"ROLE_USER\",\n  \"emailVerified\": true,\n  \"lastLoginAt\": \"2026-07-07T12:00:00Z\"\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+# Dwellix - AI-Powered Home Management Platform

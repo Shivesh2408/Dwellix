@@ -1,0 +1,31 @@
+# Maven / Java
+**/target/
+backend/.env
+backend/.env.local
+backend/*.jar
+*.class
+
+# Node / React / Next.js
+**/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Local Tools
+.tools/
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System Files
+.DS_Store
+Thumbs.db
