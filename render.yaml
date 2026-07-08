@@ -1,0 +1,32 @@
+services:
+  # Dwellix Spring Boot Backend Web Service
+  - type: web
+    name: dwellix-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: chmod +x mvnw && ./mvnw clean package -DskipTests
+    startCommand: java -jar target/dwellix-backend-0.1.0.jar
+    envVars:
+      # Build-time JDK configuration
+      - key: JAVA_VERSION
+        value: 21
+      
+      # Database connection parameters (to be linked to a PostgreSQL instance)
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+
+      # Application Secrets & External API Keys
+      - key: JWT_SECRET
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false
+
+      # Spring Profile
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
