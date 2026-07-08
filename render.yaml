@@ -2,15 +2,9 @@ services:
   # Dwellix Spring Boot Backend Web Service
   - type: web
     name: dwellix-backend
-    runtime: java
+    runtime: docker
     rootDir: backend
-    buildCommand: chmod +x mvnw && ./mvnw clean package -DskipTests
-    startCommand: java -jar target/dwellix-backend-0.1.0.jar
     envVars:
-      # Build-time JDK configuration
-      - key: JAVA_VERSION
-        value: 21
-      
       # Database connection parameters (to be linked to a PostgreSQL instance)
       - key: DATABASE_URL
         sync: false
