@@ -50,6 +50,9 @@ public class AuthService {
   private final Clock clock;
   private final SecureRandom secureRandom;
 
+  @org.springframework.beans.factory.annotation.Value("${app.auth.require-email-verification:false}")
+  private boolean requireEmailVerification;
+
   public AuthService(
       UserRepository userRepository,
       RefreshTokenRepository refreshTokenRepository,
@@ -87,13 +90,15 @@ public class AuthService {
     user.setPhoneNumber(request.phoneNumber().trim());
     user.setPasswordHash(passwordEncoder.encode(request.password()));
     user.setRole(Role.ROLE_USER);
-    user.setEmailVerified(false);
+    user.setEmailVerified(!requireEmailVerification);
     user.setAccountLocked(false);
     user.setEnabled(true);
     userRepository.save(user);
 
-    String verificationToken = createVerificationToken(user);
-    emailService.sendVerificationEmail(user, verificationToken);
+    if (requireEmailVerification) {
+      String verificationToken = createVerificationToken(user);
+      emailService.sendVerificationEmail(user, verificationToken);
+    }
 
     return toUserResponse(user);
   }
@@ -179,6 +184,9 @@ public class AuthService {
   }
 
   public void verifyEmail(VerifyEmailRequest request) {
+    if (!requireEmailVerification) {
+      return;
+    }
     String tokenHash = tokenHashService.hash(request.token());
     VerificationTokenEntity verificationToken = verificationTokenRepository.findByTokenHash(tokenHash)
         .orElseThrow(() -> new InvalidTokenException("Verification token is invalid."));
@@ -207,10 +215,13 @@ public class AuthService {
   }
 
   private Optional<UserEntity> findVerifiedUserByEmail(String email) {
+    if (!requireEmailVerification) {
+      return userRepository.findByEmailIgnoreCase(email);
+    }
     return userRepository.findByEmailIgnoreCase(email).filter(UserEntity::isEmailVerified);
   }
 
-  private AuthSessionResult issueSession(UserEntity user, String message) {
+  public AuthSessionResult issueSession(UserEntity user, String message) {
     return issueSession(user, message, createRefreshToken(user));
   }
 

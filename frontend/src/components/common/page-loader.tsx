@@ -37,8 +37,12 @@ export function PageLoader() {
             />
             {/* Typographic brand indicator */}
             <div className="flex items-center gap-1.5 font-heading font-extrabold text-sm text-foreground tracking-tight">
-              <span className="w-5 h-5 rounded-md bg-primary flex items-center justify-center text-primary-foreground font-extrabold text-[10px] shadow-sm">
-                D
+              <span className="w-5 h-5 rounded-md overflow-hidden shadow-sm shadow-primary/10">
+                <img
+                  src="/logo/dwellix-logo-light.png"
+                  alt="Dwellix Logo"
+                  className="h-5 w-5 object-contain"
+                />
               </span>
               <span>Dwellix</span>
             </div>

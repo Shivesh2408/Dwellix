@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record OnboardingApplianceRequest(
     @NotBlank @Size(max = 140) String name,
@@ -13,6 +14,6 @@ public record OnboardingApplianceRequest(
     @NotNull LocalDate purchaseDate,
     @NotNull LocalDate warrantyExpiry,
     @Size(max = 255) String photoFileName,
-    @Size(max = 255) String invoiceFileName
-) {
-}
+    @Size(max = 255) String invoiceFileName,
+    UUID roomId
+) {}

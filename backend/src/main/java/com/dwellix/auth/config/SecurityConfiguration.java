@@ -28,15 +28,18 @@ public class SecurityConfiguration {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final JwtAuthenticationEntryPoint authenticationEntryPoint;
   private final AppCorsProperties corsProperties;
+  private final com.dwellix.auth.security.OAuth2SuccessHandler oAuth2SuccessHandler;
 
   public SecurityConfiguration(
       JwtAuthenticationFilter jwtAuthenticationFilter,
       JwtAuthenticationEntryPoint authenticationEntryPoint,
-      AppCorsProperties corsProperties
+      AppCorsProperties corsProperties,
+      com.dwellix.auth.security.OAuth2SuccessHandler oAuth2SuccessHandler
   ) {
     this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     this.authenticationEntryPoint = authenticationEntryPoint;
     this.corsProperties = corsProperties;
+    this.oAuth2SuccessHandler = oAuth2SuccessHandler;
   }
 
   @Bean
@@ -47,6 +50,7 @@ public class SecurityConfiguration {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
         .authorizeHttpRequests(auth -> auth
+            .dispatcherTypeMatchers(jakarta.servlet.DispatcherType.ASYNC).permitAll()
             .requestMatchers("/actuator/health", "/actuator/info").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/v1/auth/signup", "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/forgot-password", "/api/v1/auth/reset-password", "/api/v1/auth/verify-email", "/api/v1/auth/logout").permitAll()
             .requestMatchers("/api/v1/auth/me").authenticated()
@@ -54,7 +58,9 @@ public class SecurityConfiguration {
         )
         .httpBasic(httpBasic -> httpBasic.disable())
         .formLogin(form -> form.disable())
-        .oauth2Login(oauth2 -> oauth2.disable());
+        .oauth2Login(oauth2 -> oauth2
+            .successHandler(oAuth2SuccessHandler)
+        );
 
     http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -78,10 +84,6 @@ public class SecurityConfiguration {
     return source;
   }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(12);
-  }
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

@@ -87,6 +87,42 @@ export function DashboardLayout({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Keyboard Shortcuts listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === "INPUT" ||
+        document.activeElement?.tagName === "TEXTAREA"
+      ) {
+        if (e.key === "Escape") {
+          setIsMobileDrawerOpen(false);
+          setNotificationsOpen(false);
+        }
+        return;
+      }
+
+      if (e.ctrlKey && e.key === "/") {
+        e.preventDefault();
+        router.push("/dashboard/ai-assistant");
+      } else if (e.altKey && e.key.toLowerCase() === "b") {
+        e.preventDefault();
+        router.push("/dashboard/bookings");
+      } else if (e.altKey && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        router.push("/dashboard/appliances");
+      } else if (e.altKey && e.key.toLowerCase() === "t") {
+        e.preventDefault();
+        router.push("/dashboard/technicians");
+      } else if (e.altKey && e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        router.push("/dashboard");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [router]);
+
   const handleLogoutClick = () => {
     if (onLogout) {
       onLogout();
@@ -107,15 +143,23 @@ export function DashboardLayout({
         <div className={cn("flex items-center h-20 px-6 border-b border-border", isCollapsed ? "justify-center" : "justify-between")}>
           {!isCollapsed && (
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md shadow-primary/20">
-                D
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-md shadow-primary/10">
+                <img
+                  src="/logo/dwellix-logo-light.png"
+                  alt="Dwellix Logo"
+                  className="h-10 w-10 object-contain"
+                />
               </div>
               <span className="font-heading font-bold text-xl tracking-tight text-foreground">Dwellix</span>
             </div>
           )}
           {isCollapsed && (
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md shadow-primary/20">
-              D
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-md shadow-primary/10">
+              <img
+                src="/logo/dwellix-logo-light.png"
+                alt="Dwellix Logo"
+                className="h-10 w-10 object-contain"
+              />
             </div>
           )}
           <button
@@ -196,8 +240,12 @@ export function DashboardLayout({
             >
               <div className="flex items-center justify-between h-20 px-6 border-b border-border">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md shadow-primary/20">
-                    D
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-md shadow-primary/10">
+                    <img
+                      src="/logo/dwellix-logo-light.png"
+                      alt="Dwellix Logo"
+                      className="h-10 w-10 object-contain"
+                    />
                   </div>
                   <span className="font-heading font-bold text-xl tracking-tight text-foreground">Dwellix</span>
                 </div>
@@ -351,7 +399,17 @@ export function DashboardLayout({
         {/* CENTER DASHBOARD CONTENT */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin">
           <div className="max-w-7xl mx-auto w-full">
-            {children}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={pathname}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+              >
+                {children}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </main>
 

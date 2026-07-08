@@ -518,20 +518,20 @@ function ReviewStep() {
   const totalAppliances = draft.rooms.reduce((count, room) => count + room.appliances.length, 0);
   const payload = useMemo<OnboardingCompletePayload>(() => ({
     home: {
-      homeName: draft.homeName.trim(),
+      homeName: (draft.homeName || "").trim(),
       homeType: draft.homeType as HomeType,
-      address: draft.address.trim(),
-      city: draft.city.trim(),
-      state: draft.state.trim(),
-      pincode: draft.pincode.trim(),
+      address: (draft.address || "").trim(),
+      city: (draft.city || "").trim(),
+      state: (draft.state || "").trim(),
+      pincode: (draft.pincode || "").trim(),
     },
-    rooms: draft.rooms.map((room) => ({
-      name: room.name.trim(),
-      notes: room.notes.trim() || undefined,
-      appliances: room.appliances.map((appliance) => ({
-        name: appliance.name.trim(),
-        brand: appliance.brand.trim(),
-        model: appliance.model.trim(),
+    rooms: (draft.rooms || []).map((room) => ({
+      name: (room.name || "").trim(),
+      notes: (room.notes || "").trim() || undefined,
+      appliances: (room.appliances || []).map((appliance) => ({
+        name: (appliance.name || "").trim(),
+        brand: (appliance.brand || "").trim(),
+        model: (appliance.model || "").trim(),
         purchaseDate: appliance.purchaseDate,
         warrantyExpiry: appliance.warrantyExpiry,
         photoFileName: appliance.photoFileName,

@@ -35,8 +35,12 @@ export function AuthShell({
       <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 rounded-full border border-border/60 bg-background/80 px-4 py-3 shadow-sm backdrop-blur">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold shadow-sm">
-              D
+            <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden shadow-sm shadow-primary/10">
+              <img
+                src="/logo/dwellix-logo-light.png"
+                alt="Dwellix Logo"
+                className="h-10 w-10 object-contain"
+              />
             </div>
             <div>
               <div className="text-sm font-semibold text-foreground">Dwellix</div>

@@ -10,6 +10,9 @@ import com.dwellix.auth.onboarding.dto.response.OnboardingHomeResponse;
 import com.dwellix.auth.onboarding.repository.OnboardingApplianceRepository;
 import com.dwellix.auth.onboarding.repository.OnboardingHomeRepository;
 import com.dwellix.auth.onboarding.repository.OnboardingRoomRepository;
+import com.dwellix.auth.booking.domain.BookingStatus;
+import com.dwellix.auth.booking.domain.TechnicianBookingEntity;
+import com.dwellix.auth.booking.repository.TechnicianBookingRepository;
 import com.dwellix.auth.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,17 +32,20 @@ public class DashboardService {
   private final OnboardingRoomRepository roomRepository;
   private final OnboardingApplianceRepository applianceRepository;
   private final UserRepository userRepository;
+  private final TechnicianBookingRepository bookingRepository;
 
   public DashboardService(
       OnboardingHomeRepository homeRepository,
       OnboardingRoomRepository roomRepository,
       OnboardingApplianceRepository applianceRepository,
-      UserRepository userRepository
+      UserRepository userRepository,
+      TechnicianBookingRepository bookingRepository
   ) {
     this.homeRepository = homeRepository;
     this.roomRepository = roomRepository;
     this.applianceRepository = applianceRepository;
     this.userRepository = userRepository;
+    this.bookingRepository = bookingRepository;
   }
 
   public DashboardSummaryResponse getDashboardSummary(UUID userId) {
@@ -73,6 +79,19 @@ public class DashboardService {
     List<DashboardRecommendationResponse> aiRecommendations = new ArrayList<>();
     List<DashboardMaintenanceResponse> upcomingMaintenance = new ArrayList<>();
     List<DashboardBookingResponse> upcomingBookings = new ArrayList<>();
+    List<TechnicianBookingEntity> userBookings = bookingRepository.findByUser_IdOrderByBookingDateDesc(userId);
+    for (TechnicianBookingEntity booking : userBookings) {
+      if (booking.getStatus() == BookingStatus.PENDING || booking.getStatus() == BookingStatus.CONFIRMED || booking.getStatus() == BookingStatus.IN_PROGRESS) {
+        upcomingBookings.add(new DashboardBookingResponse(
+            booking.getId(),
+            booking.getAppliance().getName(),
+            booking.getServiceType(),
+            booking.getBookingDate(),
+            booking.getStatus().name(),
+            booking.getTechnicianName() != null ? booking.getTechnicianName() : "Unassigned"
+        ));
+      }
+    }
     List<DashboardActivityResponse> recentActivity = new ArrayList<>();
     List<DashboardNotificationResponse> notifications = new ArrayList<>();
     List<OnboardingApplianceResponse> recentAppliances = new ArrayList<>();
@@ -253,6 +272,18 @@ public class DashboardService {
           "WARNING",
           false,
           Instant.now().minus(2, ChronoUnit.HOURS)
+      ));
+    }
+
+    boolean hasConfirmedBooking = userBookings.stream().anyMatch(b -> b.getStatus() == BookingStatus.CONFIRMED);
+    if (hasConfirmedBooking) {
+      notifications.add(new DashboardNotificationResponse(
+          UUID.randomUUID(),
+          "Booking Confirmed",
+          "Technician booking confirmed.",
+          "INFO",
+          false,
+          Instant.now()
       ));
     }
 

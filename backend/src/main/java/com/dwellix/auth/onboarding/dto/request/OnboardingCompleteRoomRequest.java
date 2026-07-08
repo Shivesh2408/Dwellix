@@ -10,6 +10,6 @@ import java.util.List;
 public record OnboardingCompleteRoomRequest(
     @NotBlank @Size(max = 140) String name,
     @Size(max = 240) String notes,
-    @Valid @NotEmpty List<OnboardingApplianceRequest> appliances
+    @Valid List<OnboardingApplianceRequest> appliances
 ) {
 }

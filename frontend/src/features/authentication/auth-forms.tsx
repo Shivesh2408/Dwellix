@@ -127,8 +127,17 @@ function SuccessPanel({
 }
 
 function GoogleButton({ label }: { label: string }) {
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  };
+
   return (
-    <Button type="button" variant="outline" className="h-11 w-full gap-3 border-border/70 bg-background/80">
+    <Button
+      type="button"
+      onClick={handleGoogleLogin}
+      variant="outline"
+      className="h-11 w-full gap-3 border-border/70 bg-background/80 cursor-pointer"
+    >
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none">
         <path d="M21.35 11.1h-9.18v2.98h5.26c-.23 1.31-.99 2.43-2.11 3.18v2.65h3.41c2-1.84 3.16-4.55 3.16-7.77 0-.73-.07-1.43-.19-2.04Z" fill="#4285F4" />
         <path d="M12.17 22c2.67 0 4.9-.88 6.53-2.4l-3.41-2.65c-.95.63-2.16 1-3.12 1-2.4 0-4.43-1.63-5.16-3.82H3.48v2.76A9.99 9.99 0 0 0 12.17 22Z" fill="#34A853" />

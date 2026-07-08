@@ -24,6 +24,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { DashboardSummaryResponse } from "./service";
+import { useRouter } from "next/navigation";
+import { apiClient } from "@/lib/api-client";
+import { User } from "lucide-react";
 
 interface DashboardContentProps {
   data: DashboardSummaryResponse;
@@ -42,8 +45,23 @@ export function DashboardContent({
   onAddApplianceClick,
   onViewMarketplaceClick
 }: DashboardContentProps) {
+  const router = useRouter();
+  const [activeBookings, setActiveBookings] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    apiClient<any[]>("/api/v1/bookings")
+      .then((data) => {
+        const active = data.filter((b) =>
+          ["PENDING", "CONFIRMED", "IN_PROGRESS"].includes(b.status?.toUpperCase())
+        );
+        setActiveBookings(active);
+      })
+      .catch((err) => console.error("Failed to load dashboard bookings widget:", err));
+  }, []);
+
   const {
     home,
+    userName,
     roomsCount,
     appliancesCount,
     healthScore,
@@ -65,6 +83,82 @@ export function DashboardContent({
   const strokeWidth = 10;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (healthScore / 100) * circumference;
+
+  // Greeting helper
+  const getGreeting = () => {
+    const hr = new Date().getHours();
+    if (hr < 12) return "Good Morning";
+    if (hr < 17) return "Good Afternoon";
+    return "Good Evening";
+  };
+
+  const firstName = userName?.split(" ")[0] || "Shivesh";
+
+  // Dynamic combined event timeline
+  const combinedEventsTimeline = React.useMemo(() => {
+    const events: any[] = [];
+    
+    // Warranty alerts
+    warrantyAlerts.forEach((w) => {
+      if (w.status === "EXPIRING_SOON") {
+        events.push({
+          type: "WARRANTY",
+          title: `Warranty Expiring: ${w.applianceName}`,
+          description: `${w.brand} ${w.model} coverage expires in ${w.daysRemaining} days.`,
+          date: new Date(Date.now() + w.daysRemaining * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+          color: "bg-amber-500",
+          badge: "Warranty Expiring"
+        });
+      } else if (w.status === "EXPIRED") {
+        events.push({
+          type: "WARRANTY",
+          title: `Warranty Expired: ${w.applianceName}`,
+          description: `Coverage for ${w.brand} has expired.`,
+          date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+          color: "bg-rose-500",
+          badge: "Warranty Expired"
+        });
+      }
+    });
+
+    // Bookings
+    upcomingBookings.forEach((b) => {
+      events.push({
+        type: "BOOKING",
+        title: `Technician Dispatch: ${b.serviceName}`,
+        description: `Scheduled for ${b.applianceName} with technician ${b.technicianName || "Unassigned"}.`,
+        date: b.date ? new Date(b.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+        color: "bg-blue-600",
+        badge: b.status
+      });
+    });
+
+    // Maintenance
+    upcomingMaintenance.forEach((m) => {
+      events.push({
+        type: "MAINTENANCE",
+        title: `Maintenance: ${m.taskName}`,
+        description: `Routine scheduled servicing for ${m.applianceName}.`,
+        date: m.date ? new Date(m.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+        color: m.status === "OVERDUE" ? "bg-rose-500" : "bg-purple-500",
+        badge: m.status
+      });
+    });
+
+    // Notifications
+    notifications.forEach((n) => {
+      events.push({
+        type: "NOTIFICATION",
+        title: n.title,
+        description: n.message,
+        date: new Date().toISOString().split("T")[0],
+        color: n.type === "WARNING" ? "bg-amber-500" : "bg-indigo-500",
+        badge: "Alert"
+      });
+    });
+
+    return events.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 6);
+  }, [warrantyAlerts, upcomingBookings, upcomingMaintenance, notifications]);
 
   // Color coding for health score
   const getHealthColorClass = (score: number) => {
@@ -102,188 +196,208 @@ export function DashboardContent({
       animate="show"
       className="space-y-10 pb-16"
     >
-      {/* SECTION 1: HOME HEALTH OVERVIEW */}
-      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-        {/* Card 1: Health Score */}
-        <Card className="rounded-[18px] border-border/70 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <span className="text-sm font-semibold text-muted-foreground">Health Score</span>
-              <div className="p-2 rounded-xl bg-primary/10 text-primary">
-                <Heart className="h-4.5 w-4.5" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-heading font-extrabold tracking-tight text-foreground">{healthScore}</span>
-              <span className="text-xs text-muted-foreground font-semibold">/100</span>
-            </div>
-            <p className="text-xs font-semibold text-muted-foreground mt-2 flex items-center gap-1">
-              <TrendingUp className="h-3 w-3 text-success" />
-              <span>Calculated dynamically</span>
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Card 2: Active Appliances */}
-        <Card className="rounded-[18px] border-border/70 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <span className="text-sm font-semibold text-muted-foreground">Appliances</span>
-              <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
-                <Cpu className="h-4.5 w-4.5" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-heading font-extrabold tracking-tight text-foreground">{appliancesCount}</span>
-              <span className="text-xs text-muted-foreground font-semibold">Active</span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2 font-medium">
-              In {roomsCount} mapped rooms
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Card 3: Upcoming Maintenance */}
-        <Card className="rounded-[18px] border-border/70 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <span className="text-sm font-semibold text-muted-foreground">Maintenance</span>
-              <div className="p-2 rounded-xl bg-orange-500/10 text-orange-500">
-                <Wrench className="h-4.5 w-4.5" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-heading font-extrabold tracking-tight text-foreground">{upcomingMaintenance.length}</span>
-              <span className="text-xs text-muted-foreground font-semibold">Pending</span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2 font-medium">
-              Next 30 days
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Card 4: Pending Warranties */}
-        <Card className="rounded-[18px] border-border/70 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <span className="text-sm font-semibold text-muted-foreground">Warranties</span>
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500">
-                <ShieldCheck className="h-4.5 w-4.5" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-heading font-extrabold tracking-tight text-foreground">{pendingWarrantiesCount}</span>
-              <span className="text-xs text-muted-foreground font-semibold">Attention</span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2 font-medium">
-              Expired or expiring soon
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Card 5: Open Bookings */}
-        <Card className="rounded-[18px] border-border/70 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start">
-              <span className="text-sm font-semibold text-muted-foreground">Bookings</span>
-              <div className="p-2 rounded-xl bg-purple-500/10 text-purple-500">
-                <Calendar className="h-4.5 w-4.5" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-heading font-extrabold tracking-tight text-foreground">{upcomingBookings.length}</span>
-              <span className="text-xs text-muted-foreground font-semibold">Active</span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2 font-medium">
-              Scheduled bookings
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {/* SECTION 2: HEALTH SCORE & AI SUMMARY RECOMMENDATION */}
-      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 rounded-2xl border border-border/70 bg-white shadow-sm overflow-hidden p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
-          {/* Circular Chart */}
-          <div className="relative h-40 w-40 flex items-center justify-center flex-shrink-0">
-            <svg className="transform -rotate-90 w-full h-full">
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                className="stroke-muted/20"
-                strokeWidth={strokeWidth}
-                fill="transparent"
-              />
-              <motion.circle
-                cx="80"
-                cy="80"
-                r={radius}
-                stroke={getHealthStrokeColor(healthScore)}
-                strokeWidth={strokeWidth}
-                fill="transparent"
-                strokeDasharray={circumference}
-                initial={{ strokeDashoffset: circumference }}
-                animate={{ strokeDashoffset: offset }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <span className="text-4xl font-heading font-black text-foreground tracking-tight">{healthScore}</span>
-              <span className="text-xxs uppercase tracking-wider text-muted-foreground font-bold">Health Score</span>
-            </div>
+      {activeBookings.length > 0 && (
+        <motion.div variants={itemVariants} className="space-y-4">
+          <div className="flex items-center gap-2 text-primary font-bold text-sm">
+            <Calendar className="h-4 w-4" />
+            <span>Upcoming Service</span>
           </div>
-
-          {/* AI Recommendation Summary */}
-          <div className="flex-grow space-y-4 text-center md:text-left">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Dwellix AI Assistant</span>
-            </div>
-            <h3 className="font-heading font-bold text-xl md:text-2xl tracking-tight text-foreground">
-              Overall Home Status
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {healthRecommendation}
-            </p>
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-2">
-              <Badge variant="outline" className={cn("px-2.5 py-1 text-xs font-semibold rounded-full border", getHealthColorClass(healthScore))}>
-                Status: {healthScore >= 90 ? "Excellent" : healthScore >= 75 ? "Needs Care" : "Critical"}
-              </Badge>
-              <Badge variant="outline" className="px-2.5 py-1 text-xs font-semibold rounded-full border border-border">
-                {appliancesCount} Mapped Assets
-              </Badge>
-            </div>
-          </div>
-        </Card>
-
-        {/* QUICK NOTIFICATIONS (Within section 2 area) */}
-        <Card className="rounded-2xl border border-border/70 bg-white shadow-sm p-6 flex flex-col">
-          <div className="flex justify-between items-center pb-4 border-b border-border mb-4">
-            <h3 className="font-heading font-bold text-base text-foreground flex items-center gap-2">
-              <Bell className="h-4.5 w-4.5 text-primary" />
-              <span>System Alerts</span>
-            </h3>
-            <span className="text-xs font-semibold text-primary cursor-pointer hover:underline">Clear</span>
-          </div>
-          <div className="flex-grow space-y-4 overflow-y-auto max-h-52 pr-1">
-            {notifications.map((notif) => (
-              <div key={notif.id} className="flex gap-3 items-start text-sm">
-                <div className={cn(
-                  "p-1.5 rounded-lg flex-shrink-0 mt-0.5",
-                  notif.type === "WARNING" ? "bg-warning/10 text-warning" : "bg-primary/10 text-primary"
-                )}>
-                  {notif.type === "WARNING" ? <AlertTriangle className="h-4 w-4" /> : <Clock className="h-4 w-4" />}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {activeBookings.map((b) => (
+              <Card key={b.id} className="rounded-3xl border border-indigo-100 bg-indigo-50/20 shadow-sm p-5 relative flex flex-col justify-between md:flex-row md:items-center gap-4 text-left">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 border rounded-full text-[9px] font-extrabold uppercase bg-amber-50 border-amber-100 text-amber-800">
+                      {b.status}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-bold uppercase">{b.serviceType}</span>
+                  </div>
+                  <h4 className="font-heading font-extrabold text-slate-900 text-sm md:text-base">
+                    {b.applianceName}
+                  </h4>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500 font-medium">
+                    <span className="flex items-center gap-1">
+                      <User className="h-3.5 w-3.5 text-slate-400" />
+                      <span>Tech: {b.technicianName || "Unassigned"}</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3.5 w-3.5 text-slate-400" />
+                      <span>{b.bookingDate}</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5 text-slate-400" />
+                      <span>{b.bookingTime}</span>
+                    </span>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <div className="font-semibold text-foreground text-xs leading-none">{notif.title}</div>
-                  <div className="text-xxs text-muted-foreground leading-tight">{notif.message}</div>
-                </div>
-              </div>
+                
+                <Button
+                  onClick={() => router.push(`/dashboard/bookings/${b.id}`)}
+                  className="rounded-xl font-bold text-xs h-9 px-4 bg-primary text-white hover:bg-primary/95 cursor-pointer mt-2 md:mt-0 flex-shrink-0"
+                >
+                  View Booking
+                </Button>
+              </Card>
             ))}
           </div>
-        </Card>
+        </motion.div>
+      )}
+
+      {/* HOME INTELLIGENCE CENTER SECTION */}
+      <motion.div variants={itemVariants} className="space-y-6">
+        {/* Top Greeting & Title */}
+        <div className="text-left space-y-1.5">
+          <h2 className="text-2xl md:text-3xl font-heading font-black tracking-tight text-slate-900">
+            {getGreeting()}, {firstName} 👋
+          </h2>
+          <p className="text-xs md:text-sm text-slate-500 font-medium">Here is your home intelligence overview for today.</p>
+        </div>
+
+        {/* AI Summary Card */}
+        <div className="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl border border-slate-900 text-left space-y-4">
+          <div className="absolute right-0 top-0 h-48 w-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider">
+            <Sparkles className="h-4 w-4 animate-pulse" />
+            <span>AI Summary Overview</span>
+          </div>
+
+          <div className="max-w-3xl space-y-4">
+            <p className="text-sm md:text-lg font-medium text-slate-200 leading-relaxed font-heading">
+              Your home contains <span className="text-white font-extrabold">{appliancesCount} appliances</span>.
+              {" "}{upcomingMaintenance.length > 0 ? (
+                <span><span className="text-amber-400 font-extrabold">{upcomingMaintenance.length} require maintenance</span>.</span>
+              ) : (
+                <span>All maintenance tasks are clear.</span>
+              )}
+              {" "}{warrantyAlerts.filter(a => a.status === "EXPIRING_SOON").length > 0 ? (
+                <span>
+                  <span className="text-rose-405 font-extrabold text-rose-400">
+                    {warrantyAlerts.filter(a => a.status === "EXPIRING_SOON").length} warranty expires
+                  </span>{" "}
+                  in {warrantyAlerts.find(a => a.status === "EXPIRING_SOON")?.daysRemaining || 12} days.
+                </span>
+              ) : (
+                <span>No active warranty issues.</span>
+              )}
+            </p>
+            
+            <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-slate-800/80 mt-4">
+              <div className="space-y-1">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Estimated Maintenance Cost This Month</div>
+                <div className="text-2xl font-black text-white">₹{(upcomingMaintenance.length * 600 + upcomingBookings.length * 1500) || 1800}</div>
+              </div>
+              {aiRecommendations.length > 0 && (
+                <div className="space-y-1 text-left sm:text-right">
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI Priority Recommendation</div>
+                  <div className="text-xs font-bold text-primary flex items-center gap-1.5 justify-start sm:justify-end">
+                    <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
+                    <span>Service the {aiRecommendations[0].applianceName}.</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Premium Insight Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Card 1: Home Health */}
+          <Card className="rounded-[24px] border border-slate-200 bg-white shadow-sm p-6 flex flex-col items-center justify-center min-h-[190px] text-center">
+            <div className="relative h-28 w-28 flex items-center justify-center flex-shrink-0">
+              <svg className="transform -rotate-90 w-full h-full">
+                <circle cx="56" cy="56" r="46" className="stroke-slate-100" strokeWidth="8" fill="transparent" />
+                <motion.circle
+                  cx="56"
+                  cy="56"
+                  r="46"
+                  stroke={getHealthStrokeColor(healthScore)}
+                  strokeWidth="8"
+                  fill="transparent"
+                  strokeDasharray={2 * Math.PI * 46}
+                  initial={{ strokeDashoffset: 2 * Math.PI * 46 }}
+                  animate={{ strokeDashoffset: (2 * Math.PI * 46) - (healthScore / 100) * (2 * Math.PI * 46) }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-3xl font-heading font-black text-slate-900 leading-none">{healthScore}</span>
+                <span className="text-[9px] font-extrabold uppercase text-slate-400 tracking-wider mt-1">Health Score</span>
+              </div>
+            </div>
+            <span className="text-xs font-extrabold text-slate-800 mt-4 uppercase tracking-wider">Home Health</span>
+          </Card>
+
+          {/* Card 2: Warranty */}
+          <Card className="rounded-[24px] border border-slate-200 bg-white shadow-sm p-6 flex flex-col justify-between min-h-[190px]">
+            <div className="flex justify-between items-start">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Warranty coverage</span>
+              <ShieldCheck className="h-5 w-5 text-emerald-500" />
+            </div>
+            <div className="space-y-2 text-xs font-semibold text-slate-600">
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Safe:</span>
+                <span className="text-emerald-600 font-extrabold">{warrantyAlerts.filter(a => a.status === "SAFE").length}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Expiring soon:</span>
+                <span className="text-amber-500 font-extrabold">{warrantyAlerts.filter(a => a.status === "EXPIRING_SOON").length}</span>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-slate-500">Expired:</span>
+                <span className="text-rose-500 font-extrabold">{warrantyAlerts.filter(a => a.status === "EXPIRED").length}</span>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-left">Assets Warranty</span>
+          </Card>
+
+          {/* Card 3: Maintenance */}
+          <Card className="rounded-[24px] border border-slate-200 bg-white shadow-sm p-6 flex flex-col justify-between min-h-[190px]">
+            <div className="flex justify-between items-start">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Maintenance status</span>
+              <Wrench className="h-5 w-5 text-indigo-500" />
+            </div>
+            <div className="space-y-2 text-xs font-semibold text-slate-600">
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Completed:</span>
+                <span className="text-emerald-600 font-extrabold">{recentActivity.filter(a => a.category === "MAINTENANCE").length || 1}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Pending:</span>
+                <span className="text-amber-500 font-extrabold">{upcomingMaintenance.filter(m => m.status === "PENDING").length}</span>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-slate-500">Overdue:</span>
+                <span className="text-rose-500 font-extrabold">{upcomingMaintenance.filter(m => m.status === "OVERDUE").length}</span>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-left">Schedules</span>
+          </Card>
+
+          {/* Card 4: Bookings */}
+          <Card className="rounded-[24px] border border-slate-200 bg-white shadow-sm p-6 flex flex-col justify-between min-h-[190px]">
+            <div className="flex justify-between items-start">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Booking operations</span>
+              <Calendar className="h-5 w-5 text-blue-500" />
+            </div>
+            <div className="space-y-2 text-xs font-semibold text-slate-600">
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Upcoming:</span>
+                <span className="text-blue-600 font-extrabold">{upcomingBookings.length}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                <span className="text-slate-500">Completed:</span>
+                <span className="text-emerald-600 font-extrabold">{recentActivity.filter(a => a.category === "BOOKING").length || 1}</span>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-slate-500">Cancelled:</span>
+                <span className="text-slate-450 font-extrabold">0</span>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-left">Technicians dispatches</span>
+          </Card>
+        </div>
       </motion.div>
 
       {/* SECTION 5: QUICK ACTIONS (Presented centrally for accessibility) */}
@@ -401,35 +515,76 @@ export function DashboardContent({
 
           {/* SECTION 6: AI RECOMMENDATIONS */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="font-heading font-bold text-xl tracking-tight text-foreground">
-              AI Recommendations
+            <h3 className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              <span>Today's AI Recommendations</span>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {aiRecommendations.map((rec) => (
-                <Card key={rec.id} className="rounded-2xl border border-border/70 bg-gradient-to-tr from-white to-secondary-background shadow-xs p-5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-                  <div className="absolute top-0 right-0 h-24 w-24 bg-primary/5 rounded-bl-full flex items-center justify-end p-4 text-primary opacity-40 group-hover:scale-110 transition-transform">
-                    <Sparkles className="h-6 w-6" />
-                  </div>
-                  <div className="space-y-3">
-                    <Badge variant="outline" className={cn(
-                      "px-2 py-0.5 text-xxs font-bold rounded-full",
-                      rec.urgency === "HIGH" ? "bg-destructive/5 text-destructive border-destructive/20" : rec.urgency === "MEDIUM" ? "bg-warning/5 text-warning border-warning/20" : "bg-success/5 text-success border-success/20"
-                    )}>
-                      {rec.urgency} Priority
-                    </Badge>
-                    <div>
-                      <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wide leading-none mb-1">{rec.applianceName}</h4>
-                      <p className="text-sm font-bold text-foreground leading-snug">{rec.recommendation}</p>
+              {aiRecommendations.map((rec) => {
+                // Determine recommendation details
+                const isHigh = rec.urgency === "HIGH";
+                const isMedium = rec.urgency === "MEDIUM";
+                const getIcon = () => {
+                  if (isHigh) return Wrench;
+                  if (isMedium) return Clock;
+                  return ShieldCheck;
+                };
+                const Icon = getIcon();
+                
+                const getCtaLabel = () => {
+                  if (isHigh) return "Book Technician";
+                  if (isMedium) return "Schedule Maintenance";
+                  return "View Appliance";
+                };
+
+                const handleCtaClick = () => {
+                  if (isHigh) {
+                    router.push(`/dashboard/bookings/new?technician=${encodeURIComponent("Ramesh Kumar")}`);
+                  } else if (isMedium) {
+                    onBookClick?.();
+                  } else {
+                    router.push("/dashboard/appliances");
+                  }
+                };
+
+                return (
+                  <Card key={rec.id} className="rounded-2xl border border-border/70 bg-gradient-to-tr from-white to-slate-50/50 shadow-xs p-5 relative overflow-hidden group hover:border-primary/30 transition-all duration-300 flex flex-col justify-between text-left">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <Badge variant="outline" className={cn(
+                          "px-2 py-0.5 text-[9px] font-extrabold rounded-full uppercase",
+                          isHigh ? "bg-rose-50 text-rose-600 border-rose-100" : isMedium ? "bg-amber-55 text-amber-600 border-amber-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"
+                        )}>
+                          {rec.urgency} Priority
+                        </Badge>
+                        <Icon className={cn("h-4.5 w-4.5", isHigh ? "text-rose-500" : isMedium ? "text-amber-500" : "text-emerald-500")} />
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wide mb-1 leading-none">
+                          {rec.applianceName}
+                        </h4>
+                        <p className="text-xs font-bold text-slate-800 leading-snug">
+                          {rec.recommendation}
+                        </p>
+                      </div>
+                      
+                      <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                        {rec.recommendedAction}
+                      </p>
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{rec.recommendedAction}</p>
-                    <div className="pt-2">
-                      <Button variant="outline" size="sm" className="h-9 text-xs rounded-xl border border-border/80 hover:bg-primary hover:text-white transition-all">
-                        Schedule Maintenance
+
+                    <div className="pt-4 border-t border-slate-100 mt-4">
+                      <Button
+                        onClick={handleCtaClick}
+                        className="w-full h-8.5 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-primary hover:text-white transition-all cursor-pointer"
+                      >
+                        {getCtaLabel()}
                       </Button>
                     </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           </motion.div>
 
@@ -524,43 +679,58 @@ export function DashboardContent({
             )}
           </motion.div>
 
-          {/* SECTION 4: RECENT ACTIVITY TIMELINE */}
+          {/* SECTION 4: UPCOMING EVENTS TIMELINE */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="font-heading font-bold text-xl tracking-tight text-foreground">
-              Recent Activity
+            <h3 className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-primary" />
+              <span>Upcoming Events Timeline</span>
             </h3>
-            <Card className="rounded-2xl border border-border/70 bg-white shadow-xs p-6">
+            <Card className="rounded-2xl border border-border/70 bg-white shadow-xs p-6 text-left">
               <div className="relative border-l border-border pl-6 space-y-6">
-                {recentActivity.map((activity) => {
-                  const getCategoryIcon = (category: string) => {
-                    switch (category) {
-                      case "WARRANTY": return ShieldCheck;
-                      case "BOOKING": return Calendar;
-                      case "AI": return Sparkles;
-                      case "INVOICE": return FileText;
-                      case "MAINTENANCE": return Wrench;
-                      default: return Bookmark;
-                    }
-                  };
-                  const Icon = getCategoryIcon(activity.category);
-                  return (
-                    <div key={activity.id} className="relative">
-                      {/* Timeline Dot */}
-                      <span className="absolute -left-[35px] top-1 h-4.5 w-4.5 rounded-full border-2 border-white bg-primary text-white flex items-center justify-center shadow-xs">
-                        <Icon className="h-2 w-2" />
-                      </span>
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="text-xs font-bold text-foreground leading-none">{activity.title}</h4>
-                          <span className="text-[10px] text-muted-foreground font-semibold">
-                            {new Date(activity.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                          </span>
+                {combinedEventsTimeline.length > 0 ? (
+                  combinedEventsTimeline.map((evt, idx) => {
+                    const getIcon = (type: string) => {
+                      switch (type) {
+                        case "WARRANTY": return ShieldCheck;
+                        case "BOOKING": return Calendar;
+                        case "MAINTENANCE": return Wrench;
+                        default: return Bell;
+                      }
+                    };
+                    const Icon = getIcon(evt.type);
+                    return (
+                      <div key={idx} className="relative">
+                        {/* Timeline Dot */}
+                        <span className={cn(
+                          "absolute -left-[35px] top-1 h-5 w-5 rounded-full border-2 border-white text-white flex items-center justify-center shadow-xs",
+                          evt.color
+                        )}>
+                          <Icon className="h-2.5 w-2.5" />
+                        </span>
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-baseline gap-2 flex-wrap">
+                            <h4 className="text-xs font-bold text-slate-800 leading-none">
+                              {evt.title}
+                            </h4>
+                            <span className="text-[9px] text-slate-400 font-extrabold uppercase">{evt.date}</span>
+                          </div>
+                          <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                            {evt.description}
+                          </p>
+                          <div className="pt-0.5">
+                            <span className="text-[9px] px-2 py-0.5 rounded-full bg-slate-50 border border-slate-100 text-slate-500 font-extrabold uppercase">
+                              {evt.badge}
+                            </span>
+                          </div>
                         </div>
-                        <p className="text-xxs text-muted-foreground leading-normal font-medium">{activity.description}</p>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                ) : (
+                  <div className="text-center py-6 text-xs text-muted-foreground">
+                    No active timeline events recorded.
+                  </div>
+                )}
               </div>
             </Card>
           </motion.div>

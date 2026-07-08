@@ -135,6 +135,11 @@ public class OnboardingService {
   public OnboardingApplianceResponse updateAppliance(UUID userId, UUID applianceId, OnboardingApplianceRequest request) {
     OnboardingApplianceEntity appliance = requireAppliance(userId, applianceId);
     applyApplianceRequest(appliance, request);
+    if (request.roomId() != null) {
+      OnboardingRoomEntity room = roomRepository.findByIdAndHome_User_Id(request.roomId(), userId)
+          .orElseThrow(() -> new RuntimeException("Room not found"));
+      appliance.setRoom(room);
+    }
     return toApplianceResponse(applianceRepository.save(appliance));
   }
 
@@ -159,13 +164,15 @@ public class OnboardingService {
       room.setSortOrder(roomIndex++);
       room = roomRepository.save(room);
 
-      int applianceIndex = 0;
-      for (OnboardingApplianceRequest applianceRequest : roomRequest.appliances()) {
-        OnboardingApplianceEntity appliance = new OnboardingApplianceEntity();
-        appliance.setRoom(room);
-        applyApplianceRequest(appliance, applianceRequest);
-        appliance.setSortOrder(applianceIndex++);
-        applianceRepository.save(appliance);
+      if (roomRequest.appliances() != null) {
+        int applianceIndex = 0;
+        for (OnboardingApplianceRequest applianceRequest : roomRequest.appliances()) {
+          OnboardingApplianceEntity appliance = new OnboardingApplianceEntity();
+          appliance.setRoom(room);
+          applyApplianceRequest(appliance, applianceRequest);
+          appliance.setSortOrder(applianceIndex++);
+          applianceRepository.save(appliance);
+        }
       }
     }
 

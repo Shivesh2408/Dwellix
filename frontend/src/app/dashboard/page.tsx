@@ -4,7 +4,14 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Cpu, Plus } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { DashboardContent } from "@/features/dashboard/dashboard-content";
+import dynamic from "next/dynamic";
+const DashboardContent = dynamic(
+  () => import("@/features/dashboard/dashboard-content").then((mod) => mod.DashboardContent),
+  {
+    loading: () => <div className="p-8 text-center text-xs text-muted-foreground">Loading dashboard content...</div>,
+    ssr: false
+  }
+);
 import { getDashboardSummary, type DashboardSummaryResponse } from "@/features/dashboard/service";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
