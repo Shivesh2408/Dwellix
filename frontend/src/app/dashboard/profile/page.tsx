@@ -35,11 +35,12 @@ export default function ProfilePage() {
       })
       .finally(() => setLoading(false));
   };
-
   useEffect(() => {
-    fetchProfile();
+    const timer = setTimeout(() => {
+      fetchProfile();
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
-
   const handleLogout = () => {
     fetch("/api/v1/auth/logout", { method: "POST", credentials: "include" })
       .finally(() => {

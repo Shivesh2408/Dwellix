@@ -83,7 +83,7 @@ function StepActions({
 
 function WelcomeStep() {
   const router = useRouter();
-  const { resetDraft, replaceDraft } = useOnboarding();
+  const { replaceDraft } = useOnboarding();
 
   return (
     <OnboardingShell
@@ -208,8 +208,10 @@ function RoomEditorDialog({
   const [name, setName] = useState(room?.name ?? "");
   const [notes, setNotes] = useState(room?.notes ?? "");
   useEffect(() => {
-    setName(room?.name ?? "");
-    setNotes(room?.notes ?? "");
+    setTimeout(() => {
+      setName(room?.name ?? "");
+      setNotes(room?.notes ?? "");
+    }, 0);
   }, [room, open]);
   const errors = validateRoom({ name });
 

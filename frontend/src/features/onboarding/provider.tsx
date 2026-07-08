@@ -101,7 +101,9 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     if (storedDraft) {
       dispatch({ type: "hydrate", draft: storedDraft });
     }
-    setHasHydrated(true);
+    setTimeout(() => {
+      setHasHydrated(true);
+    }, 0);
   }, []);
 
   useEffect(() => {

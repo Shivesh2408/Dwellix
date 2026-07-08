@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Heading } from "@/components/ui/heading";
-import { Paragraph, Subheading } from "@/components/ui/typography";
+import { Subheading } from "@/components/ui/typography";
+
 import { Counter } from "@/components/ui/counter";
 
 interface StatItem {

@@ -8,7 +8,7 @@ import { HowItWorks } from "@/features/home/how-it-works";
 import { Testimonials } from "@/features/home/testimonials";
 import { Pricing } from "@/features/home/pricing";
 import { FAQ } from "@/features/home/faq";
-import { FinalCTA } from "@/features/home/final-cta";
+import { Contact } from "@/features/home/contact";
 import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
         <Testimonials />
         <Pricing />
         <FAQ />
-        <FinalCTA />
+        <Contact />
       </main>
       <Footer />
     </>

@@ -100,11 +100,11 @@ export function Navbar() {
               href={item.href}
               className={cn(
                 "text-sm font-medium transition-all duration-200 relative py-1",
-                activeSection === item.id
+                item.id === "blog" && "opacity-50 cursor-not-allowed pointer-events-none",
+                activeSection === item.id && item.id !== "blog"
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
-              )}
-            >
+              )}            >
               {item.label}
               {activeSection === item.id && (
                 <motion.span
@@ -164,7 +164,8 @@ export function Navbar() {
                   href={item.href}
                   className={cn(
                     "text-base font-semibold transition-colors py-1 border-b border-border/5",
-                    activeSection === item.id ? "text-primary" : "text-muted-foreground"
+                    item.id === "blog" && "opacity-50 cursor-not-allowed pointer-events-none",
+                    activeSection === item.id && item.id !== "blog" ? "text-primary" : "text-muted-foreground"
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

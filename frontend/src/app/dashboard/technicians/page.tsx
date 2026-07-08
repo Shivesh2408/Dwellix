@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import {
   Wrench,
   Search,
-  Filter,
   ShieldCheck,
   Star,
   MapPin,

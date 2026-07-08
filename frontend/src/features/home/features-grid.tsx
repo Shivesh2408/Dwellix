@@ -107,7 +107,7 @@ const cardVariants = {
 
 export function FeaturesGrid() {
   return (
-    <Section id="features-grid" variant="secondary" spacing="lg" className="bg-slate-50 border-t border-border/40 overflow-hidden">
+    <Section id="features" variant="secondary" spacing="lg" className="bg-slate-50 border-t border-border/40 overflow-hidden">
       <Container>
         <motion.div
           variants={sectionRevealVariants}

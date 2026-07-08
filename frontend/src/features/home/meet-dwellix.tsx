@@ -12,7 +12,8 @@ import { Section } from "@/components/layout/section";
 import { Heading } from "@/components/ui/heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Paragraph, Subheading } from "@/components/ui/typography";
+import { Paragraph } from "@/components/ui/typography";
+
 
 interface FeatureItem {
   label: string;

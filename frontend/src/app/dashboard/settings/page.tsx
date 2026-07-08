@@ -35,11 +35,12 @@ export default function SettingsPage() {
       })
       .finally(() => setLoading(false));
   };
-
   useEffect(() => {
-    fetchProfile();
+    const timer = setTimeout(() => {
+      fetchProfile();
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
-
   const handleSave = () => {
     setSaving(true);
     setTimeout(() => {

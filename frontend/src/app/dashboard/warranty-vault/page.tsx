@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { apiClient } from "@/lib/api-client";
-import { ShieldCheck, ShieldAlert, Calendar, Search, Cpu, ArrowUpRight } from "lucide-react";
+
+import { ShieldCheck, ShieldAlert, Calendar, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+
 
 interface Appliance {
   id: string;
@@ -38,7 +39,10 @@ export default function WarrantyVaultPage() {
   };
 
   useEffect(() => {
-    fetchWarranties();
+    const timer = setTimeout(() => {
+      fetchWarranties();
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const filteredAppliances = appliances.filter((item) =>

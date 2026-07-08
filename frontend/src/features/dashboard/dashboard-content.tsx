@@ -2,24 +2,21 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+
 import {
-  Heart,
   Cpu,
   Wrench,
   ShieldCheck,
   Calendar,
   Sparkles,
   ArrowRight,
-  TrendingUp,
   FileText,
   ShoppingBag,
   AlertTriangle,
   Clock,
-  CheckCircle2,
-  Bookmark,
   Bell
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -46,26 +43,37 @@ export function DashboardContent({
   onViewMarketplaceClick
 }: DashboardContentProps) {
   const router = useRouter();
-  const [activeBookings, setActiveBookings] = React.useState<any[]>([]);
+
+  interface BookingItem {
+    id: string;
+    status: string;
+    serviceType?: string;
+    serviceName?: string;
+    applianceName?: string;
+    technicianName?: string;
+    date?: string;
+    bookingDate?: string;
+    bookingTime?: string;
+  }
+  const [activeBookings, setActiveBookings] = React.useState<BookingItem[]>([]);
 
   React.useEffect(() => {
-    apiClient<any[]>("/api/v1/bookings")
+    apiClient<BookingItem[]>("/api/v1/bookings")
       .then((data) => {
         const active = data.filter((b) =>
-          ["PENDING", "CONFIRMED", "IN_PROGRESS"].includes(b.status?.toUpperCase())
+          b.status && ["PENDING", "CONFIRMED", "IN_PROGRESS"].includes(b.status.toUpperCase())
         );
         setActiveBookings(active);
       })
       .catch((err) => console.error("Failed to load dashboard bookings widget:", err));
   }, []);
 
+
+
   const {
-    home,
     userName,
-    roomsCount,
     appliancesCount,
     healthScore,
-    healthRecommendation,
     upcomingBookings,
     upcomingMaintenance,
     recentActivity,
@@ -75,16 +83,8 @@ export function DashboardContent({
     notifications
   } = data;
 
-  // Calculate pending warranties (expired + expiring soon)
-  const pendingWarrantiesCount = warrantyAlerts.filter(a => a.status === "EXPIRED" || a.status === "EXPIRING_SOON").length;
 
-  // Circular progress parameters for health score
-  const radius = 60;
-  const strokeWidth = 10;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (healthScore / 100) * circumference;
 
-  // Greeting helper
   const getGreeting = () => {
     const hr = new Date().getHours();
     if (hr < 12) return "Good Morning";
@@ -94,9 +94,29 @@ export function DashboardContent({
 
   const firstName = userName?.split(" ")[0] || "Shivesh";
 
+  const [baseTime, setBaseTime] = React.useState(1783477995000);
+  const [todayStr, setTodayStr] = React.useState("2026-07-08");
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setBaseTime(Date.now());
+      setTodayStr(new Date().toISOString().split("T")[0]);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  interface TimelineEvent {
+    type: string;
+    title: string;
+    description: string;
+    date: string;
+    color: string;
+    badge: string;
+  }
+
   // Dynamic combined event timeline
   const combinedEventsTimeline = React.useMemo(() => {
-    const events: any[] = [];
+    const events: TimelineEvent[] = [];
     
     // Warranty alerts
     warrantyAlerts.forEach((w) => {
@@ -105,7 +125,7 @@ export function DashboardContent({
           type: "WARRANTY",
           title: `Warranty Expiring: ${w.applianceName}`,
           description: `${w.brand} ${w.model} coverage expires in ${w.daysRemaining} days.`,
-          date: new Date(Date.now() + w.daysRemaining * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+          date: new Date(baseTime + w.daysRemaining * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
           color: "bg-amber-500",
           badge: "Warranty Expiring"
         });
@@ -114,7 +134,7 @@ export function DashboardContent({
           type: "WARRANTY",
           title: `Warranty Expired: ${w.applianceName}`,
           description: `Coverage for ${w.brand} has expired.`,
-          date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+          date: new Date(baseTime - 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
           color: "bg-rose-500",
           badge: "Warranty Expired"
         });
@@ -127,7 +147,7 @@ export function DashboardContent({
         type: "BOOKING",
         title: `Technician Dispatch: ${b.serviceName}`,
         description: `Scheduled for ${b.applianceName} with technician ${b.technicianName || "Unassigned"}.`,
-        date: b.date ? new Date(b.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+        date: b.date ? new Date(b.date).toISOString().split("T")[0] : todayStr,
         color: "bg-blue-600",
         badge: b.status
       });
@@ -139,7 +159,7 @@ export function DashboardContent({
         type: "MAINTENANCE",
         title: `Maintenance: ${m.taskName}`,
         description: `Routine scheduled servicing for ${m.applianceName}.`,
-        date: m.date ? new Date(m.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+        date: m.date ? new Date(m.date).toISOString().split("T")[0] : todayStr,
         color: m.status === "OVERDUE" ? "bg-rose-500" : "bg-purple-500",
         badge: m.status
       });
@@ -151,21 +171,14 @@ export function DashboardContent({
         type: "NOTIFICATION",
         title: n.title,
         description: n.message,
-        date: new Date().toISOString().split("T")[0],
+        date: todayStr,
         color: n.type === "WARNING" ? "bg-amber-500" : "bg-indigo-500",
         badge: "Alert"
       });
     });
 
     return events.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 6);
-  }, [warrantyAlerts, upcomingBookings, upcomingMaintenance, notifications]);
-
-  // Color coding for health score
-  const getHealthColorClass = (score: number) => {
-    if (score >= 90) return "text-success border-success/20 bg-success/5";
-    if (score >= 75) return "text-warning border-warning/20 bg-warning/5";
-    return "text-destructive border-destructive/20 bg-destructive/5";
-  };
+  }, [warrantyAlerts, upcomingBookings, upcomingMaintenance, notifications, baseTime, todayStr]);
 
   const getHealthStrokeColor = (score: number) => {
     if (score >= 90) return "#10B981"; // Success
@@ -517,8 +530,9 @@ export function DashboardContent({
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              <span>Today's AI Recommendations</span>
+              <span>Today&apos;s AI Recommendations</span>
             </h3>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {aiRecommendations.map((rec) => {
                 // Determine recommendation details

@@ -58,29 +58,29 @@ export function Footer() {
       setEmail("");
       // Reset status to idle after 4 seconds
       setTimeout(() => setStatus("idle"), 4000);
-    } catch (err) {
+    } catch {
       setStatus("error");
       setErrorMessage("Something went wrong. Please try again.");
     }
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-400 border-t border-slate-800/80 pt-16 pb-8 select-none" aria-label="Global Footer">
-      <Container className="flex flex-col gap-12">
+    <footer className="bg-slate-900 text-slate-400 border-t border-slate-800/80 pt-10 pb-6 select-none" aria-label="Global Footer">
+      <Container className="flex flex-col gap-8">
         
         {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 text-left">
           
           {/* Column 1: Brand details */}
-          <div className="flex flex-col gap-5 lg:col-span-2">
-            <Link href="/" className="flex items-center self-start" aria-label="Dwellix Homepage">
+          <div className="flex flex-col gap-4 lg:col-span-2">
+            <Link href="/" className="flex items-center self-start group" aria-label="Dwellix Homepage">
               <Image
                 src="/logo/dwellix-logo-light.png"
                 alt="Dwellix"
-                width={120}
-                height={32}
+                width={240}
+                height={64}
                 priority
-                className="h-8 w-auto object-contain brightness-0 invert"
+                className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
               />
             </Link>
             <p className="text-xs sm:text-sm leading-relaxed max-w-sm text-slate-400/90 font-medium">
@@ -156,7 +156,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter strip & bottom divider */}
-        <div className="flex flex-col lg:flex-row items-center justify-between border-t border-slate-800/80 pt-10 gap-6">
+        <div className="flex flex-col lg:flex-row items-center justify-between border-t border-slate-800/80 pt-6 gap-4">
           <div className="flex flex-col gap-1 text-center lg:text-left">
             <span className="font-heading font-bold text-sm text-white">Subscribe to our newsletter</span>
             <span className="text-xs text-slate-500">Get product releases, diagnostic tips and platform news.</span>
@@ -211,7 +211,7 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright details */}
-        <div className="flex flex-col sm:flex-row items-center justify-between border-t border-slate-800/40 pt-8 gap-4 text-xs font-semibold text-slate-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between border-t border-slate-800/40 pt-5 gap-3 text-xs font-semibold text-slate-500">
           <span>&copy; {new Date().getFullYear()} Dwellix. All rights reserved.</span>
           
           <div className="flex items-center gap-6">

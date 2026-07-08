@@ -11,10 +11,8 @@ export function CustomCursor() {
   const springConfig = { damping: 30, stiffness: 250, mass: 0.4 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
-
   React.useEffect(() => {
-    setMounted(true);
-    
+    setTimeout(() => setMounted(true), 0);    
     // Disable follower on touch pointer devices
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     if (isTouch) return;

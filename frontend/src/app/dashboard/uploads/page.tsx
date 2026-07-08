@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ImageUpload } from "@/components/image-upload";
 import { Button } from "@/components/ui/button";
-import { Trash2, Copy, Check, FileText, Image as ImageIcon, ExternalLink, RefreshCw } from "lucide-react";
+import { Trash2, Copy, Check, ExternalLink, RefreshCw } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 
 interface UploadedImage {
@@ -44,9 +44,10 @@ export default function UploadsDemoPage() {
       setUploadedImage(null);
       setDeleteMessage("Image successfully deleted from Cloudinary.");
       setTimeout(() => setDeleteMessage(""), 4000);
-    } catch (err: any) {
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "Failed to delete image.";
       console.error("Delete error:", err);
-      setDeleteMessage(err?.message ?? "Failed to delete image.");
+      setDeleteMessage(errorMsg);
     } finally {
       setIsDeleting(false);
     }
