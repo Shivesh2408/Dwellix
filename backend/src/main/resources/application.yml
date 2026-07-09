@@ -23,6 +23,7 @@ spring:
             client-secret: ${GOOGLE_CLIENT_SECRET:mock-google-client-secret}
 server:
   port: ${PORT:${SERVER_PORT:8080}}
+  forward-headers-strategy: framework
 management:
   endpoints:
     web:
@@ -32,7 +33,7 @@ management:
 app:
   cors:
     allowed-origins:
-      - ${FRONTEND_ORIGIN:http://localhost:3000}
+      - ${FRONTEND_ORIGIN:https://dwellix-silk.vercel.app}
   jwt:
     issuer: dwellix-auth
     secret: ${JWT_SECRET:ZGV2ZWxvcG1lbnQtZGV2ZWxvcG1lbnQtZGV2ZWxvcG1lbnQtZGV2ZWxvcG1lbnQtMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NQ==}
@@ -43,9 +44,9 @@ app:
     cookies:
       refresh-token-name: ${AUTH_REFRESH_COOKIE_NAME:dwellix_refresh_token}
       refresh-token-path: ${AUTH_REFRESH_COOKIE_PATH:/api/v1/auth}
-      secure: ${AUTH_COOKIE_SECURE:false}
+      secure: ${AUTH_COOKIE_SECURE:true}
       httpOnly: true
-      sameSite: ${AUTH_COOKIE_SAMESITE:Lax}
+      sameSite: ${AUTH_COOKIE_SAMESITE:None}
       refresh-token-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:604800}
   rate-limit:
     max-attempts: ${AUTH_RATE_LIMIT_MAX_ATTEMPTS:10}

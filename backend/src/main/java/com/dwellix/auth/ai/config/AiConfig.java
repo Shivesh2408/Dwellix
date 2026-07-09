@@ -14,13 +14,16 @@ public class AiConfig {
   @Value("${app.ai.openrouter.base-url}")
   private String baseUrl;
 
+  @Value("${FRONTEND_ORIGIN:https://dwellix-silk.vercel.app}")
+  private String frontendOrigin;
+
   @Bean
   public WebClient openRouterWebClient(WebClient.Builder webClientBuilder) {
     return webClientBuilder
         .baseUrl(baseUrl)
         .defaultHeader("Authorization", "Bearer " + apiKey)
         .defaultHeader("Content-Type", "application/json")
-        .defaultHeader("HTTP-Referer", "http://localhost:3000")
+        .defaultHeader("HTTP-Referer", frontendOrigin)
         .defaultHeader("X-Title", "Dwellix")
         .build();
   }

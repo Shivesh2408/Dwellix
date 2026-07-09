@@ -128,7 +128,8 @@ function SuccessPanel({
 
 function GoogleButton({ label }: { label: string }) {
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "";
+    window.location.href = `${apiBaseUrl}/oauth2/authorization/google`;
   };
 
   return (

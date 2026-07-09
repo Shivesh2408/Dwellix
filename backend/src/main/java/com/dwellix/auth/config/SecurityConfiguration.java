@@ -72,7 +72,7 @@ public class SecurityConfiguration {
     CorsConfiguration configuration = new CorsConfiguration();
     List<String> allowedOrigins = new ArrayList<>(corsProperties.allowedOrigins() == null ? List.of() : corsProperties.allowedOrigins());
     if (allowedOrigins.isEmpty()) {
-      allowedOrigins.add("http://localhost:3000");
+      allowedOrigins.add("https://dwellix-silk.vercel.app");
     }
     configuration.setAllowedOrigins(allowedOrigins);
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));

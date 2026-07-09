@@ -45,7 +45,7 @@ export type VerifyEmailPayload = {
   token: string;
 };
 
-const authApiBaseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "";
+const authApiBaseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 export class AuthError extends Error {
   constructor(message: string, public readonly status?: number) {

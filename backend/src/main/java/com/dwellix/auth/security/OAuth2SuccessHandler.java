@@ -7,6 +7,7 @@ import com.dwellix.auth.service.AuthService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
@@ -25,15 +26,18 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
   private final UserRepository userRepository;
   private final AuthService authService;
   private final CookieService cookieService;
+  private final String frontendOrigin;
 
   public OAuth2SuccessHandler(
       UserRepository userRepository,
       AuthService authService,
-      CookieService cookieService
+      CookieService cookieService,
+      @Value("${FRONTEND_ORIGIN:https://dwellix-silk.vercel.app}") String frontendOrigin
   ) {
     this.userRepository = userRepository;
     this.authService = authService;
     this.cookieService = cookieService;
+    this.frontendOrigin = frontendOrigin;
   }
 
   @Override
@@ -72,6 +76,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
     // Redirect directly to the dashboard
-    getRedirectStrategy().sendRedirect(request, response, "http://localhost:3000/dashboard");
+    getRedirectStrategy().sendRedirect(request, response, frontendOrigin + "/dashboard");
   }
 }
