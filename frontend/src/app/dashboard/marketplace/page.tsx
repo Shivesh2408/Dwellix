@@ -3,17 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { apiClient } from "@/lib/api-client";
 import {
-  Search,
-  Filter,
-  Star,
-  ShieldCheck,
-  Calendar,
-  IndianRupee,
-  MapPin,
-  Clock,
-  ArrowUpDown,
-  SlidersHorizontal,
-  ChevronRight
+  Search, Star, ShieldCheck, IndianRupee, MapPin, 
+  Clock, SlidersHorizontal, ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -66,11 +57,9 @@ export default function MarketplacePage() {
     fetchTechnicians();
   }, []);
 
-  // Compute unique specialization & city lists for filter options
   const specializations = Array.from(new Set(technicians.map((t) => t.specialization)));
   const cities = Array.from(new Set(technicians.map((t) => t.city)));
 
-  // Filter & Sort technicians
   const filteredTechnicians = technicians
     .filter((tech) => {
       const matchSearch = tech.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -90,15 +79,15 @@ export default function MarketplacePage() {
 
   if (loading) {
     return (
-      <div className="flex-grow p-8 space-y-6 max-w-7xl mx-auto w-full">
+      <div className="flex-grow p-8 space-y-6 max-w-7xl mx-auto w-full text-left">
         <div className="space-y-2">
           <Skeleton className="h-8 w-48" />
           <Skeleton className="h-4 w-72" />
         </div>
-        <Skeleton className="h-14 w-full rounded-2xl" />
+        <Skeleton className="h-14 w-full rounded-3xl" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-60 w-full rounded-2xl" />
+            <Skeleton key={i} className="h-60 w-full rounded-3xl" />
           ))}
         </div>
       </div>
@@ -110,36 +99,39 @@ export default function MarketplacePage() {
       <div className="flex flex-col items-center justify-center p-12 max-w-md mx-auto h-[60vh] gap-4">
         <div className="text-sm font-bold text-destructive font-heading">Error Loading Marketplace</div>
         <p className="text-xs text-muted-foreground text-center">{error}</p>
-        <Button onClick={fetchTechnicians} size="sm">Retry</Button>
+        <Button onClick={fetchTechnicians} size="sm" className="rounded-xl">Retry</Button>
       </div>
     );
   }
 
   return (
-    <div className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-8">
+    <div className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-8 text-left">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground font-heading">Technician Marketplace</h1>
-        <p className="text-sm text-muted-foreground mt-1">Hire verified professionals for appliance repairs, installations, and checkups.</p>
+        <Badge className="bg-primary/5 text-primary text-[10px] uppercase font-bold tracking-widest rounded-full border-none">
+          Verified Dispatch
+        </Badge>
+        <h1 className="text-3xl md:text-4xl font-heading font-extrabold tracking-tight text-foreground mt-2">Technician Marketplace</h1>
+        <p className="text-sm text-muted-foreground font-medium">Book certified local professionals for smart home device repairs and diagnostics.</p>
       </div>
 
-      {/* Filter Row */}
-      <Card className="p-4 border-border/70 bg-white rounded-2xl shadow-sm space-y-4">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="flex-grow flex items-center gap-2 border border-border/60 rounded-xl px-3 bg-slate-50/50">
+      {/* Redesigned Search & Filters Grid */}
+      <Card className="p-5 border border-border/40 bg-white rounded-3xl shadow-premium">
+        <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+          <div className="flex-grow flex items-center gap-2 border border-border/80 rounded-xl px-4 py-1.5 bg-white shadow-xs">
             <Search className="h-4.5 w-4.5 text-muted-foreground" />
             <Input
-              placeholder="Search by name or specialty..."
+              placeholder="Search technicians or skill sets..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
+              className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0 h-9"
             />
           </div>
 
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap gap-3">
             <select
               value={specialization}
               onChange={(e) => setSpecialization(e.target.value)}
-              className="px-3.5 py-2 border border-border/60 rounded-xl text-xs bg-white text-slate-700 font-medium focus:outline-none cursor-pointer"
+              className="px-4 py-2 border border-border rounded-xl text-xs bg-white text-foreground font-semibold focus:outline-none cursor-pointer h-12 min-w-[140px]"
             >
               <option value="all">All Specialties</option>
               {specializations.map((spec) => (
@@ -150,7 +142,7 @@ export default function MarketplacePage() {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="px-3.5 py-2 border border-border/60 rounded-xl text-xs bg-white text-slate-700 font-medium focus:outline-none cursor-pointer"
+              className="px-4 py-2 border border-border rounded-xl text-xs bg-white text-foreground font-semibold focus:outline-none cursor-pointer h-12 min-w-[140px]"
             >
               <option value="all">All Cities</option>
               {cities.map((c) => (
@@ -161,7 +153,7 @@ export default function MarketplacePage() {
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
-              className="px-3.5 py-2 border border-border/60 rounded-xl text-xs bg-white text-slate-700 font-medium focus:outline-none cursor-pointer col-span-2 sm:col-span-1"
+              className="px-4 py-2 border border-border rounded-xl text-xs bg-white text-foreground font-semibold focus:outline-none cursor-pointer h-12 min-w-[140px] col-span-2 md:col-span-1"
             >
               <option value="rating-desc">Highest Rated</option>
               <option value="experience-desc">Most Experienced</option>
@@ -172,25 +164,25 @@ export default function MarketplacePage() {
         </div>
       </Card>
 
-      {/* Grid List */}
+      {/* Rebuilt Marketplace Grid */}
       {filteredTechnicians.length === 0 ? (
-        <Card className="flex flex-col items-center justify-center p-16 text-center border-dashed border-2 border-border/80 bg-white/50 rounded-2xl">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 mb-4">
-            <SlidersHorizontal className="h-7 w-7" />
+        <Card className="flex flex-col items-center justify-center p-16 text-center border-dashed border border-border bg-white rounded-3xl shadow-premium">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 text-muted-foreground mb-4">
+            <SlidersHorizontal className="h-6 w-6" />
           </div>
-          <h3 className="text-lg font-semibold text-slate-800 font-heading">No Technicians Available</h3>
-          <p className="text-sm text-muted-foreground mt-1 max-w-sm">
-            We couldn't find any certified technicians matching your filters. Try clearing some criteria.
+          <h3 className="text-lg font-bold text-foreground font-heading">No Matches Found</h3>
+          <p className="text-sm text-muted-foreground mt-1 max-w-sm font-medium">
+            Try adjusting your filters or search keywords to find certified professionals.
           </p>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTechnicians.map((tech) => (
-            <Card key={tech.id} className="border-border/70 bg-white rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-border transition-all flex flex-col justify-between group">
-              <div className="space-y-4">
+            <Card key={tech.id} className="border border-border/40 bg-white rounded-3xl p-6 shadow-premium hover-lift flex flex-col justify-between group">
+              <div className="space-y-5">
                 <div className="flex items-center gap-4">
-                  {/* Photo fallback */}
-                  <div className="h-14 w-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-500 font-bold text-lg relative flex-shrink-0">
+                  {/* Styled Avatar */}
+                  <div className="h-16 w-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center text-primary font-bold text-xl relative flex-shrink-0">
                     {tech.photoUrl ? (
                       <img src={tech.photoUrl} alt={tech.name} className="h-full w-full rounded-2xl object-cover" />
                     ) : (
@@ -204,48 +196,49 @@ export default function MarketplacePage() {
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold text-slate-800 line-clamp-1 group-hover:text-primary transition-colors">{tech.name}</h3>
-                    <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700 mt-1">
+                    <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors leading-tight">{tech.name}</h3>
+                    <Badge className="bg-primary/5 text-primary text-[9px] uppercase font-bold tracking-wider rounded-full border-none mt-1">
                       {tech.specialization}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-xs pt-3 border-t border-slate-100 text-slate-600">
+                <div className="grid grid-cols-2 gap-3 text-xs pt-4 border-t border-slate-50 text-muted-foreground font-medium">
                   <div className="flex items-center gap-1.5">
                     <Star className="h-4 w-4 text-amber-400 fill-amber-400" />
-                    <span className="font-semibold text-slate-800">{tech.rating}</span>
-                    <span className="text-slate-400">({tech.totalReviews} reviews)</span>
+                    <span className="font-bold text-foreground">{tech.rating}</span>
+                    <span>({tech.totalReviews})</span>
                   </div>
                   <div className="flex items-center gap-1.5 justify-end">
                     <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span>{tech.experienceYears} Years Exp</span>
+                    <span>{tech.experienceYears} yrs experience</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <MapPin className="h-4 w-4 text-muted-foreground" />
                     <span>{tech.city}</span>
                   </div>
                   <div className="flex items-center gap-1.5 justify-end">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                    <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full text-[9px] font-bold uppercase px-2 py-0.5">
                       {tech.availability}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+              <div className="mt-8 pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Hourly Rate</span>
-                  <div className="flex items-center text-base font-extrabold text-slate-800 mt-0.5">
-                    <IndianRupee className="h-4 w-4 text-slate-500" />
+                  <span className="text-[9px] uppercase font-bold text-slate-400 block tracking-wider">HOURLY RATE</span>
+                  <div className="flex items-baseline text-lg font-extrabold text-foreground mt-0.5">
+                    <IndianRupee className="h-3.5 w-3.5 text-muted-foreground mr-0.5 self-center" />
                     {tech.hourlyRate}
+                    <span className="text-[10px] text-muted-foreground font-normal ml-0.5">/hr</span>
                   </div>
                 </div>
 
-                <Button asChild className="gap-1.5 shadow-sm rounded-xl">
+                <Button asChild className="rounded-xl px-5 h-11 bg-black text-white hover:bg-black/90 shadow-sm flex items-center gap-1.5 text-xs font-semibold">
                   <Link href={`/dashboard/bookings/new?technician=${encodeURIComponent(tech.name)}`}>
-                    Book Now
-                    <ChevronRight className="h-4.5 w-4.5" />
+                    Book Dispatch
+                    <ChevronRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>

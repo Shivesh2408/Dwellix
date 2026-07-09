@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { apiClient } from "@/lib/api-client";
+import { apiClient, apiBaseUrl } from "@/lib/api-client";
 import {
   ArrowLeft,
   Bot,
@@ -113,7 +113,7 @@ export default function EditAppliancePage() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("/api/v1/uploads/image", {
+      const response = await fetch(`${apiBaseUrl}/api/v1/uploads/image`, {
         method: "POST",
         body: formData
       });

@@ -30,52 +30,54 @@ export function AuthShell({
   statusLabel = "Authentication",
 }: AuthShellProps) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.1),_transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.08),_transparent_28%),linear-gradient(180deg,_hsl(var(--background))_0%,_rgba(248,250,252,0.92)_100%)]">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 rounded-full border border-border/60 bg-background/80 px-4 py-3 shadow-sm backdrop-blur">
+    <main className="relative min-h-screen overflow-hidden bg-background">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(37,99,235,0.03),_transparent_40%)]" />
+      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8 z-10">
+        {/* Modern Nav Header */}
+        <div className="flex items-center justify-between gap-4 rounded-2xl border border-border/40 bg-white/80 px-6 py-3 shadow-xs backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden shadow-sm shadow-primary/10">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden bg-white border border-border/40 shadow-xs">
               <img
                 src="/logo/dwellix-logo-light.png"
                 alt="Dwellix Logo"
-                className="h-10 w-10 object-contain"
+                className="h-6 w-6 object-contain"
               />
             </div>
             <div>
-              <div className="text-sm font-semibold text-foreground">Dwellix</div>
-              <div className="text-xs text-muted-foreground">Premium home management</div>
+              <div className="text-sm font-bold text-foreground">Dwellix</div>
+              <div className="text-[10px] text-muted-foreground font-medium">Smart Home Platform</div>
             </div>
           </div>
-          <div className="hidden items-center gap-2 md:flex">
-            <Badge variant="outline" className="border-border/60 bg-background text-muted-foreground">
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="hidden md:inline-flex border-border/60 bg-background text-muted-foreground font-medium">
               {statusLabel}
             </Badge>
-            <Button asChild variant="ghost" size="sm" className="gap-2">
+            <Button asChild variant="ghost" size="sm" className="gap-1.5 h-9 rounded-xl text-xs">
               <Link href={backHref} aria-label={backLabel}>
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-3.5 w-3.5" />
                 {backLabel}
               </Link>
             </Button>
           </div>
         </div>
 
-        <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:py-10">
-          <section className="mx-auto w-full max-w-xl lg:max-w-none">
-            <div className="mb-5 inline-flex items-center rounded-full border border-border/70 bg-background/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground shadow-sm backdrop-blur">
+        {/* Content Section */}
+        <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-[1fr_1fr] lg:py-12">
+          <section className="mx-auto w-full max-w-lg lg:max-w-none">
+            <div className="mb-4 inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
               {eyebrow}
             </div>
-            <Card className="border-border/60 bg-white/90 shadow-[0_24px_80px_-45px_rgba(15,23,42,0.35)] backdrop-blur-md">
-              <CardHeader>
-                <CardTitle className="text-3xl tracking-tight sm:text-4xl">{title}</CardTitle>
-                <CardDescription className="text-base leading-7">{description}</CardDescription>
+            <Card className="border-border/40 bg-white/95 shadow-premium backdrop-blur-md">
+              <CardHeader className="space-y-2">
+                <CardTitle className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</CardTitle>
+                <CardDescription className="text-sm leading-6 text-muted-foreground font-medium">{description}</CardDescription>
               </CardHeader>
               <CardContent>{children}</CardContent>
             </Card>
-            {footer ? <div className="mt-5">{footer}</div> : null}
+            {footer ? <div className="mt-6">{footer}</div> : null}
           </section>
 
-          <aside className="hidden h-[760px] lg:block">
+          <aside className="hidden h-[640px] lg:block rounded-3xl overflow-hidden shadow-premium border border-border/40 relative bg-white">
             <AuthIllustration />
           </aside>
         </div>

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { forgotPassword, login, resetPassword, signup, verifyEmail, type AuthSession, AuthError } from "./auth-service";
+import { setAccessToken } from "@/lib/api-client";
 import { getPasswordStrength, passwordsMatch, validateEmail, validatePassword, validatePhoneNumber } from "./auth-validation";
 
 type FieldErrorMap = Record<string, string>;
@@ -185,6 +186,9 @@ export function LoginForm() {
     setLoading(true);
     try {
       const response = await login(form);
+      if (response.tokens?.accessToken) {
+        setAccessToken(response.tokens.accessToken);
+      }
       setSession(response);
       setSubmitMessage("Authentication succeeded.");
     } catch (error) {
@@ -324,17 +328,12 @@ export function SignupForm() {
   if (success) {
     return (
       <SuccessPanel
-        icon={<Mail className="h-8 w-8" />}
-        title="Check your email to verify your account."
-        description="We created your account and sent a verification link. After verifying, you can continue to onboarding."
+        icon={<CheckCircle2 className="h-8 w-8 text-success" />}
+        title="Account created successfully!"
+        description="Your Dwellix account has been created. You can now return to the login screen and sign in to get started with your home management."
         action={
-          <Button asChild className="h-11 px-6">
-            <Link href="/auth/verify-email">Open verification page</Link>
-          </Button>
-        }
-        secondaryAction={
-          <Button asChild variant="outline" className="h-11 px-6">
-            <Link href="/auth/login">Back to login</Link>
+          <Button asChild className="h-11 px-6 bg-blue-600 text-white hover:bg-blue-700">
+            <Link href="/auth/login">Continue to Login</Link>
           </Button>
         }
       />

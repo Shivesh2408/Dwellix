@@ -13,6 +13,7 @@ const DashboardContent = dynamic(
   }
 );
 import { getDashboardSummary, type DashboardSummaryResponse } from "@/features/dashboard/service";
+import { apiClient } from "@/lib/api-client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ export default function DashboardPage() {
   const handleLogout = () => {
     // Simply clear in-memory token and redirect
     // (the HttpOnly cookie deletion is handled by backend /logout)
-    fetch("/api/v1/auth/logout", { method: "POST", credentials: "include" })
+    apiClient("/api/v1/auth/logout", { method: "POST" })
       .finally(() => {
         router.push("/auth/login");
       });
@@ -61,7 +62,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen w-screen bg-slate-50/50">
+      <div className="flex h-screen w-screen bg-background">
         {/* Left Sidebar Placeholder */}
         <div className="hidden md:block w-[280px] border-r border-border bg-white p-6 space-y-6">
           <div className="flex items-center gap-3">

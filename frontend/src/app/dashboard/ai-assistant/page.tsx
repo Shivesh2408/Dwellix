@@ -344,11 +344,10 @@ export default function AIAssistantPage() {
   }, [messages, loading]);
 
   useEffect(() => {
-    fetch("/api/v1/auth/me", { credentials: "include" })
-      .then((r) => r.json())
+    apiClient<{ fullName: string }>("/api/v1/auth/me")
       .then((data) => {
-        if (data?.user?.fullName) {
-          const names = data.user.fullName.trim().split(/\s+/);
+        if (data?.fullName) {
+          const names = data.fullName.trim().split(/\s+/);
           const initials = names.map((n: string) => n[0]).join("").substring(0, 2).toUpperCase();
           setUserInitials(initials || "U");
         }
@@ -1287,16 +1286,16 @@ export default function AIAssistantPage() {
                         whileHover={{ scale: 1.015 }}
                         whileTap={{ scale: 0.985 }}
                         onClick={() => handleSend(preset.prompt)}
-                        className="group text-left p-4 rounded-2xl border border-slate-200 bg-white hover:border-primary/40 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300 flex items-start gap-4 cursor-pointer"
+                        className="group text-left p-4 rounded-3xl border border-border bg-white hover:border-primary/40 hover:shadow-premium transition-all duration-300 flex items-start gap-4 cursor-pointer"
                       >
                         <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${preset.color} flex items-center justify-center shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform duration-300`}>
                           <Icon className="h-5 w-5" />
                         </div>
                         <div className="space-y-0.5">
-                          <h3 className="text-xs font-bold text-slate-800 group-hover:text-primary mb-1">
+                          <h3 className="text-xs font-bold text-foreground group-hover:text-primary mb-1">
                             {preset.label}
                           </h3>
-                          <p className="text-[10px] md:text-[11px] text-slate-450 line-clamp-2 leading-relaxed">
+                          <p className="text-[10px] md:text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
                             {preset.desc}
                           </p>
                         </div>
@@ -1321,11 +1320,11 @@ export default function AIAssistantPage() {
                     >
                       {/* Avatar */}
                       {message.role === "user" ? (
-                        <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs md:text-sm shadow-sm shadow-primary/20 flex-shrink-0">
+                        <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs md:text-sm shadow-sm flex-shrink-0">
                           {userInitials[0]}
                         </div>
                       ) : (
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-primary to-indigo-650 text-white flex items-center justify-center shadow-md shadow-primary/20 flex-shrink-0">
+                        <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center shadow-md flex-shrink-0">
                           <Bot className="h-5 w-5" />
                         </div>
                       )}
@@ -1334,16 +1333,16 @@ export default function AIAssistantPage() {
                       <div className={`space-y-1.5 max-w-[75%] flex flex-col ${message.role === "user" ? "items-end" : "items-start"}`}>
                         <div className="flex items-end gap-2">
                           {message.role === "user" && (
-                            <span className="text-[9px] text-slate-400 font-medium select-none self-end pb-1.5">
+                            <span className="text-[9px] text-muted-foreground font-medium select-none self-end pb-1.5">
                               {formatTime(message.timestamp)}
                             </span>
                           )}
                           
                           <div
-                            className={`p-4 md:p-5 rounded-[20px] text-sm leading-relaxed shadow-xs text-left ${
+                            className={`p-4 md:p-5 rounded-3xl text-sm leading-relaxed text-left ${
                               message.role === "user"
-                                ? "bg-gradient-to-tr from-primary to-indigo-650 text-white rounded-tr-none shadow-md shadow-primary/10"
-                                : "bg-slate-50/50 border border-slate-100 text-slate-800 rounded-tl-none shadow-md shadow-slate-100/20"
+                                ? "bg-black text-white rounded-tr-none shadow-premium"
+                                : "bg-white border border-border/80 text-foreground rounded-tl-none shadow-premium"
                             }`}
                           >
                             {message.role === "assistant" && message.isTypingEnabled ? (
@@ -1562,7 +1561,7 @@ export default function AIAssistantPage() {
               className="hidden"
             />
 
-            <div className="relative rounded-[24px] bg-slate-50/50 border border-slate-200/80 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 shadow-lg shadow-slate-100/50 p-2.5 transition-all flex flex-col gap-2 bg-white">
+            <div className="relative rounded-3xl bg-white border border-border/80 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 shadow-premium p-3 transition-all flex flex-col gap-2">
               
               {/* Selected File Preview Panel */}
               {selectedFile && (
@@ -1622,10 +1621,10 @@ export default function AIAssistantPage() {
                 rows={1}
                 disabled={loading || isListening}
                 placeholder={isListening ? "Listening..." : "Ask anything about your appliances..."}
-                className="w-full px-4 py-2 bg-transparent text-sm resize-none overflow-y-auto leading-relaxed outline-none border-0 focus:ring-0 focus:border-0 scrollbar-none min-h-[40px] max-h-[140px] text-slate-800"
+                className="w-full px-4 py-2 bg-transparent text-sm resize-none overflow-y-auto leading-relaxed outline-none border-0 focus:ring-0 focus:border-0 scrollbar-none min-h-[40px] max-h-[140px] text-foreground"
               />
               
-              <div className="flex items-center justify-between border-t border-slate-100 pt-2 px-1">
+              <div className="flex items-center justify-between border-t border-border/40 pt-2 px-1">
                 <div className="flex items-center gap-1">
                   <Button
                     type="button"

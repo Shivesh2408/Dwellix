@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { apiClient } from "@/lib/api-client";
+import { apiClient, apiBaseUrl } from "@/lib/api-client";
 import { FileText, Download, Eye, ExternalLink, Calendar, Search, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -148,12 +148,12 @@ export default function InvoicesPage() {
                     <td className="py-4 px-6 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Button asChild variant="ghost" size="sm" className="h-8.5 w-8.5 p-0 hover:bg-slate-100 hover:text-foreground">
-                          <a href={`/api/v1/uploads/${item.invoiceFileName}`} target="_blank" rel="noreferrer" title="View Document">
+                          <a href={`${apiBaseUrl}/api/v1/uploads/${item.invoiceFileName}`} target="_blank" rel="noreferrer" title="View Document">
                             <Eye className="h-4 w-4" />
                           </a>
                         </Button>
                         <Button asChild variant="ghost" size="sm" className="h-8.5 w-8.5 p-0 hover:bg-slate-100 hover:text-foreground">
-                          <a href={`/api/v1/uploads/${item.invoiceFileName}`} download title="Download Document">
+                          <a href={`${apiBaseUrl}/api/v1/uploads/${item.invoiceFileName}`} download title="Download Document">
                             <Download className="h-4 w-4" />
                           </a>
                         </Button>
