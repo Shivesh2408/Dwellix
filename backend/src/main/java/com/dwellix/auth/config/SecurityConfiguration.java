@@ -46,7 +46,7 @@ public class SecurityConfiguration {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .csrf(csrf -> csrf.disable())
-        .cors(Customizer.withDefaults())
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
         .authorizeHttpRequests(auth -> auth
@@ -70,13 +70,10 @@ public class SecurityConfiguration {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    List<String> allowedOrigins = new ArrayList<>(corsProperties.allowedOrigins() == null ? List.of() : corsProperties.allowedOrigins());
-    if (allowedOrigins.isEmpty()) {
-      allowedOrigins.add("https://dwellix-silk.vercel.app");
-    }
-    configuration.setAllowedOrigins(allowedOrigins);
+    configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://dwellix-silk.vercel.app"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(List.of("*"));
+    configuration.setExposedHeaders(List.of("Authorization"));
     configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
