@@ -18,6 +18,17 @@ interface MaintenanceTask {
   actionLabel: string;
 }
 
+function formatIndianDate(dateString: string | Date): string {
+  if (!dateString) return "";
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return "";
+  const day = d.getDate();
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 interface DashboardSummary {
   upcomingMaintenance: MaintenanceTask[];
 }
@@ -150,7 +161,7 @@ export default function MaintenancePage() {
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-2 text-xs text-slate-700">
                         <Calendar className="h-4 w-4 text-muted-foreground" />
-                        {new Date(task.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                        {formatIndianDate(task.date)}
                       </div>
                     </td>
                     <td className="py-4 px-6">

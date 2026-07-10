@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
-import { ThemeProvider } from "@/providers/theme-provider";
 import { PageLoader } from "@/components/common/page-loader";
 import { CustomCursor } from "@/components/common/custom-cursor";
 import { ScrollToTop } from "@/components/common/scroll-to-top";
@@ -67,17 +66,10 @@ export default function RootLayout({
       className={`${inter.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <PageLoader />
-          <CustomCursor />
-          {children}
-          <ScrollToTop />
-        </ThemeProvider>
+        <PageLoader />
+        <CustomCursor />
+        {children}
+        <ScrollToTop />
       </body>
     </html>
   );

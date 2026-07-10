@@ -44,8 +44,8 @@ export function DashboardStats({
       <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Appliances</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{appliancesCount || 12}</div>
-          <p className="text-[10px] text-slate-400 font-bold">+2 this month</p>
+          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{appliancesCount ?? 0}</div>
+          <p className="text-[10px] text-slate-400 font-bold">Registered</p>
         </div>
       </Card>
 
@@ -53,7 +53,7 @@ export function DashboardStats({
       <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Active Warranties</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{activeWarranties || 8}</div>
+          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{activeWarranties ?? 0}</div>
           <p className="text-[10px] text-emerald-500 font-bold flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Valid & Active
           </p>
@@ -64,7 +64,7 @@ export function DashboardStats({
       <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Expiring Soon</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{expiringWarranties || 2}</div>
+          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{expiringWarranties ?? 0}</div>
           <p className="text-[10px] text-red-500 font-bold flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> Within 30 days
           </p>
@@ -75,7 +75,9 @@ export function DashboardStats({
       <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Value</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">${(totalValue || 18940).toLocaleString()}</div>
+          <div className="text-3.5xl font-heading font-extrabold text-slate-900">
+            ₹{new Intl.NumberFormat("en-IN").format(totalValue ?? 0)}
+          </div>
           <p className="text-[10px] text-slate-400 font-bold">Covered Value</p>
         </div>
       </Card>
@@ -96,18 +98,17 @@ export function DashboardStats({
                   strokeWidth="3.5"
                   fill="transparent"
                   strokeDasharray={2 * Math.PI * 18}
-                  strokeDashoffset={(2 * Math.PI * 18) - (healthScore / 100) * (2 * Math.PI * 18)}
+                  strokeDashoffset={(2 * Math.PI * 18) - ((healthScore ?? 0) / 100) * (2 * Math.PI * 18)}
                   strokeLinecap="round"
                 />
               </svg>
-              <span className="absolute text-[10px] font-bold text-white">{healthScore}</span>
+              <span className="absolute text-[10px] font-bold text-white">{healthScore ?? 0}%</span>
             </div>
             <div className="text-left">
-              <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider block">Excellent</span>
+              <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider block">
+                {(healthScore ?? 0) >= 90 ? "Excellent" : (healthScore ?? 0) >= 75 ? "Good" : "Needs Review"}
+              </span>
             </div>
-          </div>
-          <div className="text-[9px] text-slate-400 font-bold text-right mt-1 leading-tight">
-            <span>8 units this month</span>
           </div>
         </div>
       </Card>
@@ -146,24 +147,35 @@ export function ApplianceHealthCard({ score }: { score: number }) {
         <div className="space-y-2.5 text-xs font-semibold text-slate-650 flex-grow">
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-500" /> Excellent</span>
-            <span className="text-slate-900 font-extrabold">8</span>
+            <span className="text-slate-900 font-extrabold">{score >= 90 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-blue-500" /> Good</span>
-            <span className="text-slate-900 font-extrabold">3</span>
+            <span className="text-slate-900 font-extrabold">{score >= 75 && score < 90 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-amber-500" /> Fair</span>
-            <span className="text-slate-900 font-extrabold">1</span>
+            <span className="text-slate-900 font-extrabold">{score >= 50 && score < 75 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-rose-500" /> Attention</span>
-            <span className="text-slate-900 font-extrabold">0</span>
+            <span className="text-slate-900 font-extrabold">{score < 50 ? 1 : 0}</span>
           </div>
         </div>
       </div>
     </Card>
   );
+}
+
+function formatIndianDate(dateString: string | Date): string {
+  if (!dateString) return "";
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return "";
+  const day = d.getDate();
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
 }
 
 interface MaintenanceItem {
@@ -192,7 +204,7 @@ export function UpcomingMaintenanceCard({ maintenanceItems }: { maintenanceItems
                   <p className="text-[10px] text-slate-400 font-medium mt-0.5">{item.taskName}</p>
                 </div>
               </div>
-              <span className="text-[10px] text-slate-400 font-bold">{item.date ? new Date(item.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }) : "12 Jun 2025"}</span>
+              <span className="text-[10px] text-slate-400 font-bold">{item.date ? formatIndianDate(item.date) : ""}</span>
             </div>
           ))
         ) : (

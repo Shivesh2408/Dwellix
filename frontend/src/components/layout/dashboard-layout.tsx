@@ -207,7 +207,7 @@ export function DashboardLayout({
           <div className={cn("flex items-center h-20 px-6 border-b border-[#ECECEC]/60", isCollapsed ? "justify-center" : "justify-between")}>
             {!isCollapsed && (
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white dark:bg-zinc-950 border border-[#ECECEC]/60 dark:border-zinc-800 shadow-xs">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white border border-[#ECECEC]/60 shadow-xs">
                   <Image
                     src="/logo/dwellix-logo-light.png"
                     alt="Dwellix Logo"
@@ -221,7 +221,7 @@ export function DashboardLayout({
               </div>
             )}
             {isCollapsed && (
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white dark:bg-zinc-950 border border-[#ECECEC]/60 dark:border-zinc-800 shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white border border-[#ECECEC]/60 shadow-xs">
                 <Image
                   src="/logo/dwellix-logo-light.png"
                   alt="Dwellix Logo"
@@ -283,13 +283,13 @@ export function DashboardLayout({
           {/* Pro Plan Card as shown in mockup */}
           {!isCollapsed && (
             <div className="px-4 mb-2">
-              <div className="rounded-2xl border border-blue-100 dark:border-blue-900/30 bg-blue-50/20 dark:bg-blue-950/10 p-4 text-left space-y-2">
+              <div className="rounded-2xl border border-blue-100 bg-blue-50/20 p-4 text-left space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-blue-600" />
-                  <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200">Pro Plan</span>
+                  <span className="text-xs font-extrabold text-slate-800">Pro Plan</span>
                 </div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">Renew on 12 Aug 2026</div>
-                <Link href="/dashboard/settings" className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline block pt-1">
+                <div className="text-[10px] text-slate-500 font-semibold">Renew on 12 Aug 2026</div>
+                <Link href="/dashboard/settings" className="text-xs text-blue-600 font-bold hover:underline block pt-1">
                   Upgrade
                 </Link>
               </div>
@@ -297,11 +297,11 @@ export function DashboardLayout({
           )}
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-border/40 dark:border-zinc-800 bg-transparent">
+          <div className="p-4 border-t border-border/40 bg-transparent">
             <button
               onClick={handleLogoutClick}
               className={cn(
-                "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/5 dark:hover:bg-red-950/10 transition-all duration-205 cursor-pointer",
+                "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/5  transition-all duration-205 cursor-pointer",
                 isCollapsed ? "justify-center" : ""
               )}
             >
@@ -330,11 +330,11 @@ export function DashboardLayout({
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-72 bg-white dark:bg-zinc-900 z-40 flex flex-col h-full shadow-2xl border-r border-[#ECECEC] dark:border-zinc-800 md:hidden"
+              className="fixed inset-y-0 left-0 w-72 bg-white z-40 flex flex-col h-full shadow-2xl border-r border-[#ECECEC] md:hidden"
             >
-              <div className="flex items-center justify-between h-20 px-6 border-b border-[#ECECEC]/60 dark:border-zinc-800">
+              <div className="flex items-center justify-between h-20 px-6 border-b border-[#ECECEC]/60">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white dark:bg-zinc-950 border border-[#ECECEC]/60 dark:border-zinc-800 shadow-xs">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-white border border-[#ECECEC]/60 shadow-xs">
                     <Image
                       src="/logo/dwellix-logo-light.png"
                       alt="Dwellix Logo"
@@ -344,11 +344,11 @@ export function DashboardLayout({
                       priority
                     />
                   </div>
-                  <span className="font-heading font-bold text-lg tracking-tight text-slate-900 dark:text-slate-100">Dwellix</span>
+                  <span className="font-heading font-bold text-lg tracking-tight text-slate-900">Dwellix</span>
                 </div>
                 <button
                   onClick={() => setIsMobileDrawerOpen(false)}
-                  className="p-2 -mr-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                  className="p-2 -mr-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-slate-50 transition-colors cursor-pointer"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -364,8 +364,8 @@ export function DashboardLayout({
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer",
                           isActive
-                            ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-sm font-semibold"
-                            : "text-muted-foreground hover:text-foreground hover:bg-slate-50 dark:hover:bg-zinc-800"
+                            ? "bg-slate-900  text-white  shadow-sm font-semibold"
+                            : "text-muted-foreground hover:text-foreground hover:bg-slate-50 "
                         )}
                       >
                         <Icon className="h-4.5 w-4.5 flex-shrink-0" />
@@ -376,10 +376,10 @@ export function DashboardLayout({
                 })}
               </div>
 
-              <div className="p-4 border-t border-[#ECECEC]/60 dark:border-zinc-800 bg-transparent">
+              <div className="p-4 border-t border-[#ECECEC]/60 bg-transparent">
                 <button
                   onClick={handleLogoutClick}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/5 dark:hover:bg-red-950/10 transition-all duration-200 cursor-pointer"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/5 transition-all duration-200 cursor-pointer"
                 >
                   <LogOut className="h-4.5 w-4.5 flex-shrink-0" />
                   <span>Logout</span>
@@ -391,13 +391,13 @@ export function DashboardLayout({
       </AnimatePresence>
 
       {/* MAIN CONTENT AREA */}
-      <div className="flex-grow flex flex-col h-full overflow-hidden bg-[#F8F9FB] dark:bg-zinc-950">
+      <div className="flex-grow flex flex-col h-full overflow-hidden bg-[#F8F9FB]">
         {/* TOP HEADER */}
-        <header className="flex items-center justify-between h-20 px-4 md:px-8 border-b border-border/40 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md relative z-10">
+        <header className="flex items-center justify-between h-20 px-4 md:px-8 border-b border-border/40 bg-white/80 backdrop-blur-md relative z-10">
           <div className="flex items-center gap-4 flex-grow">
             <button
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="p-2 -mr-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-slate-50 dark:hover:bg-zinc-800 md:hidden transition-colors cursor-pointer"
+              className="p-2 -mr-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-slate-50 md:hidden transition-colors cursor-pointer"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -408,7 +408,7 @@ export function DashboardLayout({
               <input
                 type="text"
                 placeholder="Search appliances, invoices, warranties..."
-                className="w-full h-11 pl-10 pr-4 rounded-xl border border-border/80 dark:border-zinc-800 bg-[#F8F9FB] dark:bg-zinc-950 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:border-blue-600/40 focus:ring-1 focus:ring-blue-600/20 transition-all"
+                className="w-full h-11 pl-10 pr-4 rounded-xl border border-border/80 bg-[#F8F9FB] text-slate-900 text-sm font-medium focus:outline-none focus:border-blue-600/40 focus:ring-1 focus:ring-blue-600/20 transition-all"
               />
             </div>
           </div>
@@ -421,7 +421,7 @@ export function DashboardLayout({
                 <select
                   value={selectedHome}
                   onChange={(e) => onHomeChange?.(e.target.value)}
-                  className="h-9 pl-3 pr-8 rounded-xl border border-border/60 bg-white dark:bg-zinc-900 text-xs font-medium text-foreground focus:outline-none appearance-none cursor-pointer"
+                  className="h-9 pl-3 pr-8 rounded-xl border border-border/60 bg-white text-xs font-medium text-foreground focus:outline-none appearance-none cursor-pointer"
                 >
                   {homeSelectorOptions.map((option) => (
                     <option key={option} value={option}>
@@ -438,7 +438,7 @@ export function DashboardLayout({
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
                 animate={isRinging ? "ring" : "idle"}
                 variants={bellVariants}
-                className="p-2 rounded-xl border border-border/60 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground transition-colors relative cursor-pointer"
+                className="p-2 rounded-xl border border-border/60 hover:bg-slate-50 text-muted-foreground hover:text-foreground transition-colors relative cursor-pointer"
               >
                 <Bell className="h-4.5 w-4.5" />
                 {unreadCount > 0 && (
@@ -457,11 +457,11 @@ export function DashboardLayout({
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-2 w-80 bg-white dark:bg-zinc-900 border border-border/80 dark:border-zinc-800 rounded-2xl shadow-xl z-30 p-4"
+                      className="absolute right-0 mt-2 w-80 bg-white border border-border/80 rounded-2xl shadow-xl z-30 p-4"
                     >
-                      <div className="flex justify-between items-center pb-2 border-b border-border/40 dark:border-zinc-800/60 mb-2">
+                      <div className="flex justify-between items-center pb-2 border-b border-border/40 mb-2">
                         <span className="font-heading font-bold text-sm">Notifications</span>
-                        <span onClick={handleMarkAllRead} className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline cursor-pointer select-none">Mark all read</span>
+                        <span onClick={handleMarkAllRead} className="text-xs text-blue-600 font-semibold hover:underline cursor-pointer select-none">Mark all read</span>
                       </div>
                       
                       <div className="space-y-2 max-h-60 overflow-y-auto text-left scrollbar-none">
@@ -478,12 +478,12 @@ export function DashboardLayout({
                                 setUnreadCount(prev => Math.max(0, prev - (n.read ? 0 : 1)));
                               }}
                               className={cn(
-                                "p-2 rounded-lg transition-colors cursor-pointer border-b border-border/10 dark:border-zinc-800/20 last:border-b-0",
-                                n.read ? "hover:bg-slate-50 dark:hover:bg-zinc-800/50" : "bg-blue-50/20 dark:bg-blue-950/10 hover:bg-slate-50 dark:hover:bg-zinc-800/80 border-l-2 border-blue-600"
+                                "p-2 rounded-lg transition-colors cursor-pointer border-b border-border/10  last:border-b-0",
+                                n.read ? "hover:bg-slate-50 " : "bg-blue-50/20  hover:bg-slate-50  border-l-2 border-blue-600"
                               )}
                             >
                               <div className="flex items-start justify-between gap-1.5">
-                                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{n.title}</div>
+                                <div className="text-xs font-bold text-slate-900">{n.title}</div>
                                 {!n.read && <span className="h-1.5 w-1.5 rounded-full bg-blue-600 mt-1 shrink-0" />}
                               </div>
                               <div className="text-[10px] text-muted-foreground mt-0.5 leading-normal">{n.message}</div>
@@ -492,11 +492,11 @@ export function DashboardLayout({
                         )}
                       </div>
 
-                      <div className="pt-2 border-t border-border/40 dark:border-zinc-800/60 mt-2 text-center">
+                      <div className="pt-2 border-t border-border/40 mt-2 text-center">
                         <Link 
                           href="/dashboard/notifications" 
                           onClick={() => setNotificationsOpen(false)}
-                          className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline"
+                          className="text-xs text-blue-600 font-bold hover:underline"
                         >
                           View all notifications
                         </Link>
@@ -510,10 +510,10 @@ export function DashboardLayout({
             {/* Profile Dropdown showing name and Premium Plan */}
             <div className="flex items-center gap-3 cursor-pointer p-1 pr-2 rounded-xl">
               <div className="hidden sm:flex flex-col text-right">
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight">{userName || "Alex Morgan"}</span>
+                <span className="text-xs font-bold text-slate-800 leading-tight">{userName || "Alex Morgan"}</span>
                 <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Premium Plan</span>
               </div>
-              <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm border border-slate-100 dark:border-zinc-850 shadow-sm flex-shrink-0">
+              <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm border border-slate-100 shadow-sm flex-shrink-0">
                 {userName.charAt(0)}
               </div>
             </div>

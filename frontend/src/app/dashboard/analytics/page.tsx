@@ -15,6 +15,7 @@ import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
+import { useRouter } from "next/navigation";
 
 interface Appliance {
   id: string;
@@ -52,6 +53,7 @@ interface AnalyticsBooking {
 }
 
 export default function AnalyticsPage() {
+  const router = useRouter();
   const [dashboardData, setDashboardData] = useState<DashboardSummaryResponse | null>(null);
   const [appliances, setAppliances] = useState<Appliance[]>([]);
   const [bookings, setBookings] = useState<AnalyticsBooking[]>([]);
@@ -291,7 +293,7 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB] dark:bg-zinc-950 text-left">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB] text-left">
         <div className="flex justify-between items-center">
           <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse" />
           <div className="h-10 w-64 bg-slate-200 rounded-xl animate-pulse" />
@@ -309,19 +311,36 @@ export default function AnalyticsPage() {
 
   if (error) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-[#F8F9FB] dark:bg-zinc-950 text-left gap-4">
-        <div className="h-16 w-16 rounded-[22px] bg-rose-50 dark:bg-zinc-900 border border-rose-100 dark:border-zinc-800 flex items-center justify-center text-rose-500 mb-2">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-[#F8F9FB] text-left gap-4">
+        <div className="h-16 w-16 rounded-[22px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500 mb-2">
           <ShieldAlert className="h-8 w-8" />
         </div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">Error Loading Analytics</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{error}</p>
+        <h2 className="text-xl font-bold text-slate-900 mb-1">Error Loading Analytics</h2>
+        <p className="text-sm text-slate-500 mb-4">{error}</p>
         <Button onClick={fetchData} className="rounded-xl px-6 bg-black text-white hover:bg-black/90">Retry Sync</Button>
       </div>
     );
   }
 
+  if (!loading && !error && appliances.length === 0) {
+    return (
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[70vh] flex flex-col items-center justify-center bg-[#F8F9FB] text-center gap-5 font-sans">
+        <div className="h-20 w-20 rounded-[28px] bg-blue-50 text-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/5 mb-2">
+          <Activity className="h-10 w-10 animate-pulse" />
+        </div>
+        <h2 className="text-2xl font-extrabold text-slate-900 font-heading">No Analytics Available</h2>
+        <p className="text-xs sm:text-sm text-slate-550 max-w-md leading-relaxed">
+          Please add appliances and log active warranties to view operational cost breakdowns, monthly energy loads, and warranty coverages.
+        </p>
+        <Button onClick={() => router.push("/dashboard/appliances")} className="rounded-xl px-6 h-11 bg-black text-white hover:bg-black/90 font-bold text-xs cursor-pointer shadow-md">
+          Add First Appliance
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-[1400px] mx-auto p-4 md:p-10 space-y-10 bg-[#F8F9FB] dark:bg-zinc-950 min-h-screen text-left font-sans print:bg-white print:p-0">
+    <div className="max-w-[1400px] mx-auto p-4 md:p-10 space-y-10 bg-[#F8F9FB] min-h-screen text-left font-sans print:bg-white print:p-0">
       
       {/* Toast Alert */}
       <AnimatePresence>
@@ -341,13 +360,13 @@ export default function AnalyticsPage() {
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 print:hidden">
         <div className="space-y-1">
-          <span className="px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-widest bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 rounded-md border border-blue-100/50 dark:border-blue-900/30">
+          <span className="px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-widest bg-blue-50 text-blue-600 rounded-md border border-blue-100/50">
             Performance Insights
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mt-4 leading-none">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mt-4 leading-none">
             Executive Analytics
           </h1>
-          <p className="text-sm md:text-base font-medium text-slate-500 dark:text-slate-400 mt-3">
+          <p className="text-sm md:text-base font-medium text-slate-500 mt-3">
             Real-time operations tracking, cost efficiency calculations, and predictive health insights.
           </p>
         </div>
@@ -355,12 +374,12 @@ export default function AnalyticsPage() {
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Date Picker */}
-          <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-[#ECECEC] dark:border-zinc-800 rounded-xl px-3 py-2 shadow-xs">
-            <Calendar className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <div className="flex items-center gap-2 bg-white border border-[#ECECEC] rounded-xl px-3 py-2 shadow-xs">
+            <Calendar className="h-4 w-4 text-slate-500" />
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="text-xs font-bold text-slate-900 dark:text-slate-100 bg-transparent border-0 outline-none cursor-pointer"
+              className="text-xs font-bold text-slate-900 bg-transparent border-0 outline-none cursor-pointer"
             >
               <option value="30">Last 30 Days</option>
               <option value="90">Last 90 Days</option>
@@ -403,11 +422,11 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Total Appliances */}
         <Card className="p-6">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-4">
+          <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Total Appliances</span>
-            <Layers className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <Layers className="h-5 w-5 text-blue-600" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
             {computedMetrics.totalDevices}
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
@@ -418,26 +437,26 @@ export default function AnalyticsPage() {
 
         {/* Total Maintenance Cost */}
         <Card className="p-6">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-4">
+          <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Maintenance Cost</span>
             <Wrench className="h-5 w-5 text-amber-500" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">
-            ${computedMetrics.totalMaintenanceCost.toLocaleString()}
+          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+            ₹{new Intl.NumberFormat("en-IN").format(computedMetrics.totalMaintenanceCost)}
           </div>
-          <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-bold text-xs mt-3">
+          <div className="flex items-center gap-1.5 text-slate-500 font-bold text-xs mt-3">
             <span>Estimated checkups</span>
           </div>
         </Card>
-
+ 
         {/* Warranty Savings */}
         <Card className="p-6">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-4">
+          <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Warranty Savings</span>
             <ShieldCheck className="h-5 w-5 text-emerald-500" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">
-            ${computedMetrics.warrantySavings.toLocaleString()}
+          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+            ₹{new Intl.NumberFormat("en-IN").format(computedMetrics.warrantySavings)}
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
             <CheckCircle2 className="h-4 w-4 shrink-0" />
@@ -447,11 +466,11 @@ export default function AnalyticsPage() {
 
         {/* Home Health Score */}
         <Card className="p-6">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-4">
+          <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Home Health Index</span>
             <Activity className="h-5 w-5 text-indigo-500" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
             {computedMetrics.avgHealth}%
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
@@ -468,10 +487,10 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">Monthly Maintenance Cost</h3>
-              <span className="text-xs font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/20 px-2.5 py-1 rounded-md border border-blue-100/50 dark:border-blue-900/30">Cost Trend</span>
+              <h3 className="text-lg font-extrabold text-slate-900">Monthly Maintenance Cost</h3>
+              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/50">Cost Trend</span>
             </div>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Historical tracking of scheduled servicing and technical dispatches.</p>
+            <p className="text-xs font-medium text-slate-500">Historical tracking of scheduled servicing and technical dispatches.</p>
           </div>
 
           <div className="w-full h-[260px] mt-6">
@@ -500,8 +519,8 @@ export default function AnalyticsPage() {
         {/* Donut Chart: Warranty Expiry Status */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 mb-2">Warranty Coverages</h3>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Realtime distribution of coverages across all home devices.</p>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Warranty Coverages</h3>
+            <p className="text-xs font-medium text-slate-500">Realtime distribution of coverages across all home devices.</p>
           </div>
 
           <div className="w-full h-[220px] relative flex items-center justify-center">
@@ -529,7 +548,7 @@ export default function AnalyticsPage() {
             {/* Center Label */}
             <div className="absolute flex flex-col items-center justify-center">
               <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Covered</span>
-              <span className="text-3xl font-black text-slate-900 dark:text-slate-100 leading-none">
+              <span className="text-3xl font-black text-slate-900 leading-none">
                 {warrantyDistribution.find(d => d.name === "Covered")?.value || 0}
               </span>
             </div>
@@ -539,10 +558,10 @@ export default function AnalyticsPage() {
           <div className="grid grid-cols-3 gap-2 text-center text-xs">
             {warrantyDistribution.map((item) => (
               <div key={item.name} className="space-y-1">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-bold truncate">{item.name}</span>
+                <span className="text-[10px] text-slate-500 block font-bold truncate">{item.name}</span>
                 <div className="flex items-center justify-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full block" style={{ backgroundColor: item.color }} />
-                  <span className="font-extrabold text-slate-800 dark:text-slate-200">{item.value}</span>
+                  <span className="font-extrabold text-slate-800">{item.value}</span>
                 </div>
               </div>
             ))}
@@ -557,10 +576,10 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">Monthly Energy Usage</h3>
-              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/20 px-2.5 py-1 rounded-md border border-emerald-100/50 dark:border-emerald-900/30">Utility Loads</span>
+              <h3 className="text-lg font-extrabold text-slate-900">Monthly Energy Usage</h3>
+              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100/50">Utility Loads</span>
             </div>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Simulated hourly power consumption (kWh) metrics per timeline sector.</p>
+            <p className="text-xs font-medium text-slate-500">Simulated hourly power consumption (kWh) metrics per timeline sector.</p>
           </div>
 
           <div className="w-full h-[260px] mt-6">
@@ -586,8 +605,8 @@ export default function AnalyticsPage() {
         {/* Pie Chart: Appliance Health Distribution */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 mb-2">Device Health Distribution</h3>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Proportion of optimal, moderate and faulty status diagnostics.</p>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Device Health Distribution</h3>
+            <p className="text-xs font-medium text-slate-500">Proportion of optimal, moderate and faulty status diagnostics.</p>
           </div>
 
           <div className="w-full h-[220px] relative flex items-center justify-center">
@@ -617,10 +636,10 @@ export default function AnalyticsPage() {
           <div className="grid grid-cols-3 gap-2 text-center text-xs">
             {healthDistribution.map((item) => (
               <div key={item.name} className="space-y-1">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-bold truncate">{item.name.split(" ")[0]}</span>
+                <span className="text-[10px] text-slate-500 block font-bold truncate">{item.name.split(" ")[0]}</span>
                 <div className="flex items-center justify-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full block" style={{ backgroundColor: item.color }} />
-                  <span className="font-extrabold text-slate-800 dark:text-slate-200">{item.value}</span>
+                  <span className="font-extrabold text-slate-800">{item.value}</span>
                 </div>
               </div>
             ))}
@@ -635,10 +654,10 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">AI Health Score Trend</h3>
+              <h3 className="text-lg font-extrabold text-slate-900">AI Health Score Trend</h3>
               <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100/50">Gemini Tracking</span>
             </div>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Historical curve of overall smart home performance index ratings.</p>
+            <p className="text-xs font-medium text-slate-500">Historical curve of overall smart home performance index ratings.</p>
           </div>
 
           <div className="w-full h-[260px] mt-6">
@@ -659,32 +678,28 @@ export default function AnalyticsPage() {
         {/* Bookings & Maintenance Records list */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 mb-2">Service Bookings</h3>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Recent technician scheduling requests and service operations log.</p>
+            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Service Bookings</h3>
+            <p className="text-xs font-medium text-slate-500">Recent technician scheduling requests and service operations log.</p>
           </div>
 
           <div className="flex-1 overflow-y-auto mt-6 space-y-4 max-h-[220px] pr-2 scrollbar-thin">
             {bookings.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-10 text-slate-350 dark:text-slate-600">
+              <div className="flex flex-col items-center justify-center py-10 text-slate-350">
                 <Clock className="h-8 w-8 mb-2 opacity-50" />
                 <span className="text-[10px] font-bold uppercase tracking-wider">No Bookings Found</span>
               </div>
             ) : (
               bookings.map((booking) => (
-                <div key={booking.id} className="p-3 bg-[#F8F9FB] dark:bg-zinc-950 border border-[#ECECEC] dark:border-zinc-800 rounded-xl flex items-center justify-between gap-3 text-xs">
+                <div key={booking.id} className="p-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl flex items-center justify-between gap-3 text-xs">
                   <div className="text-left space-y-0.5">
-                    <span className="font-extrabold text-slate-900 dark:text-slate-100 block truncate max-w-[150px]">
+                    <span className="font-extrabold text-slate-900 block truncate max-w-[150px]">
                       {booking.issueDescription || "General Maintenance Check"}
                     </span>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-500 block font-medium">
+                    <span className="text-[10px] text-slate-400 block font-medium">
                       Date: {booking.scheduledDate || "Scheduled"}
                     </span>
                   </div>
-                  <span className={`px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-wide border shadow-xs ${
-                    booking.status?.toLowerCase() === "completed" 
-                      ? "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/30" 
-                      : "bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-400 border-amber-100 dark:border-amber-900/30"
-                  }`}>
+                  <span className={`px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-wide border shadow-xs ${ booking.status?.toLowerCase() === "completed" ? "bg-emerald-50 text-emerald-700 border-emerald-100 " : "bg-amber-50 text-amber-700 border-amber-100 " }`}>
                     {booking.status || "Pending"}
                   </span>
                 </div>
@@ -692,9 +707,9 @@ export default function AnalyticsPage() {
             )}
           </div>
 
-          <div className="pt-4 border-t border-slate-50 dark:border-zinc-800 flex items-center justify-between text-xs font-bold text-slate-500">
+          <div className="pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-slate-500">
             <span>Total Requests:</span>
-            <span className="text-slate-800 dark:text-slate-205 font-extrabold">{bookings.length}</span>
+            <span className="text-slate-800 font-extrabold">{bookings.length}</span>
           </div>
         </Card>
       </div>

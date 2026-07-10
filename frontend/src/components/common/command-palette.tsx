@@ -264,10 +264,10 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative max-w-xl w-full bg-white dark:bg-zinc-900 rounded-[24px] border border-[#ECECEC] dark:border-zinc-800 shadow-2xl overflow-hidden flex flex-col max-h-[460px] z-50"
+            className="relative max-w-xl w-full bg-white rounded-[24px] border border-[#ECECEC] shadow-2xl overflow-hidden flex flex-col max-h-[460px] z-50"
           >
             {/* Command search input bar */}
-            <div className="flex items-center gap-3 px-4.5 py-4 border-b border-slate-100 dark:border-zinc-800">
+            <div className="flex items-center gap-3 px-4.5 py-4 border-b border-slate-100">
               <Search className="h-5 w-5 text-slate-400 shrink-0" />
               <input
                 type="text"
@@ -275,9 +275,9 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Type a command or search user data..."
                 autoFocus
-                className="w-full bg-transparent border-0 outline-none text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-semibold"
+                className="w-full bg-transparent border-0 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-semibold"
               />
-              <span className="text-[10px] text-slate-450 dark:text-slate-400 font-bold bg-slate-100 dark:bg-zinc-800 border border-slate-200/50 dark:border-zinc-700/50 px-2 py-0.5 rounded-lg shrink-0">
+              <span className="text-[10px] text-slate-450 font-bold bg-slate-100 border border-slate-200/50 px-2 py-0.5 rounded-lg shrink-0">
                 ESC
               </span>
             </div>
@@ -310,12 +310,10 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                         type="button"
                         onClick={() => triggerAction(item.href)}
                         onMouseEnter={() => setSelectedIndex(idx)}
-                        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all text-left cursor-pointer ${
-                          isSelected ? "bg-slate-950 dark:bg-slate-50 text-white dark:text-slate-950 shadow-sm" : "hover:bg-slate-50 dark:hover:bg-zinc-800 text-slate-700 dark:text-slate-300"
-                        }`}
+                        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all text-left cursor-pointer ${ isSelected ? "bg-slate-950 text-white shadow-sm" : "hover:bg-slate-50 text-slate-700 " }`}
                       >
                         <div className="flex items-center gap-3.5 min-w-0">
-                          <span className={isSelected ? "text-white dark:text-slate-950" : "text-slate-400"}>
+                          <span className={isSelected ? "text-white " : "text-slate-400"}>
                             {item.icon}
                           </span>
                           <div className="min-w-0 text-left">
@@ -323,7 +321,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                               {item.title}
                             </span>
                             {item.subtitle && (
-                              <span className={`text-[10px] block truncate mt-1 ${isSelected ? "text-slate-300 dark:text-slate-700" : "text-slate-450 dark:text-slate-500"}`}>
+                              <span className={`text-[10px] block truncate mt-1 ${isSelected ? "text-slate-300 " : "text-slate-450 "}`}>
                                 {item.subtitle}
                               </span>
                             )}
@@ -331,7 +329,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                         </div>
 
                         {isSelected && (
-                          <div className="flex items-center gap-1 text-[10px] text-slate-300 dark:text-slate-700 font-bold shrink-0">
+                          <div className="flex items-center gap-1 text-[10px] text-slate-300 font-bold shrink-0">
                             <span>Open</span>
                             <CornerDownLeft className="h-3 w-3" />
                           </div>
@@ -344,18 +342,18 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             </div>
 
             {/* Footer controls instructions bar */}
-            <div className="px-5 py-3 border-t border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50 flex items-center justify-between text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+            <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-[10px] text-slate-400 font-bold">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
-                  <span className="px-1 py-0.5 rounded bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 shadow-xxs font-mono">&uarr;&darr;</span>
+                  <span className="px-1 py-0.5 rounded bg-white border border-slate-200 shadow-xxs font-mono">&uarr;&darr;</span>
                   <span>Navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="px-1 py-0.5 rounded bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 shadow-xxs font-mono">Enter</span>
+                  <span className="px-1 py-0.5 rounded bg-white border border-slate-200 shadow-xxs font-mono">Enter</span>
                   <span>Select</span>
                 </span>
               </div>
-              <span className="text-slate-450 dark:text-slate-500 uppercase tracking-wide">Dwellix Raycast Palette</span>
+              <span className="text-slate-450 uppercase tracking-wide">Dwellix Raycast Palette</span>
             </div>
 
           </motion.div>

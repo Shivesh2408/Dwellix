@@ -9,10 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-black dark:bg-white text-white dark:text-black hover:bg-slate-900 dark:hover:bg-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:translate-y-[-2px] hover:scale-[1.02] border border-transparent",
-        secondary: "bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-200 border border-[#ECECEC] dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
-        outline: "bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-200 border border-[#ECECEC] dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
-        ghost: "hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-slate-900 dark:hover:text-slate-100 text-slate-500",
+        default: "bg-black  text-white  hover:bg-slate-900  shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:translate-y-[-2px] hover:scale-[1.02] border border-transparent",
+        secondary: "bg-white  text-slate-800  border border-[#ECECEC]  hover:bg-slate-50  hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
+        outline: "bg-white  text-slate-800  border border-[#ECECEC]  hover:bg-slate-50  hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
+        ghost: "hover:bg-slate-100  hover:text-slate-900  text-slate-500",
         destructive: "bg-red-600 text-white hover:bg-red-700 shadow-[0_4px_12px_rgba(220,38,38,0.1)] hover:translate-y-[-2px] hover:scale-[1.02] border border-transparent",
       },
       size: {

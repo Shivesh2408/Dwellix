@@ -27,6 +27,17 @@ interface Appliance {
   invoiceFileName?: string;
 }
 
+function formatIndianDate(dateString: string | Date): string {
+  if (!dateString) return "";
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return "";
+  const day = d.getDate();
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 export default function WarrantyVaultPage() {
   const [appliances, setAppliances] = useState<Appliance[]>([]);
   const [loading, setLoading] = useState(true);
@@ -368,7 +379,7 @@ export default function WarrantyVaultPage() {
                           <Calendar className="h-4 w-4" />
                           <span>Registered Expiry</span>
                         </div>
-                        <span className="font-semibold">{new Date(app.warrantyExpiry).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+                        <span className="font-semibold">{formatIndianDate(app.warrantyExpiry)}</span>
                       </div>
                     </div>
                   </div>

@@ -598,7 +598,7 @@ export default function AIAssistantPage() {
           bookingDate,
           bookingTime: bookingTime.trim(),
           status: "PENDING",
-          estimatedCost: parseFloat(bookingCost) || 1500.0
+          estimatedCost: parseFloat(bookingCost) || 0.0
         })
       });
 
@@ -977,7 +977,7 @@ export default function AIAssistantPage() {
         if (app.maintenance) count++;
       });
     });
-    return count || 1;
+    return count;
   }, [aiContext]);
 
   const HealthScoreCircle = ({ score }: { score: number }) => {

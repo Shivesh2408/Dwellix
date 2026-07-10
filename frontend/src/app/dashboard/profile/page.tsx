@@ -65,16 +65,16 @@ export default function ProfilePage() {
   const [appliancesCount, setAppliancesCount] = useState(0);
   const [activeWarrantiesCount, setActiveWarrantiesCount] = useState(0);
   const [bookingsCount, setBookingsCount] = useState(0);
-  const [aiConversationsCount, setAiConversationsCount] = useState(18); // default mock count
+  const [aiConversationsCount, setAiConversationsCount] = useState(0); // default count
 
   // Form Fields
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_address") || "123 Smart Home Boulevard" : "123 Smart Home Boulevard"));
-  const [city, setCity] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_city") || "Mumbai" : "Mumbai"));
-  const [state, setState] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_state") || "Maharashtra" : "Maharashtra"));
-  const [country, setCountry] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_country") || "India" : "India"));
-  const [pincode, setPincode] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_pincode") || "400001" : "400001"));
+  const [address, setAddress] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_address") || "" : ""));
+  const [city, setCity] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_city") || "" : ""));
+  const [state, setState] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_state") || "" : ""));
+  const [country, setCountry] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_country") || "" : ""));
+  const [pincode, setPincode] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_pincode") || "" : ""));
 
   // Preferences
   const [language, setLanguage] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("dwellix_profile_language") || "English" : "English"));
@@ -104,13 +104,13 @@ export default function ProfilePage() {
       try {
         const appliances = await apiClient<Record<string, unknown>[]>("/api/v1/appliances");
         setAppliancesCount(appliances.length);
-        // Calculate appliances with active warranties (mock/check if warrantyDate is in future)
+        // Calculate appliances with active warranties
         const warranties = appliances.filter((app) => {
           const expDate = app.warrantyExpirationDate as string | undefined;
           if (!expDate) return false;
           return new Date(expDate) > new Date();
         }).length;
-        setActiveWarrantiesCount(warranties || Math.max(1, Math.floor(appliances.length * 0.6)));
+        setActiveWarrantiesCount(warranties);
       } catch (e) {
         console.error("Failed to load appliances stats:", e);
       }

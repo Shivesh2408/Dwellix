@@ -70,7 +70,6 @@ export default function SettingsPage() {
   const [phone, setPhone] = useState("");
 
   // Section 2: Appearance
-  const [theme, setTheme] = useState("light");
   const [accentColor, setAccentColor] = useState("blue");
   const [density, setDensity] = useState("comfortable");
   const [fontSize, setFontSize] = useState("medium");
@@ -182,12 +181,6 @@ export default function SettingsPage() {
       if (cachedTz) setTimezone(cachedTz);
       if (cachedCurrency) setCurrency(cachedCurrency);
       if (cachedDateFormat) setDateFormat(cachedDateFormat);
-
-      // Get theme from theme-provider / globals
-      if (typeof window !== "undefined") {
-        const isDark = document.documentElement.classList.contains("dark");
-        setTheme(isDark ? "dark" : "light");
-      }
     };
     init();
     return () => {
@@ -223,15 +216,6 @@ export default function SettingsPage() {
     localStorage.setItem("dwellix_settings_tz", timezone);
     localStorage.setItem("dwellix_settings_currency", currency);
     localStorage.setItem("dwellix_settings_dateformat", dateFormat);
-
-    // Update root HTML theme class
-    if (typeof window !== "undefined") {
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
 
     setTimeout(() => {
       setSaving(false);
@@ -477,30 +461,6 @@ export default function SettingsPage() {
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
                       <Layout className="h-4.5 w-4.5 text-blue-600" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Interface appearance</h3>
-                    </div>
-
-                    {/* Modes selection */}
-                    <div className="space-y-3">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Select theme mode</span>
-                      <div className="grid grid-cols-3 gap-3">
-                        {["light", "dark", "system"].map((m) => (
-                          <button
-                            key={m}
-                            type="button"
-                            onClick={() => setTheme(m)}
-                            className={`py-3.5 px-4 rounded-xl border text-xs font-bold capitalize flex items-center justify-center gap-2 cursor-pointer transition-all ${
-                              theme === m
-                                ? "bg-slate-950 border-slate-950 text-white shadow-sm font-extrabold"
-                                : "bg-white border-slate-150 text-slate-600 hover:bg-slate-50"
-                            }`}
-                          >
-                            {m === "light" && <Sun className="h-4 w-4" />}
-                            {m === "dark" && <Moon className="h-4 w-4" />}
-                            {m === "system" && <Laptop className="h-4 w-4" />}
-                            <span>{m}</span>
-                          </button>
-                        ))}
-                      </div>
                     </div>
 
                     {/* Accent Colors */}

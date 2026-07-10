@@ -167,8 +167,8 @@ export default function BookingsPage() {
       ["PENDING", "CONFIRMED", "IN_PROGRESS"].includes(b.status?.toUpperCase())
     ).length;
     const completed = bookings.filter((b) => b.status?.toUpperCase() === "COMPLETED").length;
-    const available = 18;
-    const rating = 4.95;
+    const available = 0;
+    const rating = 0;
     return { upcoming, completed, available, rating };
   }, [bookings]);
 
@@ -302,8 +302,8 @@ export default function BookingsPage() {
             </div>
             <div className="space-y-0.5">
               <div className="text-2xl font-bold text-slate-900 font-heading flex items-baseline gap-1">
-                <span>{stats.rating}</span>
-                <span className="text-xs text-slate-400">/5</span>
+                <span>{stats.rating > 0 ? stats.rating : "N/A"}</span>
+                {stats.rating > 0 && <span className="text-xs text-slate-400">/5</span>}
               </div>
               <div className="text-[10px] text-slate-400 font-medium">Top tier standard</div>
             </div>

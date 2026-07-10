@@ -517,7 +517,11 @@ function ReviewStep() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const totalAppliances = draft.rooms.reduce((count, room) => count + room.appliances.length, 0);
+  // 1. One onboarding source of truth
+  const totalAppliances = useMemo(() => {
+    return draft.rooms.reduce((count, room) => count + room.appliances.length, 0);
+  }, [draft.rooms]);
+
   const payload = useMemo<OnboardingCompletePayload>(() => ({
     home: {
       homeName: (draft.homeName || "").trim(),
@@ -542,6 +546,39 @@ function ReviewStep() {
     })),
   }), [draft]);
 
+  // 6. Validation: Calculate completion dynamically from onboarding data
+  const homeErrors = useMemo(() => validateHomeDraft(draft), [draft]);
+  const isHomeValid = Object.keys(homeErrors).length === 0;
+  const hasRooms = draft.rooms.length > 0;
+  
+  const invalidAppliances = useMemo(() => {
+    return draft.rooms.flatMap(room => 
+      room.appliances.filter(app => Object.keys(validateAppliance(app)).length > 0)
+    );
+  }, [draft.rooms]);
+  const isAppliancesValid = invalidAppliances.length === 0;
+
+  const missingItems = useMemo(() => {
+    const items: string[] = [];
+    if (!isHomeValid) {
+      items.push("Home profile needs valid details (Home name, type, address, city, state, and 6-digit pincode)");
+    }
+    if (!hasRooms) {
+      items.push("Onboarding requires at least one room configured");
+    }
+    if (!isAppliancesValid) {
+      items.push("Ensure all added appliances have complete fields (brand, model, purchase date, warranty expiry)");
+    }
+    return items;
+  }, [isHomeValid, hasRooms, isAppliancesValid]);
+
+  const isOnboardingComplete = missingItems.length === 0;
+
+  // 3. Home name: Never show "Untitled home" or "- / -". If no home exists show "No home created yet."
+  const homeDisplayName = (draft.homeName && draft.homeName.trim()) 
+    ? draft.homeName.trim() 
+    : "No home created yet.";
+
   return (
     <OnboardingShell stepIndex={4} title="Review" description="Confirm the setup before we save it to Dwellix.">
       <div className="space-y-5">
@@ -549,8 +586,10 @@ function ReviewStep() {
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Home</div>
-              <div className="mt-1 text-lg font-semibold">{draft.homeName || "Untitled home"}</div>
-              <div className="text-sm text-muted-foreground">{draft.homeType ? homeTypeLabel(draft.homeType as HomeType) : "Type pending"}</div>
+              <div className="mt-1 text-lg font-semibold truncate">{homeDisplayName}</div>
+              <div className="text-sm text-muted-foreground">
+                {draft.homeType ? homeTypeLabel(draft.homeType as HomeType) : "No home created yet."}
+              </div>
             </div>
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Rooms</div>
@@ -564,18 +603,46 @@ function ReviewStep() {
             </div>
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Status</div>
-              <div className="mt-1 text-lg font-semibold">Ready to finish</div>
-              <div className="text-sm text-muted-foreground">Draft saved locally</div>
+              <div className="mt-1 text-lg font-semibold">
+                {isOnboardingComplete ? "Ready to finish" : "Please complete setup"}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                {isOnboardingComplete ? "Validation passed" : "Pending required steps"}
+              </div>
             </div>
           </div>
         </Card>
 
         {error ? <Card className="border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive">{error}</Card> : null}
 
+        {/* 2. Validation banner without contradictory states */}
+        {!isOnboardingComplete ? (
+          <Card className="border-destructive/20 bg-destructive/5 p-5 space-y-2.5">
+            <div className="text-sm font-bold text-destructive">Please complete setup:</div>
+            <ul className="list-disc list-inside text-xs text-destructive/95 space-y-1.5 font-medium">
+              {missingItems.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </Card>
+        ) : (
+          <Card className="border-emerald-500/20 bg-emerald-500/5 p-5 space-y-1">
+            <div className="text-sm font-bold text-emerald-700">Ready to finish</div>
+            <p className="text-xs text-emerald-600 font-medium">Validation passed. You can save your configurations and enter your dashboard.</p>
+          </Card>
+        )}
+
         <div className="space-y-4">
           <Card className="border-border/60 bg-background/90 p-5">
             <div className="text-sm font-semibold">Home</div>
-            <div className="mt-2 text-sm text-muted-foreground">{draft.address}, {draft.city}, {draft.state} - {draft.pincode}</div>
+            {(draft.address && draft.address.trim()) || (draft.city && draft.city.trim()) || (draft.state && draft.state.trim()) || (draft.pincode && draft.pincode.trim()) ? (
+              <div className="mt-2 text-sm text-muted-foreground">
+                {[draft.address, draft.city, draft.state].map(s => s?.trim()).filter(Boolean).join(", ")}
+                {draft.pincode?.trim() ? ` - ${draft.pincode.trim()}` : ""}
+              </div>
+            ) : (
+              <div className="mt-2 text-sm text-muted-foreground">No home created yet.</div>
+            )}
           </Card>
 
           {draft.rooms.map((room) => (
@@ -595,31 +662,35 @@ function ReviewStep() {
           Photo and invoice uploads are architecture-ready and currently capture metadata only until file storage is added.
         </div>
 
-        <StepActions
-          backHref="/onboarding/appliances"
-          backLabel="Back"
-          nextLabel="Finish Setup"
-          loading={loading}
-          onNext={async () => {
-            setError(null);
-            const homeErrors = validateHomeDraft(draft);
-            if (Object.keys(homeErrors).length > 0 || draft.rooms.length === 0) {
-              setError("Please complete the home, rooms, and appliance details before finishing.");
-              return;
-            }
-
-            setLoading(true);
-            try {
-              await completeOnboarding(payload);
-              clearOnboardingDraft();
-              router.push("/dashboard");
-            } catch (requestError) {
-              setError(requestError instanceof OnboardingError ? requestError.message : "Unable to complete onboarding right now.");
-            } finally {
-              setLoading(false);
-            }
-          }}
-        />
+        {/* 7. Finish button enabled only when onboarding is complete */}
+        <div className="space-y-2">
+          {!isOnboardingComplete && (
+            <p className="text-xs text-destructive font-semibold">
+              * Finish button disabled. Please resolve the missing setup items listed above.
+            </p>
+          )}
+          <StepActions
+            backHref="/onboarding/appliances"
+            backLabel="Back"
+            nextLabel="Finish Setup"
+            loading={loading}
+            nextDisabled={!isOnboardingComplete}
+            onNext={async () => {
+              if (!isOnboardingComplete) return;
+              setError(null);
+              setLoading(true);
+              try {
+                await completeOnboarding(payload);
+                clearOnboardingDraft();
+                router.push("/dashboard");
+              } catch (requestError) {
+                setError(requestError instanceof OnboardingError ? requestError.message : "Unable to complete onboarding right now.");
+              } finally {
+                setLoading(false);
+              }
+            }}
+          />
+        </div>
       </div>
     </OnboardingShell>
   );

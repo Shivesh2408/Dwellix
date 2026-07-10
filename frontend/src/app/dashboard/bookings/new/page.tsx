@@ -199,8 +199,8 @@ export default function NewBookingPage() {
       ["PENDING", "CONFIRMED", "IN_PROGRESS"].includes(b.status?.toUpperCase())
     ).length;
     const completed = bookingsList.filter((b) => b.status?.toUpperCase() === "COMPLETED").length;
-    const available = techniciansList.filter((t) => t.availability?.toLowerCase().includes("avail") || t.availability?.toLowerCase().includes("today")).length || 12;
-    const rating = 4.95;
+    const available = techniciansList.filter((t) => t.availability?.toLowerCase().includes("avail") || t.availability?.toLowerCase().includes("today")).length;
+    const rating = 0;
     return { upcoming, completed, available, rating };
   }, [bookingsList, techniciansList]);
 
@@ -295,7 +295,7 @@ export default function NewBookingPage() {
           technicianName: selectedTech ? selectedTech.name : "",
           technicianPhone: selectedTech ? selectedTech.phone : null,
           status: "PENDING",
-          estimatedCost: parseFloat(estimatedCost) || 1500.0
+          estimatedCost: parseFloat(estimatedCost) || 0.0
         })
       });
 

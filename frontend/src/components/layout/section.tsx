@@ -9,7 +9,7 @@ const sectionVariants = cva(
       variant: {
         default: "bg-background text-foreground",
         secondary: "bg-secondary text-secondary-foreground",
-        dark: "bg-dark text-white dark:bg-background dark:text-foreground border-y border-border/10",
+        dark: "bg-dark text-white   border-y border-border/10",
       },
       spacing: {
         default: "section-spacing",
