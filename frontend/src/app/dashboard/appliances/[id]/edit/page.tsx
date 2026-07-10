@@ -5,17 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 import { apiClient, apiBaseUrl } from "@/lib/api-client";
 import {
   ArrowLeft,
-  Bot,
-  Calendar,
-  Layers,
-  Wrench,
   Loader2,
   Trash2,
   Image as ImageIcon,
-  Check,
-  X,
   AlertTriangle,
-  ShieldCheck
+  ShieldCheck,
+  Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,7 +97,6 @@ export default function EditAppliancePage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size < 10MB
     if (file.size > 10 * 1024 * 1024) {
       showToast("Image exceeds the maximum allowed size of 10MB.");
       return;
@@ -132,7 +126,6 @@ export default function EditAppliancePage() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
     if (!name.trim() || !brand.trim() || !model.trim() || !purchaseDate || !warrantyExpiry || !roomId) {
       setError("Please fill in all required fields.");
       return;
@@ -159,9 +152,10 @@ export default function EditAppliancePage() {
       setTimeout(() => {
         router.push(`/dashboard/appliances/${id}`);
       }, 1000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Failed saving appliance:", err);
-      setError(err?.message ?? "An error occurred while saving.");
+      const apiErr = err as { message?: string };
+      setError(apiErr?.message ?? "An error occurred while saving.");
     } finally {
       setSubmitting(false);
     }
@@ -178,23 +172,24 @@ export default function EditAppliancePage() {
       setTimeout(() => {
         router.push("/dashboard/appliances");
       }, 1000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Failed to delete:", err);
-      setError(err?.message ?? "Error deleting appliance.");
+      const apiErr = err as { message?: string };
+      setError(apiErr?.message ?? "Error deleting appliance.");
     }
   };
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400">
-        <Loader2 className="h-8 w-8 animate-spin text-primary mb-3" />
-        <span className="text-xs font-semibold">Loading editor specs...</span>
+      <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB]">
+        <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse" />
+        <div className="h-[600px] bg-slate-200 rounded-[32px] animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-4 md:p-6 space-y-6 relative text-left">
+    <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB] font-sans text-left pb-24">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -202,180 +197,185 @@ export default function EditAppliancePage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 10 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs md:text-sm font-bold px-5 py-3 rounded-2xl shadow-xl z-50 flex items-center gap-2"
+            className="fixed top-4 right-4 bg-black text-white text-xs md:text-sm font-bold px-6 py-4 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.2)] z-50 flex items-center gap-3 border border-slate-800"
           >
-            <ShieldCheck className="h-4.5 w-4.5 text-emerald-400" />
+            <ShieldCheck className="h-5 w-5 text-emerald-400" />
             <span>{toastMessage}</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+      {/* Top Navigation Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#ECECEC] pb-8">
         <button
           onClick={() => router.push(`/dashboard/appliances/${id}`)}
-          className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors cursor-pointer font-bold"
+          className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#111111] transition-colors font-bold cursor-pointer group w-max"
         >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Cancel Editor</span>
+          <div className="h-8 w-8 rounded-full bg-white border border-[#ECECEC] flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+            <ArrowLeft className="h-4 w-4" />
+          </div>
+          <span>Cancel Edit</span>
         </button>
 
         <Button
           onClick={handleDelete}
           variant="outline"
-          className="rounded-xl font-bold text-xs h-9 gap-1.5 border-rose-200 text-rose-600 hover:bg-rose-50 cursor-pointer"
+          className="rounded-xl font-bold text-sm h-11 px-5 border-[#ECECEC] text-rose-600 hover:bg-rose-50 hover:border-rose-200 cursor-pointer shadow-sm transition-all"
         >
-          <Trash2 className="h-4 w-4" />
-          <span>Delete Appliance</span>
+          <Trash2 className="h-4 w-4 mr-2" />
+          Delete Profile
         </Button>
       </div>
 
-      {/* Edit Form */}
-      <div className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm">
-        <h1 className="text-lg md:text-xl font-heading font-extrabold text-slate-950 mb-6">
-          Edit Appliance Profile
-        </h1>
+      {/* Main Edit Form Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-white border border-[#ECECEC] rounded-[32px] p-8 md:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
+      >
+        <div className="flex items-center gap-4 mb-10">
+          <div className="h-14 w-14 rounded-[20px] bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <Settings className="h-7 w-7" />
+          </div>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-[#111111] tracking-tight">
+              Edit Configuration
+            </h1>
+            <p className="text-sm font-medium text-[#6B7280] mt-1">
+              Update {appliance?.name}&apos;s device specifications and warranty.
+            </p>
+          </div>
+        </div>
 
         {error && (
-          <div className="p-4 mb-6 rounded-2xl bg-rose-50 border border-rose-100 text-rose-800 text-xs font-semibold flex items-center gap-2">
-            <AlertTriangle className="h-4.5 w-4.5 text-rose-500 flex-shrink-0 animate-bounce" />
+          <div className="p-4 mb-8 rounded-[20px] bg-rose-50 border border-rose-100 text-rose-800 text-sm font-bold flex items-center gap-3">
+            <AlertTriangle className="h-5 w-5 text-rose-500 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSave} className="space-y-5 text-slate-700">
-          {/* Photo Uploader */}
-          <div className="space-y-2">
-            <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-              Appliance Photo
-            </label>
-            <div className="flex items-center gap-4">
-              <div className="h-20 w-20 rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center flex-shrink-0 relative shadow-inner">
-                {photoUrl ? (
-                  <img src={photoUrl} alt="Appliance" className="h-full w-full object-cover" />
-                ) : (
-                  <ImageIcon className="h-6 w-6 text-slate-350" />
-                )}
-                {uploadingImage && (
-                  <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                  </div>
-                )}
-              </div>
-              <div>
-                <input
-                  type="file"
-                  accept="image/jpg, image/jpeg, image/png, image/webp"
-                  onChange={handleImageUpload}
-                  disabled={uploadingImage}
-                  id="image-file-input"
-                  className="hidden"
-                />
-                <label
-                  htmlFor="image-file-input"
-                  className="inline-flex items-center justify-center h-9 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors text-xs font-bold text-slate-600 cursor-pointer"
-                >
-                  Change Image
-                </label>
-                <p className="text-[10px] text-slate-400 mt-1">Accepts JPG, JPEG, PNG, WEBP. Max 10MB.</p>
-              </div>
+        <form onSubmit={handleSave} className="space-y-8">
+          
+          {/* Photo Uploader Section */}
+          <div className="bg-[#F8F9FB] rounded-[24px] p-6 border border-[#ECECEC] flex flex-col md:flex-row items-center gap-8">
+            <div className="h-32 w-32 md:h-40 md:w-40 rounded-[24px] bg-white border border-[#ECECEC] overflow-hidden flex items-center justify-center shrink-0 relative shadow-inner">
+              {photoUrl ? (
+                <img src={photoUrl} alt="Appliance Preview" className="h-full w-full object-cover" />
+              ) : (
+                <ImageIcon className="h-10 w-10 text-[#ECECEC]" />
+              )}
+              {uploadingImage && (
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-black" />
+                </div>
+              )}
+            </div>
+            
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-base font-extrabold text-[#111111] mb-2">Device Appearance</h3>
+              <p className="text-sm text-[#6B7280] font-medium mb-6 max-w-sm">
+                Upload a clear image of the device for AI visual diagnosis tracking. JPG, PNG, WEBP up to 10MB.
+              </p>
+              <input
+                type="file"
+                accept="image/jpg, image/jpeg, image/png, image/webp"
+                onChange={handleImageUpload}
+                disabled={uploadingImage}
+                id="image-file-input"
+                className="hidden"
+              />
+              <label
+                htmlFor="image-file-input"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-white border border-[#ECECEC] hover:bg-slate-50 transition-all text-sm font-bold text-[#111111] cursor-pointer shadow-sm"
+              >
+                Upload New Image
+              </label>
             </div>
           </div>
 
           {/* Form Fields Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Nickname / Display Name */}
-            <div className="space-y-1 sm:col-span-2">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Appliance Name *
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            
+            {/* Device Name */}
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Device Name <span className="text-rose-500">*</span>
               </label>
               <Input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Living Room Split AC"
-                className="h-10 rounded-xl text-xs border-slate-200"
+                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
               />
             </div>
 
             {/* Brand */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Brand *
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Manufacturer Brand <span className="text-rose-500">*</span>
               </label>
               <Input
                 type="text"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder="e.g. LG"
-                className="h-10 rounded-xl text-xs border-slate-200"
+                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
               />
             </div>
 
             {/* Model */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Model *
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Model Number <span className="text-rose-500">*</span>
               </label>
               <Input
                 type="text"
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
                 placeholder="e.g. LGS-3024"
-                className="h-10 rounded-xl text-xs border-slate-200"
+                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
               />
             </div>
 
             {/* Purchase Date */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Purchase Date *
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Date of Purchase <span className="text-rose-500">*</span>
               </label>
               <Input
                 type="date"
                 value={purchaseDate}
                 onChange={(e) => setPurchaseDate(e.target.value)}
-                className="h-10 rounded-xl text-xs border-slate-200"
+                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
               />
             </div>
 
             {/* Warranty Expiry */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Warranty Expiration Date *
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Warranty Expiration <span className="text-rose-500">*</span>
               </label>
               <Input
                 type="date"
                 value={warrantyExpiry}
                 onChange={(e) => setWarrantyExpiry(e.target.value)}
-                className="h-10 rounded-xl text-xs border-slate-200"
+                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
               />
             </div>
 
-            {/* Serial Number (Read-only/Deterministic preview) */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Serial Number
-              </label>
-              <Input
-                type="text"
-                value={serialNumber}
-                disabled
-                className="h-10 rounded-xl text-xs border-slate-100 bg-slate-50 font-mono text-slate-400"
-              />
-            </div>
-
-            {/* Room Location Dropdown */}
-            <div className="space-y-1">
-              <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                Room Location *
+            {/* Room Location */}
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Physical Location <span className="text-rose-500">*</span>
               </label>
               <select
                 value={roomId}
                 onChange={(e) => setRoomId(e.target.value)}
-                className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-slate-700"
+                className="w-full h-14 rounded-[16px] border border-[#ECECEC] bg-[#F8F9FB] text-base font-medium px-4 focus:outline-none focus:ring-1 focus:ring-black focus:border-black text-[#111111] appearance-none cursor-pointer"
               >
-                <option value="">Select Room</option>
+                <option value="" disabled>Select a room...</option>
                 {rooms.map((room) => (
                   <option key={room.id} value={room.id}>
                     {room.name}
@@ -383,27 +383,40 @@ export default function EditAppliancePage() {
                 ))}
               </select>
             </div>
+
+            {/* Serial Number (Read-only) */}
+            <div className="space-y-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">
+                Serial Number (Read-Only)
+              </label>
+              <Input
+                type="text"
+                value={serialNumber}
+                disabled
+                className="h-14 rounded-[16px] text-base font-bold border-[#ECECEC] bg-[#F8F9FB] text-[#6B7280] font-mono opacity-70"
+              />
+            </div>
+
           </div>
 
-          {/* Buttons */}
-          <div className="flex justify-end gap-3 pt-6 border-t border-slate-100">
+          {/* Action Footer */}
+          <div className="flex items-center justify-end gap-4 pt-8 border-t border-[#ECECEC] mt-10">
             <Button
               type="button"
-              variant="outline"
               onClick={() => router.push(`/dashboard/appliances/${id}`)}
-              className="rounded-xl font-bold text-xs h-10 px-5 border-slate-200 text-slate-700 hover:bg-slate-50 cursor-pointer"
+              className="rounded-[16px] font-bold text-sm h-12 px-6 bg-white border border-[#ECECEC] text-[#111111] hover:bg-slate-50 cursor-pointer shadow-sm transition-all"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={submitting}
-              className="rounded-xl font-bold text-xs h-10 px-6 bg-primary text-white hover:bg-primary/95 cursor-pointer flex items-center justify-center gap-1.5"
+              className="rounded-[16px] font-bold text-sm h-12 px-8 bg-black hover:bg-black/90 text-white cursor-pointer flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(0,0,0,0.1)] transition-transform hover:scale-105"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Saving...</span>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Saving Configuration...</span>
                 </>
               ) : (
                 <span>Save Changes</span>
@@ -411,7 +424,7 @@ export default function EditAppliancePage() {
             </Button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

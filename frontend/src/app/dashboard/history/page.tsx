@@ -42,7 +42,7 @@ export default function DiagnosisHistoryPage() {
       .then((data) => {
         setRecords(data);
       })
-      .catch((err: any) => {
+      .catch((err: unknown) => {
         console.error("Failed to load diagnosis history:", err);
         setError("Could not retrieve diagnosis logs. Please try again later.");
       })
@@ -114,7 +114,7 @@ export default function DiagnosisHistoryPage() {
           <div className="space-y-1">
             <h3 className="text-sm font-bold text-slate-800">No diagnoses found</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              You haven't run any visual appliance diagnoses yet. Run a scan from the media page to display details here.
+              You haven&apos;t run any visual appliance diagnoses yet. Run a scan from the media page to display details here.
             </p>
           </div>
         </div>
@@ -327,7 +327,7 @@ export default function DiagnosisHistoryPage() {
 }
 
 // Dummy loader component to prevent missing definition compile bugs
-function Loader2({ className, ...props }: any) {
+function Loader2({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       className={`animate-spin ${className}`}

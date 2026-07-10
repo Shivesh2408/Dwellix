@@ -2,7 +2,12 @@ let inMemoryToken: string | null = null;
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
 
-export const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_AUTH_API_BASE_URL ?? "";
+if (typeof window !== "undefined" && !process.env.NEXT_PUBLIC_API_BASE_URL) {
+  console.error("NEXT_PUBLIC_API_BASE_URL is not defined.");
+  throw new Error("NEXT_PUBLIC_API_BASE_URL is not defined.");
+}
+
+export const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 function subscribeTokenRefresh(cb: (token: string) => void) {
   refreshSubscribers.push(cb);
@@ -15,10 +20,27 @@ function onRefreshed(token: string) {
 
 export function setAccessToken(token: string | null) {
   inMemoryToken = token;
+  if (typeof window !== "undefined") {
+    if (token) {
+      localStorage.setItem("dwellix_access_token", token);
+    } else {
+      localStorage.removeItem("dwellix_access_token");
+    }
+  }
 }
 
 export function getAccessToken(): string | null {
-  return inMemoryToken;
+  if (inMemoryToken) {
+    return inMemoryToken;
+  }
+  if (typeof window !== "undefined") {
+    const cached = localStorage.getItem("dwellix_access_token");
+    if (cached) {
+      inMemoryToken = cached;
+      return cached;
+    }
+  }
+  return null;
 }
 
 export class ApiError extends Error {
@@ -64,7 +86,7 @@ export async function apiClient<T>(path: string, init?: RequestInit): Promise<T>
     });
   };
 
-  let response = await makeRequest(inMemoryToken);
+  let response = await makeRequest(getAccessToken());
 
   if (response.status === 401) {
     // If it's already refreshing, queue the request until refresh completes

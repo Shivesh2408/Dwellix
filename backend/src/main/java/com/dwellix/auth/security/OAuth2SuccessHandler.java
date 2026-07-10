@@ -76,6 +76,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
     // Redirect directly to the dashboard
-    getRedirectStrategy().sendRedirect(request, response, frontendOrigin + "/dashboard");
+    getRedirectStrategy().sendRedirect(request, response, frontendOrigin + "/dashboard?token=" + sessionResult.accessToken());
   }
 }

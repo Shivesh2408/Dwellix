@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Cpu, Plus } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
@@ -13,9 +13,9 @@ const DashboardContent = dynamic(
   }
 );
 import { getDashboardSummary, type DashboardSummaryResponse } from "@/features/dashboard/service";
-import { apiClient } from "@/lib/api-client";
+import { apiClient, setAccessToken } from "@/lib/api-client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
@@ -24,7 +24,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchDashboard = async () => {
+  const fetchDashboard = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -35,25 +35,44 @@ export default function DashboardPage() {
       if (summary.home === null) {
         router.push("/onboarding");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Dashboard fetch error:", err);
-      // If it is an auth error, we redirect to login
-      setError(err?.message ?? "Unable to load dashboard details.");
-      if (err?.status === 401 || err?.message?.toLowerCase().includes("session expired") || err?.message?.toLowerCase().includes("unauthorized")) {
+      const apiErr = err as { message?: string; status?: number };
+      setError(apiErr?.message ?? "Unable to load dashboard details.");
+      if (apiErr?.status === 401 || apiErr?.message?.toLowerCase().includes("session expired") || apiErr?.message?.toLowerCase().includes("unauthorized")) {
         router.push("/auth/login");
       }
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   useEffect(() => {
-    fetchDashboard();
-  }, []);
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const token = searchParams.get("token");
+      if (token) {
+        setAccessToken(token);
+        router.replace("/dashboard");
+      }
+    }
+    let active = true;
+    const load = async () => {
+      await Promise.resolve();
+      if (active) {
+        fetchDashboard();
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, [router, fetchDashboard]);
 
   const handleLogout = () => {
     // Simply clear in-memory token and redirect
     // (the HttpOnly cookie deletion is handled by backend /logout)
+    setAccessToken(null);
     apiClient("/api/v1/auth/logout", { method: "POST" })
       .finally(() => {
         router.push("/auth/login");

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { apiClient, apiBaseUrl } from "@/lib/api-client";
 import { FileText, Download, Eye, ExternalLink, Calendar, Search, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function InvoicesPage() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchInvoices = () => {
+  const fetchInvoices = useCallback(() => {
     setLoading(true);
     setError(null);
     apiClient<Appliance[]>("/api/v1/appliances")
@@ -38,11 +38,21 @@ export default function InvoicesPage() {
         setError("Unable to retrieve invoice documents. Please try again.");
       })
       .finally(() => setLoading(false));
-  };
+  }, []);
 
   useEffect(() => {
-    fetchInvoices();
-  }, []);
+    let active = true;
+    const load = async () => {
+      await Promise.resolve();
+      if (active) {
+        fetchInvoices();
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, [fetchInvoices]);
 
   const filteredInvoices = invoices.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

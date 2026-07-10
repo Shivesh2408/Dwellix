@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { apiClient } from "@/lib/api-client";
 import { Home as HomeIcon, MapPin, Building, ShieldCheck, Edit3, X, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,7 +35,7 @@ export default function HomesPage() {
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const fetchHome = () => {
+  const fetchHome = useCallback(() => {
     setLoading(true);
     setError(null);
     apiClient<HomeProfile>("/api/v1/onboarding/home")
@@ -57,11 +57,21 @@ export default function HomesPage() {
         setError("No registered home found. Complete onboarding to configure your home profile.");
       })
       .finally(() => setLoading(false));
-  };
+  }, []);
 
   useEffect(() => {
-    fetchHome();
-  }, []);
+    let active = true;
+    const load = async () => {
+      await Promise.resolve();
+      if (active) {
+        fetchHome();
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, [fetchHome]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();

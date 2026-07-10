@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { apiClient } from "@/lib/api-client";
 import { Wrench, Calendar, CheckSquare, Search, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ export default function MaintenancePage() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchMaintenance = () => {
+  const fetchMaintenance = useCallback(() => {
     setLoading(true);
     setError(null);
     apiClient<DashboardSummary>("/api/v1/dashboard")
@@ -38,11 +38,21 @@ export default function MaintenancePage() {
         setError("Unable to retrieve maintenance schedules. Please try again.");
       })
       .finally(() => setLoading(false));
-  };
+  }, []);
 
   useEffect(() => {
-    fetchMaintenance();
-  }, []);
+    let active = true;
+    const load = async () => {
+      await Promise.resolve();
+      if (active) {
+        fetchMaintenance();
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, [fetchMaintenance]);
 
   const filteredTasks = tasks.filter((task) =>
     task.applianceName.toLowerCase().includes(searchQuery.toLowerCase()) ||

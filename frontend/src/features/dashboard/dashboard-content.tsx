@@ -20,7 +20,7 @@ export function DashboardHero({ userName }: { userName: string }) {
       <h2 className="text-3xl font-heading font-extrabold tracking-tight text-slate-900">
         Good morning, {firstName} 👋
       </h2>
-      <p className="text-sm text-slate-500 font-medium">Here's what's happening with your home today.</p>
+      <p className="text-sm text-slate-500 font-medium">Here&apos;s what&apos;s happening with your home today.</p>
     </div>
   );
 }
@@ -166,7 +166,13 @@ export function ApplianceHealthCard({ score }: { score: number }) {
   );
 }
 
-export function UpcomingMaintenanceCard({ maintenanceItems }: { maintenanceItems: any[] }) {
+interface MaintenanceItem {
+  applianceName: string;
+  taskName: string;
+  date?: string;
+}
+
+export function UpcomingMaintenanceCard({ maintenanceItems }: { maintenanceItems: MaintenanceItem[] }) {
   return (
     <Card className="rounded-[24px] border border-slate-200/60 bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-left flex flex-col justify-between min-h-[290px]">
       <div className="flex justify-between items-center">
@@ -268,7 +274,7 @@ export function DashboardContent({
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } as unknown as import("framer-motion").Transition }
   };
 
   return (
