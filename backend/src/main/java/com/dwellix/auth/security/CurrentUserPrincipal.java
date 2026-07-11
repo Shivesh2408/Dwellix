@@ -44,6 +44,19 @@ public class CurrentUserPrincipal implements UserDetails {
     );
   }
 
+  public static CurrentUserPrincipal from(com.dwellix.auth.booking.domain.TechnicianEntity entity) {
+    return new CurrentUserPrincipal(
+        entity.getId(),
+        entity.getEmail(),
+        entity.getPasswordHash(),
+        true, // enabled
+        false, // accountLocked
+        true, // emailVerified
+        com.dwellix.auth.domain.Role.ROLE_TECHNICIAN,
+        entity.getName()
+    );
+  }
+
   public UUID getUserId() {
     return userId;
   }

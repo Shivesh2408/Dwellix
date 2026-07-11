@@ -54,6 +54,31 @@ public class TechnicianBookingEntity {
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 
+  @Column(name = "assigned_technician_id")
+  private UUID assignedTechnicianId;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "booking_status", length = 30)
+  private BookingStatus bookingStatus;
+
+  @Column(name = "accepted_at")
+  private Instant acceptedAt;
+
+  @Column(name = "started_at")
+  private Instant startedAt;
+
+  @Column(name = "completed_at")
+  private Instant completedAt;
+
+  @Column(name = "estimated_arrival")
+  private Instant estimatedArrival;
+
+  @Column(name = "service_charge")
+  private Double serviceCharge;
+
+  @Column(name = "inspection_charge")
+  private Double inspectionCharge;
+
   public TechnicianBookingEntity() {}
 
   public UUID getId() {
@@ -134,6 +159,7 @@ public class TechnicianBookingEntity {
 
   public void setStatus(BookingStatus status) {
     this.status = status;
+    this.bookingStatus = status;
   }
 
   public Double getEstimatedCost() {
@@ -158,5 +184,70 @@ public class TechnicianBookingEntity {
 
   public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public UUID getAssignedTechnicianId() {
+    return assignedTechnicianId;
+  }
+
+  public void setAssignedTechnicianId(UUID assignedTechnicianId) {
+    this.assignedTechnicianId = assignedTechnicianId;
+  }
+
+  public BookingStatus getBookingStatus() {
+    return bookingStatus;
+  }
+
+  public void setBookingStatus(BookingStatus bookingStatus) {
+    this.bookingStatus = bookingStatus;
+    this.status = bookingStatus;
+  }
+
+  public Instant getAcceptedAt() {
+    return acceptedAt;
+  }
+
+  public void setAcceptedAt(Instant acceptedAt) {
+    this.acceptedAt = acceptedAt;
+  }
+
+  public Instant getStartedAt() {
+    return startedAt;
+  }
+
+  public void setStartedAt(Instant startedAt) {
+    this.startedAt = startedAt;
+  }
+
+  public Instant getCompletedAt() {
+    return completedAt;
+  }
+
+  public void setCompletedAt(Instant completedAt) {
+    this.completedAt = completedAt;
+  }
+
+  public Instant getEstimatedArrival() {
+    return estimatedArrival;
+  }
+
+  public void setEstimatedArrival(Instant estimatedArrival) {
+    this.estimatedArrival = estimatedArrival;
+  }
+
+  public Double getServiceCharge() {
+    return serviceCharge;
+  }
+
+  public void setServiceCharge(Double serviceCharge) {
+    this.serviceCharge = serviceCharge;
+  }
+
+  public Double getInspectionCharge() {
+    return inspectionCharge;
+  }
+
+  public void setInspectionCharge(Double inspectionCharge) {
+    this.inspectionCharge = inspectionCharge;
   }
 }

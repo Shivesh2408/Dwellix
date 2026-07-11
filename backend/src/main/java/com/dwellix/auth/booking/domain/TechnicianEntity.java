@@ -54,6 +54,21 @@ public class TechnicianEntity {
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 
+  @Column(name = "password_hash", length = 255)
+  private String passwordHash;
+
+  @Column(name = "service_radius")
+  private Double serviceRadius;
+
+  @Column(length = 1000)
+  private String bio;
+
+  @Column(length = 255)
+  private String languages;
+
+  @Column(name = "inspection_charge")
+  private Double inspectionCharge;
+
   public TechnicianEntity() {}
 
   public UUID getId() {
@@ -174,5 +189,45 @@ public class TechnicianEntity {
 
   public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public String getPasswordHash() {
+    return passwordHash;
+  }
+
+  public void setPasswordHash(String passwordHash) {
+    this.passwordHash = passwordHash;
+  }
+
+  public Double getServiceRadius() {
+    return serviceRadius;
+  }
+
+  public void setServiceRadius(Double serviceRadius) {
+    this.serviceRadius = serviceRadius;
+  }
+
+  public String getBio() {
+    return bio;
+  }
+
+  public void setBio(String bio) {
+    this.bio = bio;
+  }
+
+  public String getLanguages() {
+    return languages;
+  }
+
+  public void setLanguages(String languages) {
+    this.languages = languages;
+  }
+
+  public Double getInspectionCharge() {
+    return inspectionCharge;
+  }
+
+  public void setInspectionCharge(Double inspectionCharge) {
+    this.inspectionCharge = inspectionCharge;
   }
 }

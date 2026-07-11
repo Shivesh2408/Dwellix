@@ -38,9 +38,12 @@ public class JwtService {
 
   public String generateAccessToken(UserEntity user) {
     Map<String, Object> claims = new HashMap<>();
+    claims.put("id", user.getId().toString());
+    claims.put("email", user.getEmail());
     claims.put("role", user.getRole().name());
-    claims.put("emailVerified", user.isEmailVerified());
+    claims.put("name", user.getFullName());
     claims.put("fullName", user.getFullName());
+    claims.put("emailVerified", user.isEmailVerified());
 
     Instant now = clock.instant();
     Instant expiry = now.plus(jwtProperties.accessTokenTtlSeconds(), ChronoUnit.SECONDS);
@@ -48,6 +51,28 @@ public class JwtService {
     return Jwts.builder()
         .setClaims(claims)
         .setSubject(user.getEmail())
+        .setIssuer(jwtProperties.issuer())
+        .setIssuedAt(Date.from(now))
+        .setExpiration(Date.from(expiry))
+        .signWith(secretKey, SignatureAlgorithm.HS256)
+        .compact();
+  }
+
+  public String generateAccessToken(String id, String email, String role, String name) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("id", id);
+    claims.put("email", email);
+    claims.put("role", role);
+    claims.put("name", name);
+    claims.put("fullName", name);
+    claims.put("emailVerified", true);
+
+    Instant now = clock.instant();
+    Instant expiry = now.plus(jwtProperties.accessTokenTtlSeconds(), ChronoUnit.SECONDS);
+
+    return Jwts.builder()
+        .setClaims(claims)
+        .setSubject(email)
         .setIssuer(jwtProperties.issuer())
         .setIssuedAt(Date.from(now))
         .setExpiration(Date.from(expiry))

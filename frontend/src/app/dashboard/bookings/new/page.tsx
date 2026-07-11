@@ -294,8 +294,11 @@ export default function NewBookingPage() {
           bookingTime: bookingTime.trim(),
           technicianName: selectedTech ? selectedTech.name : "",
           technicianPhone: selectedTech ? selectedTech.phone : null,
-          status: "PENDING",
-          estimatedCost: parseFloat(estimatedCost) || 0.0
+          status: selectedTech ? "REQUESTED" : "PENDING",
+          estimatedCost: parseFloat(estimatedCost) || 0.0,
+          assignedTechnicianId: selectedTech ? selectedTech.id : null,
+          inspectionCharge: selectedTech ? selectedTech.hourlyRate : 500,
+          serviceCharge: selectedTech ? selectedTech.hourlyRate * 3 : 1500
         })
       });
 

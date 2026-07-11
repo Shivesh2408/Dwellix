@@ -20,5 +20,18 @@ public record BookingResponse(
     String status,
     Double estimatedCost,
     Instant createdAt,
-    Instant updatedAt
+    Instant updatedAt,
+
+    UUID assignedTechnicianId,
+    String bookingStatus,
+    Instant acceptedAt,
+    Instant startedAt,
+    Instant completedAt,
+    Instant estimatedArrival,
+    Double serviceCharge,
+    Double inspectionCharge,
+    String customerName,
+    String customerPhone,
+    String customerAddress,
+    String paymentStatus
 ) {}

@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface TechnicianBookingRepository extends JpaRepository<TechnicianBookingEntity, UUID> {
   List<TechnicianBookingEntity> findByUser_IdOrderByBookingDateDesc(UUID userId);
   Optional<TechnicianBookingEntity> findByIdAndUser_Id(UUID bookingId, UUID userId);
+  List<TechnicianBookingEntity> findByAssignedTechnicianId(UUID assignedTechnicianId);
+  List<TechnicianBookingEntity> findByAssignedTechnicianIdAndStatus(UUID assignedTechnicianId, com.dwellix.auth.booking.domain.BookingStatus status);
 }

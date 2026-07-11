@@ -52,7 +52,8 @@ public class SecurityConfiguration {
         .authorizeHttpRequests(auth -> auth
             .dispatcherTypeMatchers(jakarta.servlet.DispatcherType.ASYNC).permitAll()
             .requestMatchers("/actuator/health", "/actuator/info").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/v1/auth/signup", "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/forgot-password", "/api/v1/auth/reset-password", "/api/v1/auth/verify-email", "/api/v1/auth/logout").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/v1/auth/signup", "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/forgot-password", "/api/v1/auth/reset-password", "/api/v1/auth/verify-email", "/api/v1/auth/logout", "/api/v1/technician/signup", "/api/v1/technician/login").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/v1/technicians/**").permitAll()
             .requestMatchers("/api/v1/auth/me").authenticated()
             .anyRequest().authenticated()
         )

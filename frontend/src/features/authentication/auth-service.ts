@@ -132,3 +132,32 @@ export function getCurrentUser() {
     method: "GET",
   });
 }
+
+export type TechnicianSignupPayload = {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  city: string;
+  experience: number;
+  serviceRadius: number;
+  bio: string;
+  languages: string;
+  specialization: string;
+  inspectionCharge: number;
+  profilePhotoUrl?: string;
+};
+
+export function technicianLogin(payload: LoginPayload) {
+  return request<AuthSession>("/api/v1/technician/login", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function technicianSignup(payload: TechnicianSignupPayload) {
+  return request<{ message: string }>("/api/v1/technician/signup", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}

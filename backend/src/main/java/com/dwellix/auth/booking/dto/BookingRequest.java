@@ -32,5 +32,9 @@ public record BookingRequest(
 
     String status,
 
-    Double estimatedCost
+    Double estimatedCost,
+
+    UUID assignedTechnicianId,
+    Double serviceCharge,
+    Double inspectionCharge
 ) {}

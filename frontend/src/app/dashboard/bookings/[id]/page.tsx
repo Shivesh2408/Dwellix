@@ -16,7 +16,8 @@ import {
   Loader2,
   IndianRupee,
   Activity,
-  Phone
+  Phone,
+  Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,12 @@ interface Booking {
   estimatedCost: number;
   createdAt: string;
   updatedAt: string;
+  bookingStatus?: string;
+  acceptedAt?: string;
+  startedAt?: string;
+  completedAt?: string;
+  estimatedArrival?: string;
+  paymentStatus?: string;
 }
 
 export default function BookingDetailsPage() {
@@ -83,6 +90,37 @@ export default function BookingDetailsPage() {
       })
       .finally(() => setLoading(false));
   }, [id]);
+
+  // Review states
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewText, setReviewText] = useState("");
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewError, setReviewError] = useState<string | null>(null);
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setReviewSubmitting(true);
+    setReviewError(null);
+    try {
+      await apiClient("/api/v1/reviews", {
+        method: "POST",
+        body: JSON.stringify({
+          bookingId: id,
+          rating: reviewRating,
+          review: reviewText,
+        }),
+      });
+      setReviewSubmitted(true);
+      setToastMessage("Thank you! Review submitted successfully.");
+      setTimeout(() => setToastMessage(null), 3000);
+    } catch (err) {
+      console.error("Failed to submit review:", err);
+      setReviewError((err as Error).message || "Failed to submit review. Please try again.");
+    } finally {
+      setReviewSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     let active = true;
@@ -161,77 +199,114 @@ export default function BookingDetailsPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status?.toUpperCase()) {
+  const getStatusColor = (statusName: string) => {
+    switch (statusName?.toUpperCase()) {
       case "COMPLETED":
+      case "PAID":
         return "text-emerald-700 bg-emerald-50/80 border-emerald-100/50";
-      case "CONFIRMED":
-        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
       case "IN_PROGRESS":
+      case "TRAVELLING":
+      case "ARRIVED":
         return "text-purple-700 bg-purple-50/80 border-purple-100/50";
       case "CANCELLED":
+      case "REJECTED":
         return "text-rose-700 bg-rose-50/80 border-rose-100/50";
+      case "ACCEPTED":
+      case "QUEUED":
+        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
       case "PENDING":
+      case "REQUESTED":
       default:
         return "text-amber-700 bg-amber-50/80 border-amber-100/50";
     }
   };
 
-  // Compile timeline matching Request Sent, Technician Assigned, On the Way, Service Started, Completed
   const bookingTimeline = useMemo(() => {
     if (!booking) return [];
 
-    const isCancelled = booking.status?.toUpperCase() === "CANCELLED";
-    const statusUpper = booking.status?.toUpperCase();
+    const statusUpper = (booking.bookingStatus || booking.status || "PENDING").toUpperCase();
+    const isCancelled = statusUpper === "CANCELLED";
+    const isRejected = statusUpper === "REJECTED";
+
+    const states = ["REQUESTED", "ACCEPTED", "QUEUED", "TRAVELLING", "ARRIVED", "IN_PROGRESS", "COMPLETED"];
+    const statusIndex = states.indexOf(statusUpper);
+
+    const isDone = (stepName: string) => {
+      if (isCancelled || isRejected) return false;
+      const stepIdx = states.indexOf(stepName);
+      if (stepIdx === -1) return false;
+      return statusIndex >= stepIdx;
+    };
+
+    const getStepDate = (stepName: string) => {
+      if (!isDone(stepName)) return "TBD";
+      if (stepName === "REQUESTED") return new Date(booking.createdAt).toLocaleDateString();
+      if (stepName === "ACCEPTED" && booking.acceptedAt) return new Date(booking.acceptedAt).toLocaleDateString();
+      if (stepName === "IN_PROGRESS" && booking.startedAt) return new Date(booking.startedAt).toLocaleDateString();
+      if (stepName === "COMPLETED" && booking.completedAt) return new Date(booking.completedAt).toLocaleDateString();
+      return booking.bookingDate;
+    };
 
     const timelineSteps = [
       {
-        label: "Request Sent",
-        date: new Date(booking.createdAt).toLocaleDateString(),
-        done: true,
-        desc: "Service order created and registered in the Dwellix systems."
+        label: "Requested",
+        date: getStepDate("REQUESTED"),
+        done: isDone("REQUESTED") || statusUpper === "PENDING" || statusUpper === "CONFIRMED",
+        desc: "Service booking request submitted by customer."
       },
       {
-        label: "Technician Assigned",
-        date: booking.technicianName ? booking.bookingDate : "Awaiting assignment",
-        done: !!booking.technicianName && ["CONFIRMED", "IN_PROGRESS", "COMPLETED"].includes(statusUpper),
-        desc: booking.technicianName
-          ? `Technician ${booking.technicianName} has been assigned to your service.`
-          : "Matching with the best qualified certified technician nearby."
+        label: "Accepted",
+        date: getStepDate("ACCEPTED"),
+        done: isDone("ACCEPTED") || statusUpper === "CONFIRMED",
+        desc: "Technician has reviewed and accepted the booking slot."
       },
       {
-        label: "On the Way",
-        date: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper) ? booking.bookingDate : "Estimated time pending",
-        done: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper),
-        desc: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper)
-          ? "Technician has dispatched and is navigating to your address."
-          : "We will update when the technician leaves for your location."
+        label: "Queued",
+        date: getStepDate("QUEUED"),
+        done: isDone("QUEUED"),
+        desc: "Booking is placed in the technician's queue schedule."
       },
       {
-        label: "Service Started",
-        date: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper) ? booking.bookingDate : "TBD",
-        done: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper),
-        desc: ["IN_PROGRESS", "COMPLETED"].includes(statusUpper)
-          ? "Technician is on-site and has started diagnostics."
-          : "Awaiting physical arrival and authorization."
+        label: "Travelling",
+        date: getStepDate("TRAVELLING"),
+        done: isDone("TRAVELLING"),
+        desc: "Technician is on the way to your location."
+      },
+      {
+        label: "Arrived",
+        date: getStepDate("ARRIVED"),
+        done: isDone("ARRIVED"),
+        desc: "Technician has arrived at the service address."
+      },
+      {
+        label: "In Progress",
+        date: getStepDate("IN_PROGRESS"),
+        done: isDone("IN_PROGRESS"),
+        desc: "Repair diagnostics and service are underway."
       },
       {
         label: "Completed",
-        date: statusUpper === "COMPLETED" ? booking.bookingDate : "TBD",
-        done: statusUpper === "COMPLETED",
-        desc: statusUpper === "COMPLETED"
-          ? "Service finalized. System tests passed and appliance operates normally."
-          : "Awaiting completion and certification sign-off."
+        date: getStepDate("COMPLETED"),
+        done: isDone("COMPLETED"),
+        desc: "Service finished and appliance operations verified."
       }
     ];
 
     if (isCancelled) {
-      // Append cancellation state as an exception element
       timelineSteps.push({
-        label: "Service Cancelled",
+        label: "Cancelled",
         date: new Date(booking.updatedAt).toLocaleDateString(),
         done: true,
-        desc: "The booking has been successfully cancelled and refunded if applicable."
+        desc: "This booking has been cancelled."
+      });
+    }
+
+    if (isRejected) {
+      timelineSteps.push({
+        label: "Rejected",
+        date: new Date(booking.updatedAt).toLocaleDateString(),
+        done: true,
+        desc: "The booking request was rejected by the technician."
       });
     }
 
@@ -513,6 +588,19 @@ export default function BookingDetailsPage() {
                       </span>
                     </div>
 
+                     <div className="col-span-2 pt-4 border-t border-slate-50 flex items-center justify-between">
+                      <span className="text-slate-400 text-[10px] font-extrabold uppercase tracking-wider">Payment Status</span>
+                      <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-xl border ${
+                        booking.paymentStatus === "SUCCESS"
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+                          : booking.paymentStatus
+                          ? "bg-amber-50 text-amber-700 border-amber-100"
+                          : "bg-slate-100 text-slate-655 border-slate-200"
+                      }`}>
+                        {booking.paymentStatus || "Payment Pending"}
+                      </span>
+                    </div>
+
                     <div className="col-span-2 pt-4 border-t border-slate-50 flex items-center justify-between">
                       <span className="text-slate-400 text-[10px] font-extrabold uppercase tracking-wider">Estimated Budget</span>
                       <span className="font-extrabold text-blue-600 text-base sm:text-xl flex items-center gap-0.5 font-heading">
@@ -530,6 +618,71 @@ export default function BookingDetailsPage() {
                     </p>
                   </div>
                 </div>
+
+                {/* Leave Review Card */}
+                {((booking.status || "").toUpperCase() === "COMPLETED" || (booking.status || "").toUpperCase() === "PAID" || (booking.bookingStatus || "").toUpperCase() === "COMPLETED" || (booking.bookingStatus || "").toUpperCase() === "PAID") && (
+                  <div className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-4">
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                        <Star className="h-4.5 w-4.5 text-amber-500 fill-amber-500" />
+                        <span>Leave a Review</span>
+                      </h3>
+                      <p className="text-xs text-slate-400">Share your service experience and rate your assigned technician.</p>
+                    </div>
+                    {reviewSubmitted ? (
+                      <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-800 text-xs font-semibold">
+                        Thank you for your feedback! Your review has been submitted successfully.
+                      </div>
+                    ) : (
+                      <form onSubmit={handleReviewSubmit} className="space-y-4">
+                        {reviewError && (
+                          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-100 text-rose-700 text-xs font-semibold">
+                            {reviewError}
+                          </div>
+                        )}
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-450">Rating (1-5 Stars)</label>
+                          <div className="flex items-center gap-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                key={star}
+                                type="button"
+                                onClick={() => setReviewRating(star)}
+                                className="focus:outline-none cursor-pointer"
+                              >
+                                <Star
+                                  className={`h-6 w-6 ${
+                                    star <= reviewRating
+                                      ? "text-amber-400 fill-amber-400"
+                                      : "text-slate-200"
+                                  }`}
+                                />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-450">Your Written Review</label>
+                          <textarea
+                            value={reviewText}
+                            onChange={(e) => setReviewText(e.target.value)}
+                            rows={3}
+                            placeholder="Write about the quality of repair, safety, professionalism, promptness..."
+                            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700 leading-relaxed resize-none font-sans"
+                            required
+                          />
+                        </div>
+                        <Button
+                          type="submit"
+                          disabled={reviewSubmitting}
+                          className="rounded-xl text-xs font-bold h-9 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                        >
+                          {reviewSubmitting ? "Submitting..." : "Submit Review"}
+                        </Button>
+                      </form>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -40,6 +40,19 @@ interface Technician {
   availability: string;
   hourlyRate: number;
   verified: boolean;
+  bio?: string;
+  languages?: string;
+  inspectionCharge?: number;
+}
+
+interface Review {
+  id: string;
+  bookingId: string;
+  customerId: string;
+  customerName: string;
+  rating: number;
+  review: string;
+  createdAt: string;
 }
 
 export default function TechnicianMarketplacePage() {
@@ -59,6 +72,32 @@ export default function TechnicianMarketplacePage() {
   // Profile Drawer State
   const [selectedTech, setSelectedTech] = useState<Technician | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedTechReviews, setSelectedTechReviews] = useState<Review[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(false);
+
+  useEffect(() => {
+    if (selectedTech) {
+      setTimeout(() => {
+        setLoadingReviews(true);
+      }, 0);
+      apiClient<Review[]>(`/api/v1/technicians/${selectedTech.id}/reviews`)
+        .then((data) => {
+          setSelectedTechReviews(data || []);
+        })
+        .catch((err) => {
+          console.error("Failed to load technician reviews:", err);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setLoadingReviews(false);
+          }, 0);
+        });
+    } else {
+      setTimeout(() => {
+        setSelectedTechReviews([]);
+      }, 0);
+    }
+  }, [selectedTech]);
 
   useEffect(() => {
     apiClient<Technician[]>("/api/v1/technicians")
@@ -438,7 +477,7 @@ export default function TechnicianMarketplacePage() {
                     <span>About Technician</span>
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Professional, certified Dwellix engineer with high-level expertise in complex troubleshooting, parts replacement, and routine preventive servicing. Dedicated to safe home operations and quick service turnaround.
+                    {selectedTech.bio || "Professional, certified Dwellix engineer with high-level expertise in complex troubleshooting, parts replacement, and routine preventive servicing. Dedicated to safe home operations and quick service turnaround."}
                   </p>
                 </div>
 
@@ -446,14 +485,12 @@ export default function TechnicianMarketplacePage() {
                 <div className="space-y-2">
                   <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1">
                     <Sparkles className="h-3.5 w-3.5 text-primary" />
-                    <span>Expertise & Skills</span>
+                    <span>Specialization & Skills</span>
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
+                    <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">{selectedTech.specialization}</span>
                     <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">Diagnostics</span>
-                    <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">Compressor Servicing</span>
-                    <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">Leak Detection</span>
                     <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">Parts Swap</span>
-                    <span className="text-[10px] px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 font-bold">Wiring Repair</span>
                   </div>
                 </div>
 
@@ -470,17 +507,21 @@ export default function TechnicianMarketplacePage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <ShieldCheck className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                      <span>Dwellix Home Safety Assurance certified.</span>
+                      <span>Inspection Charge: ₹{selectedTech.inspectionCharge || selectedTech.hourlyRate || 0}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <ShieldCheck className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                      <span>National Skill Council authorized professional.</span>
+                      <span>Languages Spoken: {selectedTech.languages || "English"}</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ShieldCheck className="h-4 w-4 text-emerald-500 flex-shrink-0" />
+                      <span>Dwellix Home Safety Assurance certified.</span>
                     </li>
                   </ul>
                 </div>
 
                 {/* Ratings & reviews breakdown */}
-                <div className="p-4 rounded-3xl border border-slate-100 space-y-2">
+                <div className="p-4 rounded-3xl border border-slate-100 space-y-4">
                   <span className="text-[10px] text-slate-400 font-bold uppercase block">Ratings & Feedback Overview</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-extrabold text-slate-900">{selectedTech.rating}</span>
@@ -494,6 +535,28 @@ export default function TechnicianMarketplacePage() {
                       </div>
                       <span className="text-[10px] text-slate-400 font-medium">{selectedTech.totalReviews} customer reviews</span>
                     </div>
+                  </div>
+
+                  {/* Dynamic Database Reviews */}
+                  <div className="space-y-3 pt-3 border-t border-slate-100">
+                    <span className="text-[9px] text-slate-400 font-extrabold uppercase block">Recent Customer Reviews</span>
+                    {loadingReviews ? (
+                      <span className="text-[10px] font-bold text-slate-450 animate-pulse">Loading reviews...</span>
+                    ) : selectedTechReviews.length === 0 ? (
+                      <span className="text-[10px] text-slate-400 block italic">No reviews yet.</span>
+                    ) : (
+                      <div className="space-y-2 max-h-[160px] overflow-y-auto pr-1">
+                        {selectedTechReviews.map((r) => (
+                          <div key={r.id} className="p-2.5 rounded-2xl bg-slate-50 border border-slate-100/60 text-[10px] space-y-1">
+                            <div className="flex justify-between items-center">
+                              <span className="font-extrabold text-slate-800">{r.customerName}</span>
+                              <span className="font-black text-amber-500">{r.rating}★</span>
+                            </div>
+                            <p className="text-slate-550 italic font-medium">&ldquo;{r.review}&rdquo;</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
