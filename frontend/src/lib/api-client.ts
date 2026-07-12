@@ -1,6 +1,11 @@
+interface RefreshSubscriber {
+  resolve: (token: string) => void;
+  reject: (err: any) => void;
+}
+
 let inMemoryToken: string | null = null;
 let isRefreshing = false;
-let refreshSubscribers: ((token: string) => void)[] = [];
+let refreshSubscribers: RefreshSubscriber[] = [];
 
 if (typeof window !== "undefined" && !process.env.NEXT_PUBLIC_API_BASE_URL) {
   console.error("NEXT_PUBLIC_API_BASE_URL is not defined.");
@@ -9,12 +14,17 @@ if (typeof window !== "undefined" && !process.env.NEXT_PUBLIC_API_BASE_URL) {
 
 export const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-function subscribeTokenRefresh(cb: (token: string) => void) {
-  refreshSubscribers.push(cb);
+function subscribeTokenRefresh(resolve: (token: string) => void, reject: (err: any) => void) {
+  refreshSubscribers.push({ resolve, reject });
 }
 
 function onRefreshed(token: string) {
-  refreshSubscribers.forEach((cb) => cb(token));
+  refreshSubscribers.forEach((sub) => sub.resolve(token));
+  refreshSubscribers = [];
+}
+
+function onRefreshFailed(err: any) {
+  refreshSubscribers.forEach((sub) => sub.reject(err));
   refreshSubscribers = [];
 }
 
@@ -92,21 +102,26 @@ export async function apiClient<T>(path: string, init?: RequestInit): Promise<T>
     // If it's already refreshing, queue the request until refresh completes
     if (isRefreshing) {
       return new Promise<T>((resolve, reject) => {
-        subscribeTokenRefresh(async (newToken) => {
-          try {
-            const retryResponse = await makeRequest(newToken);
-            if (!retryResponse.ok) {
-              const body = await retryResponse.json().catch(() => null);
-              const msg = body?.message ?? "API request failed after refresh.";
-              reject(new ApiError(msg, retryResponse.status));
-            } else {
-              const body = await retryResponse.json();
-              resolve(body as T);
+        subscribeTokenRefresh(
+          async (newToken) => {
+            try {
+              const retryResponse = await makeRequest(newToken);
+              if (!retryResponse.ok) {
+                const body = await retryResponse.json().catch(() => null);
+                const msg = body?.message ?? "API request failed after refresh.";
+                reject(new ApiError(msg, retryResponse.status));
+              } else {
+                const body = await retryResponse.json();
+                resolve(body as T);
+              }
+            } catch (err) {
+              reject(err);
             }
-          } catch (err) {
+          },
+          (err) => {
             reject(err);
           }
-        });
+        );
       });
     }
 
@@ -121,7 +136,11 @@ export async function apiClient<T>(path: string, init?: RequestInit): Promise<T>
       response = await makeRequest(newToken);
     } catch (err) {
       isRefreshing = false;
+      onRefreshFailed(err);
       setAccessToken(null);
+      if (typeof window !== "undefined" && !window.location.pathname.startsWith("/auth/")) {
+        window.location.href = "/auth/login";
+      }
       throw err;
     }
   }

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
-@Primary
 public class NoOpEmailService implements EmailService {
   private static final Logger logger = LoggerFactory.getLogger(NoOpEmailService.class);
   private final String frontendOrigin;

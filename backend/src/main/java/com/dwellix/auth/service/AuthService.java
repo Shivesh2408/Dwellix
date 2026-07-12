@@ -103,20 +103,36 @@ public class AuthService {
     return toUserResponse(user);
   }
 
+  private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthService.class);
+
   public AuthSessionResult login(LoginRequest request) {
+    long startTime = System.currentTimeMillis();
+
     rateLimitService.assertAllowed("login:" + request.email().toLowerCase());
+    long rateLimitTime = System.currentTimeMillis();
+    logger.info("Login rate limit check completed in {} ms", (rateLimitTime - startTime));
 
     UserEntity user = findVerifiedUserByEmail(request.email())
         .orElseThrow(() -> new InvalidTokenException("Invalid email or password."));
+    long dbLookupTime = System.currentTimeMillis();
+    logger.info("Login database user lookup completed in {} ms", (dbLookupTime - rateLimitTime));
 
     if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
       throw new InvalidTokenException("Invalid email or password.");
     }
+    long passwordVerifyTime = System.currentTimeMillis();
+    logger.info("Login password verification completed in {} ms", (passwordVerifyTime - dbLookupTime));
 
     user.setLastLoginAt(Instant.now(clock));
     userRepository.save(user);
+    long dbSaveTime = System.currentTimeMillis();
+    logger.info("Login user lastLoginAt update completed in {} ms", (dbSaveTime - passwordVerifyTime));
 
-    return issueSession(user, "Login successful.");
+    AuthSessionResult result = issueSession(user, "Login successful.");
+    long totalTime = System.currentTimeMillis() - startTime;
+    logger.info("Login request total processing time: {} ms", totalTime);
+
+    return result;
   }
 
   public AuthSessionResult refresh(RefreshTokenRequest request, String refreshTokenValue) {
@@ -152,11 +168,18 @@ public class AuthService {
   }
 
   public void forgotPassword(ForgotPasswordRequest request) {
+    logger.info("[FORGOT_PASSWORD] request received");
     rateLimitService.assertAllowed("forgot:" + request.email().toLowerCase());
 
-    findAnyUserByEmail(request.email()).ifPresent(user -> {
+    String email = request.email().trim().toLowerCase();
+    logger.info("[FORGOT_PASSWORD] normalized email lookup started");
+    Optional<UserEntity> userOpt = findAnyUserByEmail(email);
+    logger.info("[FORGOT_PASSWORD] account found = {}", userOpt.isPresent());
+
+    userOpt.ifPresent(user -> {
       passwordResetTokenRepository.deleteByUser_Id(user.getId());
       String resetToken = createPasswordResetToken(user);
+      logger.info("[FORGOT_PASSWORD] reset token persisted");
       emailService.sendPasswordResetEmail(user, resetToken);
     });
   }

@@ -185,12 +185,15 @@ export function LoginForm() {
 
     setLoading(true);
     try {
-      const response = await login(form);
+      const response = await login({
+        email: form.email.trim().toLowerCase(),
+        password: form.password,
+        rememberMe: form.rememberMe
+      });
       if (response.tokens?.accessToken) {
         setAccessToken(response.tokens.accessToken);
       }
-      setSession(response);
-      setSubmitMessage("Authentication succeeded.");
+      router.push("/dashboard");
     } catch (error) {
       const message = error instanceof AuthError ? error.message : "Unable to sign in right now.";
       setSubmitMessage(message);
@@ -198,24 +201,6 @@ export function LoginForm() {
       setLoading(false);
     }
   };
-
-  if (session) {
-    return (
-      <SuccessPanel
-        icon={<CheckCircle2 className="h-8 w-8" />}
-        title={`Welcome back, ${session.user.fullName}.`}
-        description="Your session is ready. Continue to your dashboard when the route is available."
-        action={
-          <Button asChild className="h-11 px-6">
-            <Link href="/dashboard">Continue to dashboard</Link>
-          </Button>
-        }
-        secondaryAction={
-          <Button variant="outline" className="h-11 px-6" onClick={() => router.push("/auth/login")}>Sign in with another account</Button>
-        }
-      />
-    );
-  }
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit} noValidate>
@@ -311,9 +296,9 @@ export function SignupForm() {
     setLoading(true);
     try {
       await signup({
-        fullName: form.fullName,
-        email: form.email,
-        phoneNumber: form.phoneNumber,
+        fullName: form.fullName.trim(),
+        email: form.email.trim().toLowerCase(),
+        phoneNumber: form.phoneNumber.replace(/[\s()-]/g, ""),
         password: form.password,
       });
       setSuccess(true);
