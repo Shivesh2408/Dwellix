@@ -181,7 +181,7 @@ export default function EditAppliancePage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB]">
+      <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-background">
         <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse" />
         <div className="h-[600px] bg-slate-200 rounded-[32px] animate-pulse" />
       </div>
@@ -189,7 +189,7 @@ export default function EditAppliancePage() {
   }
 
   return (
-    <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB] font-sans text-left pb-24">
+    <div className="max-w-[1000px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-background font-sans text-left pb-24">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -206,12 +206,12 @@ export default function EditAppliancePage() {
       </AnimatePresence>
 
       {/* Top Navigation Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#ECECEC] pb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border pb-8">
         <button
           onClick={() => router.push(`/dashboard/appliances/${id}`)}
-          className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#111111] transition-colors font-bold cursor-pointer group w-max"
+          className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-foreground transition-colors font-bold cursor-pointer group w-max"
         >
-          <div className="h-8 w-8 rounded-full bg-white border border-[#ECECEC] flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+          <div className="h-8 w-8 rounded-full bg-white border border-border flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
             <ArrowLeft className="h-4 w-4" />
           </div>
           <span>Cancel Edit</span>
@@ -220,7 +220,7 @@ export default function EditAppliancePage() {
         <Button
           onClick={handleDelete}
           variant="outline"
-          className="rounded-xl font-bold text-sm h-11 px-5 border-[#ECECEC] text-rose-600 hover:bg-rose-50 hover:border-rose-200 cursor-pointer shadow-sm transition-all"
+          className="rounded-xl font-bold text-sm h-11 px-5 border-border text-rose-600 hover:bg-rose-50 hover:border-rose-200 cursor-pointer shadow-sm transition-all"
         >
           <Trash2 className="h-4 w-4 mr-2" />
           Delete Profile
@@ -232,14 +232,14 @@ export default function EditAppliancePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-white border border-[#ECECEC] rounded-[32px] p-8 md:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
+        className="bg-white border border-border rounded-[32px] p-8 md:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
       >
         <div className="flex items-center gap-4 mb-10">
-          <div className="h-14 w-14 rounded-[20px] bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+          <div className="h-14 w-14 rounded-[20px] bg-primary-soft border border-primary/20 flex items-center justify-center text-primary">
             <Settings className="h-7 w-7" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#111111] tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
               Edit Configuration
             </h1>
             <p className="text-sm font-medium text-[#6B7280] mt-1">
@@ -258,8 +258,8 @@ export default function EditAppliancePage() {
         <form onSubmit={handleSave} className="space-y-8">
           
           {/* Photo Uploader Section */}
-          <div className="bg-[#F8F9FB] rounded-[24px] p-6 border border-[#ECECEC] flex flex-col md:flex-row items-center gap-8">
-            <div className="h-32 w-32 md:h-40 md:w-40 rounded-[24px] bg-white border border-[#ECECEC] overflow-hidden flex items-center justify-center shrink-0 relative shadow-inner">
+          <div className="bg-background rounded-[24px] p-6 border border-border flex flex-col md:flex-row items-center gap-8">
+            <div className="h-32 w-32 md:h-40 md:w-40 rounded-[24px] bg-white border border-border overflow-hidden flex items-center justify-center shrink-0 relative shadow-inner">
               {photoUrl ? (
                 <img src={photoUrl} alt="Appliance Preview" className="h-full w-full object-cover" />
               ) : (
@@ -273,7 +273,7 @@ export default function EditAppliancePage() {
             </div>
             
             <div className="flex-1 text-center md:text-left">
-              <h3 className="text-base font-extrabold text-[#111111] mb-2">Device Appearance</h3>
+              <h3 className="text-base font-extrabold text-foreground mb-2">Device Appearance</h3>
               <p className="text-sm text-[#6B7280] font-medium mb-6 max-w-sm">
                 Upload a clear image of the device for AI visual diagnosis tracking. JPG, PNG, WEBP up to 10MB.
               </p>
@@ -287,7 +287,7 @@ export default function EditAppliancePage() {
               />
               <label
                 htmlFor="image-file-input"
-                className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-white border border-[#ECECEC] hover:bg-slate-50 transition-all text-sm font-bold text-[#111111] cursor-pointer shadow-sm"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-white border border-border hover:bg-slate-50 transition-all text-sm font-bold text-foreground cursor-pointer shadow-sm"
               >
                 Upload New Image
               </label>
@@ -307,7 +307,7 @@ export default function EditAppliancePage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Living Room Split AC"
-                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
+                className="h-14 rounded-[16px] text-base font-medium border-border focus:ring-black focus:border-black bg-background px-4"
               />
             </div>
 
@@ -321,7 +321,7 @@ export default function EditAppliancePage() {
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder="e.g. LG"
-                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
+                className="h-14 rounded-[16px] text-base font-medium border-border focus:ring-black focus:border-black bg-background px-4"
               />
             </div>
 
@@ -335,7 +335,7 @@ export default function EditAppliancePage() {
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
                 placeholder="e.g. LGS-3024"
-                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
+                className="h-14 rounded-[16px] text-base font-medium border-border focus:ring-black focus:border-black bg-background px-4"
               />
             </div>
 
@@ -348,7 +348,7 @@ export default function EditAppliancePage() {
                 type="date"
                 value={purchaseDate}
                 onChange={(e) => setPurchaseDate(e.target.value)}
-                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
+                className="h-14 rounded-[16px] text-base font-medium border-border focus:ring-black focus:border-black bg-background px-4"
               />
             </div>
 
@@ -361,7 +361,7 @@ export default function EditAppliancePage() {
                 type="date"
                 value={warrantyExpiry}
                 onChange={(e) => setWarrantyExpiry(e.target.value)}
-                className="h-14 rounded-[16px] text-base font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-[#F8F9FB] px-4"
+                className="h-14 rounded-[16px] text-base font-medium border-border focus:ring-black focus:border-black bg-background px-4"
               />
             </div>
 
@@ -373,7 +373,7 @@ export default function EditAppliancePage() {
               <select
                 value={roomId}
                 onChange={(e) => setRoomId(e.target.value)}
-                className="w-full h-14 rounded-[16px] border border-[#ECECEC] bg-[#F8F9FB] text-base font-medium px-4 focus:outline-none focus:ring-1 focus:ring-black focus:border-black text-[#111111] appearance-none cursor-pointer"
+                className="w-full h-14 rounded-[16px] border border-border bg-background text-base font-medium px-4 focus:outline-none focus:ring-1 focus:ring-black focus:border-black text-foreground appearance-none cursor-pointer"
               >
                 <option value="" disabled>Select a room...</option>
                 {rooms.map((room) => (
@@ -393,18 +393,18 @@ export default function EditAppliancePage() {
                 type="text"
                 value={serialNumber}
                 disabled
-                className="h-14 rounded-[16px] text-base font-bold border-[#ECECEC] bg-[#F8F9FB] text-[#6B7280] font-mono opacity-70"
+                className="h-14 rounded-[16px] text-base font-bold border-border bg-background text-[#6B7280] font-mono opacity-70"
               />
             </div>
 
           </div>
 
           {/* Action Footer */}
-          <div className="flex items-center justify-end gap-4 pt-8 border-t border-[#ECECEC] mt-10">
+          <div className="flex items-center justify-end gap-4 pt-8 border-t border-border mt-10">
             <Button
               type="button"
               onClick={() => router.push(`/dashboard/appliances/${id}`)}
-              className="rounded-[16px] font-bold text-sm h-12 px-6 bg-white border border-[#ECECEC] text-[#111111] hover:bg-slate-50 cursor-pointer shadow-sm transition-all"
+              className="rounded-[16px] font-bold text-sm h-12 px-6 bg-white border border-border text-foreground hover:bg-slate-50 cursor-pointer shadow-sm transition-all"
             >
               Cancel
             </Button>

@@ -170,7 +170,7 @@ export default function WarrantyVaultPage() {
 
   if (loading) {
     return (
-      <div className="flex-1 min-h-screen bg-[#F8F9FB] p-10 space-y-10 max-w-[1400px] mx-auto w-full text-left">
+      <div className="flex-1 min-h-screen bg-background p-10 space-y-10 max-w-[1400px] mx-auto w-full text-left">
         <div className="flex justify-between items-end">
           <div className="space-y-3">
             <Skeleton className="h-10 w-60 rounded-xl" />
@@ -193,7 +193,7 @@ export default function WarrantyVaultPage() {
 
   if (error) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center min-h-[70vh] bg-[#F8F9FB] p-8 gap-5">
+      <div className="flex-1 flex flex-col items-center justify-center min-h-[70vh] bg-background p-8 gap-5">
         <div className="h-16 w-16 rounded-[22px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500">
           <ShieldAlert className="h-8 w-8" />
         </div>
@@ -207,15 +207,15 @@ export default function WarrantyVaultPage() {
   }
 
   return (
-    <div className="flex-1 min-h-screen bg-[#F8F9FB] p-8 md:p-12 w-full space-y-12 max-w-[1400px] mx-auto text-left font-sans">
+    <div className="flex-1 min-h-screen bg-background p-8 md:p-12 w-full space-y-12 max-w-[1400px] mx-auto text-left font-sans">
       
       {/* Header section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div className="space-y-2">
-          <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-100/50">
+          <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-primary-soft text-primary rounded-full border border-primary/20/50">
             Warranty Vault
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#111111] leading-none">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-none">
             Product Guarantees
           </h1>
           <p className="text-sm sm:text-base text-[#6B7280]">
@@ -241,15 +241,15 @@ export default function WarrantyVaultPage() {
             label: "Protected Value", 
             value: new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(stats.totalValue), 
             icon: DollarSign, 
-            color: "text-blue-500 bg-blue-50/50 border-blue-100/50" 
+            color: "text-primary bg-primary-soft/50 border-primary/20/50" 
           }
         ].map((stat, idx) => {
           const Icon = stat.icon;
           return (
-            <div key={idx} className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-[0_12px_40px_rgba(0,0,0,.03)] flex items-center justify-between">
+            <div key={idx} className="bg-white border border-border rounded-[24px] p-6 shadow-[0_12px_40px_rgba(0,0,0,.03)] flex items-center justify-between">
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-[#6B7280] uppercase tracking-wider">{stat.label}</span>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">{stat.value}</h3>
+                <h3 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">{stat.value}</h3>
               </div>
               <div className={`h-12 w-12 rounded-2xl border flex items-center justify-center ${stat.color}`}>
                 <Icon className="h-6 w-6" />
@@ -260,16 +260,16 @@ export default function WarrantyVaultPage() {
       </div>
 
       {/* Controls Bar */}
-      <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-white border border-[#ECECEC] p-4 rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.03)]">
+      <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-white border border-border p-4 rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.03)]">
         
         {/* Search */}
-        <div className="flex items-center gap-3 w-full lg:max-w-md bg-[#F8F9FB] px-4 py-2.5 rounded-xl border border-[#ECECEC] focus-within:border-blue-600 transition-colors">
+        <div className="flex items-center gap-3 w-full lg:max-w-md bg-background px-4 py-2.5 rounded-xl border border-border focus-within:border-primary transition-colors">
           <Search className="h-4.5 w-4.5 text-[#6B7280]" />
           <input
             placeholder="Search appliance, brand, model..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-transparent border-0 outline-none text-sm w-full text-[#111111] placeholder:text-[#6B7280]"
+            className="bg-transparent border-0 outline-none text-sm w-full text-foreground placeholder:text-[#6B7280]"
           />
         </div>
 
@@ -281,7 +281,7 @@ export default function WarrantyVaultPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as "ALL" | "ACTIVE" | "EXPIRED")}
-              className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2 outline-none cursor-pointer"
+              className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2 outline-none cursor-pointer"
             >
               <option value="ALL">All Statuses</option>
               <option value="ACTIVE">Active</option>
@@ -295,7 +295,7 @@ export default function WarrantyVaultPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "expiry-asc" | "expiry-desc" | "brand-asc" | "name-asc")}
-              className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2 outline-none cursor-pointer"
+              className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2 outline-none cursor-pointer"
             >
               <option value="expiry-asc">Expiry Date (Soonest)</option>
               <option value="expiry-desc">Expiry Date (Latest)</option>
@@ -313,12 +313,12 @@ export default function WarrantyVaultPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="flex flex-col items-center justify-center p-20 text-center border-dashed border-2 border-[#ECECEC] bg-white/50 rounded-[28px]"
+            className="flex flex-col items-center justify-center p-20 text-center border-dashed border-2 border-border bg-white/50 rounded-[28px]"
           >
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-blue-50 text-blue-600 mb-5 border border-blue-100">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-primary-soft text-primary mb-5 border border-primary/20">
               <ShieldCheck className="h-8 w-8" />
             </div>
-            <h3 className="text-xl font-bold text-[#111111]">No Warranties Found</h3>
+            <h3 className="text-xl font-bold text-foreground">No Warranties Found</h3>
             <p className="text-sm text-[#6B7280] mt-2 max-w-sm font-medium leading-relaxed">
               {searchQuery ? "No appliance profiles match the filtered query parameters." : "You do not have any registered warranties. Add your first appliance profile to activate alerts."}
             </p>
@@ -340,13 +340,13 @@ export default function WarrantyVaultPage() {
                   key={app.id}
                   variants={itemVariants}
                   whileHover={{ y: -6, boxShadow: "0 24px 48px rgba(0,0,0,0.06)" }}
-                  className="bg-white border border-[#ECECEC] rounded-[28px] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-between group transition-all duration-300 relative min-h-[300px]"
+                  className="bg-white border border-border rounded-[28px] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-between group transition-all duration-300 relative min-h-[300px]"
                 >
                   <div className="space-y-5">
                     {/* Top Brand, Image, Details */}
                     <div className="flex gap-4 items-start">
                       {/* Product Preview box */}
-                      <div className="h-16 w-16 rounded-2xl bg-[#F8F9FB] border border-[#ECECEC] overflow-hidden flex items-center justify-center shrink-0">
+                      <div className="h-16 w-16 rounded-2xl bg-background border border-border overflow-hidden flex items-center justify-center shrink-0">
                         {app.photoFileName ? (
                           <img 
                             src={`${apiBaseUrl}/api/v1/uploads/${app.photoFileName}`} 
@@ -362,10 +362,10 @@ export default function WarrantyVaultPage() {
                       </div>
                       
                       <div className="text-left space-y-1">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary-soft px-2 py-0.5 rounded-md border border-primary/20/50">
                           {app.brand}
                         </span>
-                        <h3 className="text-base font-extrabold text-[#111111] line-clamp-1 leading-snug">
+                        <h3 className="text-base font-extrabold text-foreground line-clamp-1 leading-snug">
                           {app.name}
                         </h3>
                         <p className="text-xs text-[#6B7280] font-medium">Model: {app.model || "N/A"}</p>
@@ -373,7 +373,7 @@ export default function WarrantyVaultPage() {
                     </div>
 
                     {/* Expiration detail rows */}
-                    <div className="pt-4 border-t border-[#F8F9FB] space-y-3 text-xs text-[#111111] font-medium text-left">
+                    <div className="pt-4 border-t border-[#F8F9FB] space-y-3 text-xs text-foreground font-medium text-left">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2 text-[#6B7280]">
                           <Calendar className="h-4 w-4" />
@@ -428,7 +428,7 @@ export default function WarrantyVaultPage() {
                     </div>
 
                     <Link href={`/dashboard/appliances/${app.id}/edit`}>
-                      <button className="h-9 px-4 rounded-xl bg-slate-50 border border-[#ECECEC] hover:bg-slate-100 hover:text-black transition-all flex items-center gap-1.5 font-bold text-xs cursor-pointer">
+                      <button className="h-9 px-4 rounded-xl bg-slate-50 border border-border hover:bg-slate-100 hover:text-black transition-all flex items-center gap-1.5 font-bold text-xs cursor-pointer">
                         <Eye className="h-3.5 w-3.5" />
                         Details
                       </button>
@@ -443,18 +443,18 @@ export default function WarrantyVaultPage() {
 
       {/* Bottom Invoice Upload Card */}
       <div className="pt-8">
-        <div className="bg-white border border-[#ECECEC] rounded-[28px] p-8 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6 text-left">
+        <div className="bg-white border border-border rounded-[28px] p-8 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6 text-left">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-100/50 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-primary-soft text-primary border border-primary/20/50 flex items-center justify-center">
               <UploadCloud className="h-5.5 w-5.5" />
             </div>
             <div>
-              <h3 className="text-lg font-extrabold text-[#111111]">Warranty Registry Ingestion</h3>
+              <h3 className="text-lg font-extrabold text-foreground">Warranty Registry Ingestion</h3>
               <p className="text-xs text-[#6B7280] font-medium mt-0.5">Drag and drop receipts or warranty slips to index appliance documents instantly.</p>
             </div>
           </div>
 
-          <div className="border-dashed border-2 border-[#ECECEC] rounded-2xl p-6 bg-[#F8F9FB]/50 hover:bg-slate-50 transition-colors">
+          <div className="border-dashed border-2 border-border rounded-2xl p-6 bg-background/50 hover:bg-slate-50 transition-colors">
             <ImageUpload
               onSuccess={(metadata) => {
                 setUploadedInvoice(metadata);

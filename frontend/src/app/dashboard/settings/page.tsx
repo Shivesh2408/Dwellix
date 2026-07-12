@@ -265,7 +265,7 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-6 text-left font-sans">
+      <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-6 text-left font-sans">
         <div className="space-y-2 animate-pulse">
           <div className="h-8 bg-slate-200 rounded-md w-48" />
           <div className="h-4 bg-slate-200 rounded-md w-72" />
@@ -284,9 +284,9 @@ export default function SettingsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4 font-sans">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4 font-sans">
         <AlertOctagon className="h-10 w-10 text-rose-500" />
-        <div className="text-base font-extrabold text-slate-900 font-heading">Error Loading Settings</div>
+        <div className="text-base font-extrabold text-foreground font-heading">Error Loading Settings</div>
         <p className="text-xs text-slate-500 text-center leading-relaxed">{error}</p>
         <Button onClick={fetchProfile} size="sm" className="bg-slate-900 text-white rounded-xl px-5 h-9 font-bold cursor-pointer">
           Retry Connection
@@ -296,7 +296,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-hidden">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -316,10 +316,10 @@ export default function SettingsPage() {
         {/* Top Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="space-y-1">
-            <Badge className="bg-blue-50/80 text-blue-600 text-[10px] uppercase font-bold tracking-widest rounded-full border-blue-100/30 px-2.5 py-0.5">
+            <Badge className="bg-primary-soft/80 text-primary text-[10px] uppercase font-bold tracking-widest rounded-full border-primary/20/30 px-2.5 py-0.5">
               Dashboard Config
             </Badge>
-            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-foreground">
               Settings
             </h1>
           </div>
@@ -327,7 +327,7 @@ export default function SettingsPage() {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="rounded-xl font-bold text-xs h-10 px-5 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+            className="rounded-xl font-bold text-xs h-10 px-5 bg-primary hover:bg-primary-hover text-white cursor-pointer transition-colors flex items-center gap-1.5 self-start sm:self-auto"
           >
             {saving ? (
               <span className="flex items-center gap-1">
@@ -357,12 +357,12 @@ export default function SettingsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search settings..."
-                className="pl-9 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-white"
+                className="pl-9 h-10 rounded-2xl border-slate-150 focus:ring-primary focus:border-primary text-xs sm:text-sm bg-white"
               />
             </div>
 
             {/* Sidebar List */}
-            <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-2.5 shadow-sm space-y-1.5">
+            <Card className="bg-white border border-border rounded-[24px] p-2.5 shadow-sm space-y-1.5">
               {filteredSections.map((sec) => {
                 const isActive = activeSection === sec.name;
                 return (
@@ -399,9 +399,9 @@ export default function SettingsPage() {
                 
                 {/* 1. Account Settings */}
                 {activeSection === "Account" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <User className="h-4.5 w-4.5 text-blue-600" />
+                      <User className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Account details</h3>
                     </div>
 
@@ -427,7 +427,7 @@ export default function SettingsPage() {
                           type="text"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-750"
                         />
                       </div>
 
@@ -437,7 +437,7 @@ export default function SettingsPage() {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-750"
                         />
                       </div>
 
@@ -448,7 +448,7 @@ export default function SettingsPage() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="e.g. 9876543210"
-                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-750"
                         />
                       </div>
                     </div>
@@ -457,9 +457,9 @@ export default function SettingsPage() {
 
                 {/* 2. Appearance Config */}
                 {activeSection === "Appearance" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Layout className="h-4.5 w-4.5 text-blue-600" />
+                      <Layout className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Interface appearance</h3>
                     </div>
 
@@ -470,8 +470,8 @@ export default function SettingsPage() {
                         {["blue", "indigo", "purple", "emerald", "rose"].map((color) => {
                           const isSelected = accentColor === color;
                           const bgMap: { [key: string]: string } = {
-                            blue: "bg-blue-500",
-                            indigo: "bg-indigo-500",
+                            blue: "bg-primary-soft0",
+                            indigo: "bg-primary-soft0",
                             purple: "bg-purple-500",
                             emerald: "bg-emerald-500",
                             rose: "bg-rose-500"
@@ -523,9 +523,9 @@ export default function SettingsPage() {
 
                 {/* 3. Notifications Config */}
                 {activeSection === "Notifications" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-5">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-5">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Bell className="h-4.5 w-4.5 text-blue-600" />
+                      <Bell className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Dispatch & alerts channels</h3>
                     </div>
 
@@ -541,7 +541,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setEmailNotifications(!emailNotifications)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            emailNotifications ? "bg-blue-600" : "bg-slate-200"
+                            emailNotifications ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${emailNotifications ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -558,7 +558,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setPushNotifications(!pushNotifications)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            pushNotifications ? "bg-blue-600" : "bg-slate-200"
+                            pushNotifications ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${pushNotifications ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -575,7 +575,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setSmsNotifications(!smsNotifications)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            smsNotifications ? "bg-blue-600" : "bg-slate-200"
+                            smsNotifications ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${smsNotifications ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -592,7 +592,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setWarrantyAlerts(!warrantyAlerts)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            warrantyAlerts ? "bg-blue-600" : "bg-slate-200"
+                            warrantyAlerts ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${warrantyAlerts ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -609,7 +609,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setMaintenanceAlerts(!maintenanceAlerts)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            maintenanceAlerts ? "bg-blue-600" : "bg-slate-200"
+                            maintenanceAlerts ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${maintenanceAlerts ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -626,7 +626,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setBookingAlerts(!bookingAlerts)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            bookingAlerts ? "bg-blue-600" : "bg-slate-200"
+                            bookingAlerts ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${bookingAlerts ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -643,7 +643,7 @@ export default function SettingsPage() {
                           type="button"
                           onClick={() => setAiRecommendations(!aiRecommendations)}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                            aiRecommendations ? "bg-blue-600" : "bg-slate-200"
+                            aiRecommendations ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${aiRecommendations ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -655,9 +655,9 @@ export default function SettingsPage() {
 
                 {/* 4. Security Options */}
                 {activeSection === "Security" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Lock className="h-4.5 w-4.5 text-blue-600" />
+                      <Lock className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Security Credentials</h3>
                     </div>
 
@@ -689,7 +689,7 @@ export default function SettingsPage() {
                             setToastMessage(twoFactor ? "2FA disabled." : "2FA enabled.");
                           }}
                           className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer flex-shrink-0 ${
-                            twoFactor ? "bg-blue-600" : "bg-slate-200"
+                            twoFactor ? "bg-primary" : "bg-slate-200"
                           }`}
                         >
                           <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${twoFactor ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -723,9 +723,9 @@ export default function SettingsPage() {
 
                 {/* 5. Privacy Options */}
                 {activeSection === "Privacy" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <ShieldCheck className="h-4.5 w-4.5 text-blue-600" />
+                      <ShieldCheck className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Privacy & Consent</h3>
                     </div>
 
@@ -736,7 +736,7 @@ export default function SettingsPage() {
                           <span className="font-bold text-slate-850 block">Share usage analytics data</span>
                           <span className="text-[10px] text-slate-450 block leading-tight">Help improve Dwellix algorithms with appliance diagnostic logs.</span>
                         </div>
-                        <button type="button" className="w-10 h-5.5 rounded-full bg-blue-600 relative cursor-pointer">
+                        <button type="button" className="w-10 h-5.5 rounded-full bg-primary relative cursor-pointer">
                           <span className="absolute top-0.75 left-5 w-4 h-4 rounded-full bg-white shadow" />
                         </button>
                       </div>
@@ -760,9 +760,9 @@ export default function SettingsPage() {
 
                 {/* 6. AI Settings Config */}
                 {activeSection === "AI Settings" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+                      <Sparkles className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Gemini AI Engine Settings</h3>
                     </div>
 
@@ -807,7 +807,7 @@ export default function SettingsPage() {
                             type="button"
                             onClick={() => setSmartSuggestions(!smartSuggestions)}
                             className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                              smartSuggestions ? "bg-blue-600" : "bg-slate-200"
+                              smartSuggestions ? "bg-primary" : "bg-slate-200"
                             }`}
                           >
                             <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${smartSuggestions ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -824,7 +824,7 @@ export default function SettingsPage() {
                             type="button"
                             onClick={() => setAutoMaintenance(!autoMaintenance)}
                             className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                              autoMaintenance ? "bg-blue-600" : "bg-slate-200"
+                              autoMaintenance ? "bg-primary" : "bg-slate-200"
                             }`}
                           >
                             <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${autoMaintenance ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -841,7 +841,7 @@ export default function SettingsPage() {
                             type="button"
                             onClick={() => setApplianceMonitoring(!applianceMonitoring)}
                             className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer ${
-                              applianceMonitoring ? "bg-blue-600" : "bg-slate-200"
+                              applianceMonitoring ? "bg-primary" : "bg-slate-200"
                             }`}
                           >
                             <span className={`absolute top-0.75 w-4 h-4 rounded-full bg-white shadow transition-transform ${applianceMonitoring ? "translate-x-5" : "translate-x-0.75"}`} />
@@ -854,9 +854,9 @@ export default function SettingsPage() {
 
                 {/* 7. Integrations Panel */}
                 {activeSection === "Integrations" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Share2 className="h-4.5 w-4.5 text-blue-600" />
+                      <Share2 className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Connected Services</h3>
                     </div>
 
@@ -877,7 +877,7 @@ export default function SettingsPage() {
                             setToastMessage(integrationGoogle ? "Google Sign-in unlinked." : "Google Sign-in linked.");
                           }}
                           className={`text-[10px] font-extrabold uppercase tracking-wide px-3 py-1.5 rounded-xl border cursor-pointer transition-colors ${
-                            integrationGoogle ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                            integrationGoogle ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-primary text-white border-primary"
                           }`}
                         >
                           {integrationGoogle ? "Disconnect" : "Link"}
@@ -887,7 +887,7 @@ export default function SettingsPage() {
                       {/* Cloudinary */}
                       <div className="flex justify-between items-center p-3.5 bg-slate-50 border border-slate-100 rounded-2xl text-xs sm:text-sm">
                         <div className="flex items-start gap-3">
-                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-blue-600 mt-0.5">
+                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-primary mt-0.5">
                             <Cloud className="h-4.5 w-4.5" />
                           </span>
                           <div className="space-y-0.5 text-left">
@@ -902,7 +902,7 @@ export default function SettingsPage() {
                             setToastMessage(integrationCloudinary ? "Cloudinary CDN unlinked." : "Cloudinary CDN linked.");
                           }}
                           className={`text-[10px] font-extrabold uppercase tracking-wide px-3 py-1.5 rounded-xl border cursor-pointer transition-colors ${
-                            integrationCloudinary ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                            integrationCloudinary ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-primary text-white border-primary"
                           }`}
                         >
                           {integrationCloudinary ? "Disconnect" : "Link"}
@@ -912,7 +912,7 @@ export default function SettingsPage() {
                       {/* Google Calendar */}
                       <div className="flex justify-between items-center p-3.5 bg-slate-50 border border-slate-100 rounded-2xl text-xs sm:text-sm">
                         <div className="flex items-start gap-3">
-                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-blue-600 mt-0.5">
+                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-primary mt-0.5">
                             <Calendar className="h-4.5 w-4.5" />
                           </span>
                           <div className="space-y-0.5 text-left">
@@ -927,7 +927,7 @@ export default function SettingsPage() {
                             setToastMessage(integrationCalendar ? "Calendar sync unlinked." : "Calendar sync linked.");
                           }}
                           className={`text-[10px] font-extrabold uppercase tracking-wide px-3 py-1.5 rounded-xl border cursor-pointer transition-colors ${
-                            integrationCalendar ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                            integrationCalendar ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-primary text-white border-primary"
                           }`}
                         >
                           {integrationCalendar ? "Disconnect" : "Link"}
@@ -952,7 +952,7 @@ export default function SettingsPage() {
                             setToastMessage(integrationWhatsApp ? "WhatsApp notifications unlinked." : "WhatsApp notifications linked.");
                           }}
                           className={`text-[10px] font-extrabold uppercase tracking-wide px-3 py-1.5 rounded-xl border cursor-pointer transition-colors ${
-                            integrationWhatsApp ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                            integrationWhatsApp ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-primary text-white border-primary"
                           }`}
                         >
                           {integrationWhatsApp ? "Disconnect" : "Link"}
@@ -964,9 +964,9 @@ export default function SettingsPage() {
 
                 {/* 8. Language & Region Options */}
                 {activeSection === "Language & Region" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <Globe className="h-4.5 w-4.5 text-blue-600" />
+                      <Globe className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Locale & regional parameters</h3>
                     </div>
 
@@ -1037,9 +1037,9 @@ export default function SettingsPage() {
 
                 {/* 9. Storage Usage Config */}
                 {activeSection === "Storage" && (
-                  <Card className="bg-white border border-[#ECECEC] rounded-[24px] p-6 shadow-sm space-y-6">
+                  <Card className="bg-white border border-border rounded-[24px] p-6 shadow-sm space-y-6">
                     <div className="border-b border-slate-50 pb-3 flex items-center gap-2">
-                      <HardDrive className="h-4.5 w-4.5 text-blue-600" />
+                      <HardDrive className="h-4.5 w-4.5 text-primary" />
                       <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Cloud Storage logs usage</h3>
                     </div>
 
@@ -1051,7 +1051,7 @@ export default function SettingsPage() {
                           <span className="text-slate-800 font-extrabold">2.4 GB / 10 GB (24%)</span>
                         </div>
                         <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden flex">
-                          <div className="h-full bg-blue-500" style={{ width: "12%" }} title="Images: 1.2 GB" />
+                          <div className="h-full bg-primary-soft0" style={{ width: "12%" }} title="Images: 1.2 GB" />
                           <div className="h-full bg-emerald-500" style={{ width: "8%" }} title="Documents: 0.8 GB" />
                           <div className="h-full bg-amber-500" style={{ width: "4%" }} title="Warranties: 0.4 GB" />
                         </div>
@@ -1059,7 +1059,7 @@ export default function SettingsPage() {
 
                       {/* Legend grid */}
                       <div className="grid grid-cols-3 gap-4 pt-2 text-left">
-                        <div className="space-y-0.5 border-l-2 border-l-blue-500 pl-2">
+                        <div className="space-y-0.5 border-l-2 border-l-primary pl-2">
                           <span className="text-[9px] text-slate-400 uppercase font-extrabold">Images</span>
                           <span className="font-bold text-slate-750 block">1.2 GB (12%)</span>
                         </div>

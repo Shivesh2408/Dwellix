@@ -125,7 +125,7 @@ export default function MaintenancePage() {
 
       {filteredTasks.length === 0 ? (
         <Card className="flex flex-col items-center justify-center p-16 text-center border-dashed border-2 border-border/80 bg-white/50 rounded-2xl">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 mb-4">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary mb-4">
             <Wrench className="h-7 w-7" />
           </div>
           <h3 className="text-lg font-semibold text-foreground font-heading">No Tasks Scheduled</h3>

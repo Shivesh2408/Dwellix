@@ -233,7 +233,7 @@ export default function MarketplacePage() {
 
   if (loading) {
     return (
-      <div className="flex-grow p-10 space-y-10 max-w-[1400px] mx-auto w-full text-left bg-[#F8F9FB] min-h-screen">
+      <div className="flex-grow p-10 space-y-10 max-w-[1400px] mx-auto w-full text-left bg-background min-h-screen">
         <div className="space-y-3">
           <Skeleton className="h-10 w-72 rounded-xl" />
           <Skeleton className="h-4.5 w-[500px] rounded-lg" />
@@ -250,11 +250,11 @@ export default function MarketplacePage() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 max-w-md mx-auto h-[60vh] gap-4 bg-[#F8F9FB]">
+      <div className="flex flex-col items-center justify-center p-12 max-w-md mx-auto h-[60vh] gap-4 bg-background">
         <div className="h-16 w-16 rounded-[22px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500">
           <SlidersHorizontal className="h-8 w-8" />
         </div>
-        <div className="text-base font-bold text-[#111111] font-heading">Error Loading Marketplace</div>
+        <div className="text-base font-bold text-foreground font-heading">Error Loading Marketplace</div>
         <p className="text-sm text-[#6B7280] text-center">{error}</p>
         <Button onClick={fetchTechnicians} className="rounded-xl h-11 px-6 bg-black text-white hover:bg-black/90">Retry Loading</Button>
       </div>
@@ -262,14 +262,14 @@ export default function MarketplacePage() {
   }
 
   return (
-    <div className="flex-1 p-8 md:p-12 max-w-[1400px] mx-auto w-full space-y-12 text-left bg-[#F8F9FB] font-sans">
+    <div className="flex-1 p-8 md:p-12 max-w-[1400px] mx-auto w-full space-y-12 text-left bg-background font-sans">
       
       {/* Header section */}
       <div>
-        <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-100/50">
+        <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-primary-soft text-primary rounded-full border border-primary/20/50">
           Verified Dispatch
         </span>
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#111111] mt-3 leading-none">
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground mt-3 leading-none">
           Service Marketplace
         </h1>
         <p className="text-sm sm:text-base text-[#6B7280] mt-2">
@@ -280,8 +280,8 @@ export default function MarketplacePage() {
       {/* Featured Services Carousel */}
       {featuredTechnicians.length > 0 && (
         <div className="space-y-6">
-          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#111111] flex items-center gap-2">
-            <Sparkles className="h-5.5 w-5.5 text-blue-600" />
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
+            <Sparkles className="h-5.5 w-5.5 text-primary" />
             Featured Dispatches
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -312,7 +312,7 @@ export default function MarketplacePage() {
 
                   <div className="z-10 space-y-4">
                     <div className="space-y-1">
-                      <span className="text-[10px] uppercase font-bold text-blue-400 tracking-widest">{tech.specialization} Pro</span>
+                      <span className="text-[10px] uppercase font-bold text-primary-hover tracking-widest">{tech.specialization} Pro</span>
                       <h3 className="text-xl sm:text-2xl font-black tracking-tight leading-snug">{tech.name}</h3>
                       <div className="flex items-center gap-1 text-xs">
                         <Star className="h-4 w-4 fill-amber-400 text-amber-400 shrink-0" />
@@ -342,7 +342,7 @@ export default function MarketplacePage() {
       )}
 
       {/* Control bar / Filtering and Sorting */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 shadow-[0_12px_40px_rgba(0,0,0,0.02)] space-y-5">
+      <div className="bg-white border border-border rounded-[24px] p-5 shadow-[0_12px_40px_rgba(0,0,0,0.02)] space-y-5">
         
         {/* Categories Bar */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-[#F8F9FB]">
@@ -353,7 +353,7 @@ export default function MarketplacePage() {
               className={`px-4.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors border cursor-pointer ${
                 selectedCategory === cat.id
                   ? "bg-black text-white border-black"
-                  : "bg-white text-[#6B7280] border-[#ECECEC] hover:bg-slate-50 hover:text-black"
+                  : "bg-white text-[#6B7280] border-border hover:bg-slate-50 hover:text-black"
               }`}
             >
               {cat.name}
@@ -363,13 +363,13 @@ export default function MarketplacePage() {
 
         {/* Inputs */}
         <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
-          <div className="flex-grow flex items-center gap-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-4 py-2.5 focus-within:border-blue-600 transition-colors">
+          <div className="flex-grow flex items-center gap-3 bg-background border border-border rounded-xl px-4 py-2.5 focus-within:border-primary transition-colors">
             <Search className="h-4.5 w-4.5 text-[#6B7280] shrink-0" />
             <input
               placeholder="Search dispatches, skills, cities..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-transparent border-0 outline-none text-sm w-full text-[#111111] placeholder:text-[#6B7280]"
+              className="bg-transparent border-0 outline-none text-sm w-full text-foreground placeholder:text-[#6B7280]"
             />
           </div>
 
@@ -379,7 +379,7 @@ export default function MarketplacePage() {
               <select
                 value={cityFilter}
                 onChange={(e) => setCityFilter(e.target.value)}
-                className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2 outline-none cursor-pointer"
+                className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2 outline-none cursor-pointer"
               >
                 <option value="all">All Cities</option>
                 {cities.map((city) => (
@@ -393,7 +393,7 @@ export default function MarketplacePage() {
               <select
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
-                className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2 outline-none cursor-pointer"
+                className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2 outline-none cursor-pointer"
               >
                 <option value="rating-desc">Highest Rated</option>
                 <option value="experience-desc">Most Experienced</option>
@@ -411,12 +411,12 @@ export default function MarketplacePage() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center p-20 text-center border-dashed border-2 border-[#ECECEC] bg-white/50 rounded-[28px]"
+            className="flex flex-col items-center justify-center p-20 text-center border-dashed border-2 border-border bg-white/50 rounded-[28px]"
           >
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-blue-50 text-blue-600 mb-5 border border-blue-100">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-primary-soft text-primary mb-5 border border-primary/20">
               <SlidersHorizontal className="h-6 w-6" />
             </div>
-            <h3 className="text-xl font-bold text-[#111111]">No Services Found</h3>
+            <h3 className="text-xl font-bold text-foreground">No Services Found</h3>
             <p className="text-sm text-[#6B7280] mt-2 max-w-sm font-medium leading-relaxed">
               No technicians match the filtered category rules. Adjust criteria to sync dispatches.
             </p>
@@ -435,11 +435,11 @@ export default function MarketplacePage() {
                   key={tech.id}
                   variants={cardVariants}
                   whileHover={{ y: -6, boxShadow: "0 24px 48px rgba(0,0,0,0.06)" }}
-                  className="bg-white border border-[#ECECEC] rounded-[28px] shadow-[0_12px_40px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col justify-between group transition-all duration-300 relative min-h-[420px]"
+                  className="bg-white border border-border rounded-[28px] shadow-[0_12px_40px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col justify-between group transition-all duration-300 relative min-h-[420px]"
                 >
                   
                   {/* Image banner preview */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-900 border-b border-[#ECECEC]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-900 border-b border-border">
                     <img 
                       src={prod.image} 
                       alt={tech.name} 
@@ -452,7 +452,7 @@ export default function MarketplacePage() {
                       <span className="px-3 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-md border border-slate-800">
                         {prod.discount}
                       </span>
-                      <span className="px-3 py-1 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider rounded-md border border-blue-500">
+                      <span className="px-3 py-1 bg-primary text-white text-[9px] font-bold uppercase tracking-wider rounded-md border border-primary">
                         {prod.badge}
                       </span>
                     </div>
@@ -460,7 +460,7 @@ export default function MarketplacePage() {
                     <button
                       type="button"
                       onClick={(e) => toggleWishlist(tech.id, e)}
-                      className="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#111111] hover:bg-white border border-[#ECECEC] cursor-pointer shadow-sm transition-colors"
+                      className="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-white border border-border cursor-pointer shadow-sm transition-colors"
                     >
                       <Heart className={`h-4.5 w-4.5 ${wishlist.includes(tech.id) ? "fill-red-500 text-red-500" : ""}`} />
                     </button>
@@ -470,17 +470,17 @@ export default function MarketplacePage() {
                   <div className="p-6 space-y-4 flex-grow flex flex-col justify-between text-left">
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary-soft px-2 py-0.5 rounded-md border border-primary/20/50">
                           {prod.brand}
                         </span>
                         <div className="flex items-center gap-1 text-[11px] font-bold text-slate-700">
                           <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400 shrink-0" />
-                          <span className="text-[#111111]">{tech.rating}</span>
+                          <span className="text-foreground">{tech.rating}</span>
                           <span className="text-[#6B7280]">({tech.totalReviews})</span>
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-extrabold text-[#111111] line-clamp-1 leading-snug">
+                      <h3 className="text-lg font-extrabold text-foreground line-clamp-1 leading-snug">
                         {tech.name}
                       </h3>
                       <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
@@ -494,11 +494,11 @@ export default function MarketplacePage() {
                           <MapPin className="h-4 w-4 shrink-0 text-slate-400" />
                           <span>Dispatch Area</span>
                         </div>
-                        <span className="text-[#111111]">{tech.city}</span>
+                        <span className="text-foreground">{tech.city}</span>
                       </div>
                       
                       <div className="flex justify-between items-center">
-                        <span className="text-[10px] text-[#6B7280] font-bold bg-[#F8F9FB] border border-[#ECECEC] px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] text-[#6B7280] font-bold bg-background border border-border px-2 py-0.5 rounded-md">
                           {prod.emi}
                         </span>
                         <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full text-[9px] font-bold uppercase px-2 py-0.5">
@@ -512,7 +512,7 @@ export default function MarketplacePage() {
                   <div className="p-6 pt-0 border-t border-[#F8F9FB] flex items-center justify-between gap-4">
                     <div>
                       <span className="text-[9px] uppercase font-bold text-slate-400 block tracking-wider">HOURLY RATE</span>
-                      <div className="flex items-baseline text-lg font-extrabold text-[#111111] mt-0.5">
+                      <div className="flex items-baseline text-lg font-extrabold text-foreground mt-0.5">
                         <IndianRupee className="h-3.5 w-3.5 text-[#6B7280] mr-0.5 self-center" />
                         {tech.hourlyRate}
                         <span className="text-[10px] text-[#6B7280] font-normal ml-0.5">/hr</span>
@@ -539,22 +539,22 @@ export default function MarketplacePage() {
 
       {/* Recommended Section */}
       {recommendedTechnicians.length > 0 && (
-        <div className="pt-12 border-t border-[#ECECEC] space-y-6">
-          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#111111]">Recommended Services</h2>
+        <div className="pt-12 border-t border-border space-y-6">
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">Recommended Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {recommendedTechnicians.map((tech) => {
               const prod = getProductDetails(tech);
               return (
                 <div 
                   key={tech.id}
-                  className="bg-white border border-[#ECECEC] rounded-[24px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-all flex items-center justify-between gap-4 text-left"
+                  className="bg-white border border-border rounded-[24px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-all flex items-center justify-between gap-4 text-left"
                 >
                   <div className="flex gap-4 items-center min-w-0">
-                    <div className="h-12 w-12 rounded-xl bg-slate-50 border border-[#ECECEC] overflow-hidden flex items-center justify-center shrink-0">
+                    <div className="h-12 w-12 rounded-xl bg-slate-50 border border-border overflow-hidden flex items-center justify-center shrink-0">
                       <img src={prod.image} alt={tech.name} className="h-full w-full object-cover" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="font-bold text-xs text-[#111111] truncate">{tech.name}</h4>
+                      <h4 className="font-bold text-xs text-foreground truncate">{tech.name}</h4>
                       <p className="text-[10px] text-[#6B7280] font-medium truncate mt-0.5">{tech.specialization} Pro • {tech.city}</p>
                     </div>
                   </div>
@@ -572,22 +572,22 @@ export default function MarketplacePage() {
 
       {/* Recently Viewed section */}
       {recentlyViewedObjects.length > 0 && (
-        <div className="pt-12 border-t border-[#ECECEC] space-y-6">
-          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#111111]">Recently Viewed</h2>
+        <div className="pt-12 border-t border-border space-y-6">
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">Recently Viewed</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {recentlyViewedObjects.map((tech) => {
               const prod = getProductDetails(tech);
               return (
                 <div 
                   key={tech.id} 
-                  className="bg-white border border-[#ECECEC] rounded-[24px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.01)] space-y-3 text-left hover:-translate-y-0.5 transition-all"
+                  className="bg-white border border-border rounded-[24px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.01)] space-y-3 text-left hover:-translate-y-0.5 transition-all"
                 >
-                  <div className="aspect-[16/10] overflow-hidden rounded-xl bg-slate-50 border border-[#ECECEC]">
+                  <div className="aspect-[16/10] overflow-hidden rounded-xl bg-slate-50 border border-border">
                     <img src={prod.image} alt={tech.name} className="h-full w-full object-cover" />
                   </div>
                   <div className="space-y-1 min-w-0">
-                    <span className="text-[9px] uppercase font-bold text-blue-600 block">{prod.brand}</span>
-                    <h4 className="font-bold text-xs text-[#111111] truncate leading-tight">{tech.name}</h4>
+                    <span className="text-[9px] uppercase font-bold text-primary block">{prod.brand}</span>
+                    <h4 className="font-bold text-xs text-foreground truncate leading-tight">{tech.name}</h4>
                     <div className="flex items-center justify-between mt-1 text-[10px] text-[#6B7280] font-medium">
                       <span>₹{tech.hourlyRate}/hr</span>
                       <span className="font-semibold">{tech.rating} ★</span>

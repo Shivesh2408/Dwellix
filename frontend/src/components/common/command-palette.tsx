@@ -90,7 +90,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         title: "AI Assistant",
         subtitle: "Ask Gemini for appliance troubleshooting",
         href: "/dashboard/ai-assistant",
-        icon: <Bot className="h-4.5 w-4.5 text-indigo-500" />
+        icon: <Bot className="h-4.5 w-4.5 text-primary" />
       },
       {
         id: "nav-marketplace",
@@ -98,7 +98,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         title: "Marketplace",
         subtitle: "Browse certified parts and verified appliances",
         href: "/dashboard/marketplace",
-        icon: <ShoppingBag className="h-4.5 w-4.5 text-blue-600" />
+        icon: <ShoppingBag className="h-4.5 w-4.5 text-primary" />
       },
       {
         id: "nav-settings",
@@ -134,7 +134,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         title: app.name,
         subtitle: `${app.brand} — ${app.roomName || "Unassigned"}`,
         href: `/dashboard/appliances/${app.id}`,
-        icon: <Cpu className="h-4.5 w-4.5 text-blue-500" />
+        icon: <Cpu className="h-4.5 w-4.5 text-primary" />
       });
       // Duplicate to Warranties category for context
       list.push({
@@ -264,7 +264,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative max-w-xl w-full bg-white rounded-[24px] border border-[#ECECEC] shadow-2xl overflow-hidden flex flex-col max-h-[460px] z-50"
+            className="relative max-w-xl w-full bg-white rounded-[24px] border border-border shadow-2xl overflow-hidden flex flex-col max-h-[460px] z-50"
           >
             {/* Command search input bar */}
             <div className="flex items-center gap-3 px-4.5 py-4 border-b border-slate-100">
@@ -275,7 +275,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Type a command or search user data..."
                 autoFocus
-                className="w-full bg-transparent border-0 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-semibold"
+                className="w-full bg-transparent border-0 outline-none text-sm text-foreground placeholder:text-slate-400 font-semibold"
               />
               <span className="text-[10px] text-slate-450 font-bold bg-slate-100 border border-slate-200/50 px-2 py-0.5 rounded-lg shrink-0">
                 ESC

@@ -146,7 +146,7 @@ export default function InvoicesPage() {
                   <tr key={item.id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-indigo-50 text-indigo-500 flex-shrink-0">
+                        <div className="p-2 rounded-lg bg-primary-soft text-primary flex-shrink-0">
                           <Cpu className="h-4.5 w-4.5" />
                         </div>
                         <div>

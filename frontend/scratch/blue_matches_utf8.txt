@@ -1,0 +1,230 @@
+﻿C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:89:    color: "bg-blue-50/50 border-blue-100 text-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:210:    <blockquote className="border-l-4 border-blue-600 bg-slate-50 pl-4 py-2.5 my-4 rounded-r-xl text-slate-650 italic text-xs md:text-sm">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:217:    <a href={href} className="text-blue-600 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:858:          {isPinnedSection && <Pin className="h-3 w-3 text-blue-600" />}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:871:                  ? "bg-blue-50/50 border-blue-100 text-blue-600 font-semibold"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:876:                <MessageSquare className="h-4 w-4 text-slate-400 shrink-0 group-hover:text-blue-500 transition-colors" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:904:                    className="hover:text-blue-600 text-slate-450 p-0.5 transition-colors"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:911:                    className={`p-0.5 transition-colors ${isPinned ? "text-blue-600 hover:text-slate-450" : "text-slate-450 hover:text-blue-600"}`}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1024:          <Home className="h-4 w-4 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1097:          <div className="border-l-2 border-blue-600 pl-3 py-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1178:          <div className="relative flex items-center bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-3.5 py-1.5 focus-within:border-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1237:                <Home className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1264:              <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1271:              className="hidden lg:flex xl:hidden text-xs text-blue-600 font-extrabold items-center gap-1 rounded-xl hover:bg-slate-50 cursor-pointer"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1292:                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-indigo-500/20 rounded-full filter blur-xl opacity-60 animate-pulse scale-125" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1320:                        className="group p-4.5 rounded-[22px] border border-[#ECECEC] bg-white hover:border-blue-600/40 hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-pointer"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1326:                          <h3 className="text-xs font-extrabold text-[#111111] group-hover:text-blue-600 mb-0.5 truncate">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1410:                          <div className="mt-3 p-5 border border-blue-100 bg-blue-50/50 rounded-[22px] flex flex-col sm:flex-row sm:items-center justify-between gap-5 w-full max-w-xl shadow-xxs">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1412:                              <h4 className="font-extrabold text-blue-900 text-xs flex items-center gap-1.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1413:                                <Wrench className="h-4 w-4 text-blue-600 animate-pulse shrink-0" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1452:                                <div className="h-8 w-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1459:                                  <div className="font-extrabold text-[#111111] text-[11px] group-hover:text-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1549:                        <Sparkles className="h-4 w-4 text-blue-600 animate-pulse" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1553:                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1554:                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1555:                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1605:            <div className="relative rounded-[24px] bg-white border border-[#ECECEC] focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.01)] p-3.5 transition-all flex flex-col gap-2.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1618:                      <div className="h-10 w-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1744:                    <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1834:                  <Wrench className="h-5 w-5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\ai-assistant\page.tsx:1856:                      className="w-full h-11 rounded-xl border border-[#ECECEC] bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 text-slate-700 font-semibold"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:328:        <div className="h-20 w-20 rounded-[28px] bg-blue-50 text-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/5 mb-2">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:363:          <span className="px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-widest bg-blue-50 text-blue-600 rounded-md border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:427:            <Layers className="h-5 w-5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:471:            <Activity className="h-5 w-5 text-indigo-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:491:              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/50">Cost Trend</span>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:501:                    <stop offset="5%" stopColor="#2563EB" stopOpacity={0.2}/>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:502:                    <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:509:                  contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:510:                  itemStyle={{ color: "#3B82F6", fontWeight: "bold" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:513:                <Area type="monotone" dataKey="amount" stroke="#2563EB" strokeWidth={2.5} fillOpacity={1} fill="url(#colorAmount)" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:543:                  contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:593:                  contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:629:                  contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:658:              <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100/50">Gemini Tracking</span>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\analytics\page.tsx:670:                  contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\edit\page.tsx:238:          <div className="h-14 w-14 rounded-[20px] bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:123:        color: "bg-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:131:        color: "bg-indigo-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:179:        color: "bg-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:260:            <Button className="rounded-xl font-bold text-sm h-11 px-5 bg-white border border-[#ECECEC] text-blue-600 hover:bg-blue-50 cursor-pointer shadow-sm">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:301:              <div className="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-100 mb-4">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:329:                  <Layers className="h-4 w-4 text-blue-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:413:                              evt.type === "purchase" ? "bg-blue-100 text-blue-700" :
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:414:                              evt.type === "warranty" ? "bg-indigo-100 text-indigo-700" :
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\[id]\page.tsx:418:                              evt.type === "booking_created" ? "bg-blue-100 text-blue-700" :
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:222:          <span className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest bg-blue-50 text-blue-600 rounded-md border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:244:            <Layers className="h-4 w-4 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:265:            <ShieldCheck className="h-4 w-4 text-indigo-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:274:        <div className="flex-1 flex items-center gap-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-4 py-2.5 focus-within:border-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:334:            <div className="h-16 w-16 rounded-[22px] bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-6">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:398:                    <div className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100/50 px-2 py-0.5 rounded-md font-extrabold uppercase tracking-widest w-max mb-3">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\appliances\page.tsx:401:                    <h3 className="font-extrabold text-xl text-[#111111] line-clamp-1 leading-tight group-hover:text-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:352:            <MapPin className="h-4 w-4 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:371:              <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:433:              className="pl-10 h-11 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-[#F8F9FB] border-0"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:470:              <User className="h-8 w-8 text-blue-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:496:                      <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase bg-white/90 backdrop-blur-md text-blue-600 shadow-sm border border-slate-100/30">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:510:                      <span className="text-[10px] text-blue-600 font-extrabold tracking-widest uppercase">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:552:                    className="rounded-xl font-bold text-xs h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-all transform hover:scale-[1.01]"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:618:                    {selectedTech.verified && <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />}
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:640:                      <Loader2 className="h-4 w-4 animate-spin text-blue-650 mr-2" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:652:                      className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:671:                    className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:742:                                ? "bg-blue-600 text-white shadow-sm font-extrabold"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:756:                    <div className="text-[11px] text-blue-600 font-bold flex items-center gap-1.5 mt-1 bg-blue-50/50 p-2 rounded-xl border border-blue-100/30">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:784:                              ? "border-blue-600 bg-blue-50/50 text-blue-700 ring-1 ring-blue-500"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:788:                          <Clock className={`h-3.5 w-3.5 ${isActive ? "text-blue-600 animate-pulse" : "text-slate-400"}`} />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:806:                    className="w-full rounded-xl border border-slate-200 bg-white text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-750 leading-relaxed resize-none font-sans"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:858:                          <FileText className="h-4.5 w-4.5 text-blue-600 mx-auto" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:888:                    <span className="font-extrabold text-blue-600 text-base sm:text-lg flex items-center font-heading">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\new\page.tsx:906:                      className="flex-1 rounded-xl text-xs font-bold h-10 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer flex items-center justify-center gap-1.5"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:169:        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:244:        <Loader2 className="h-8 w-8 animate-spin text-blue-600 mb-3" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:348:                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:363:                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:379:                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:389:                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:399:                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:409:                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:419:                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:430:                      className="w-full rounded-xl border border-slate-200 bg-slate-50/50 text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700 leading-relaxed resize-none font-sans"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:446:                      className="rounded-xl text-xs font-bold h-9 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:472:                    <div className="text-[10px] text-blue-600 font-extrabold uppercase tracking-wider bg-blue-50/50 px-2.5 py-1 rounded-lg w-fit">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:485:                        <span className="h-6 w-6 rounded-full bg-blue-550/10 text-blue-600 flex items-center justify-center font-bold text-[10px]">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:518:                      <span className="font-extrabold text-blue-600 text-base sm:text-xl flex items-center gap-0.5 font-heading">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\[id]\page.tsx:541:                <Activity className="h-4 w-4 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:82:        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:104:          <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide rounded-full bg-blue-50 border border-blue-150 text-blue-700">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:105:            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:216:            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-blue-50/80 border border-blue-100/50 text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:229:            <Button className="rounded-2xl font-semibold text-xs sm:text-sm h-11 px-5 gap-2 flex items-center shadow-lg bg-blue-600 hover:bg-blue-700 text-white transition-all transform hover:scale-[1.02] cursor-pointer">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:245:              <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:322:              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-[#F8F9FB] border-0"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:396:              <Wrench className="h-8 w-8 text-blue-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:405:              <Button className="rounded-xl font-bold text-xs h-10 px-5 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer mt-1">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:439:                              <h3 className="font-heading font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors text-sm sm:text-base truncate mt-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:455:                              <span className="text-blue-600 font-extrabold">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:464:                                className="h-full bg-blue-600 rounded-full"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:504:                            <span className="text-blue-600 font-extrabold text-sm sm:text-base">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:535:                          <div className="h-12 w-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\bookings\page.tsx:584:                              className="w-full flex items-center justify-center gap-1.5 h-9 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold cursor-pointer transition-colors"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\history\page.tsx:253:                    <div className="p-4 rounded-2xl bg-indigo-50/30 border border-indigo-100/50 flex items-center justify-between text-xs md:text-sm">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\history\page.tsx:254:                      <div className="flex items-center gap-2 text-indigo-950 font-bold">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\history\page.tsx:255:                        <Wrench className="h-4 w-4 text-indigo-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\history\page.tsx:290:                        <Layers className="h-3.5 w-3.5 text-indigo-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\homes\page.tsx:233:              <div className="h-14 w-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-500">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\invoices\page.tsx:149:                        <div className="p-2 rounded-lg bg-indigo-50 text-indigo-500 flex-shrink-0">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\maintenance\page.tsx:128:          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 mb-4">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:269:        <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:284:            <Sparkles className="h-5.5 w-5.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:315:                      <span className="text-[10px] uppercase font-bold text-blue-400 tracking-widest">{tech.specialization} Pro</span>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:366:          <div className="flex-grow flex items-center gap-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-4 py-2.5 focus-within:border-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:416:            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-blue-50 text-blue-600 mb-5 border border-blue-100">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:455:                      <span className="px-3 py-1 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider rounded-md border border-blue-500">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:473:                        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\marketplace\page.tsx:589:                    <span className="text-[9px] uppercase font-bold text-blue-600 block">{prod.brand}</span>
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:156:        return "text-blue-700 bg-blue-50 border-blue-100/50";
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:170:    if (category === "Booking") return <Calendar className="h-4 w-4 text-blue-600" />;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:175:    return <Info className="h-4 w-4 text-blue-600" />;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:190:    return <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-blue-50 border border-blue-150 text-blue-600">Info</span>;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:207:          <Button size="sm" variant="outline" className="text-[10px] font-bold h-7.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border-0 cursor-pointer">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:324:                <span className="px-2 py-0.5 rounded-lg text-xs font-black bg-blue-600 text-white animate-pulse">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:341:                <CheckCircle2 className="h-4 w-4 text-blue-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:365:              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-white shadow-sm"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:403:              <Bell className="h-8 w-8 text-blue-550" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:443:                            !item.read ? "border-l-4 border-l-blue-600 bg-blue-50/15" : ""
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:459:                                  <span className="h-2 w-2 rounded-full bg-blue-600 animate-ping" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:493:                              <Check className={`h-4 w-4 ${item.read ? "text-slate-400" : "text-blue-600 font-black"}`} />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:572:                          prefEmail ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:598:                          prefPush ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:624:                          prefSMS ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:655:                          prefWarranty ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:681:                          prefAI ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\notifications\page.tsx:707:                          prefBooking ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:265:            <Badge className="bg-blue-50/80 text-blue-600 text-[10px] uppercase font-bold tracking-widest rounded-full border-blue-100/30 px-2.5 py-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:293:                  className="rounded-xl font-bold text-xs h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors flex items-center gap-1.5"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:321:              <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-r from-blue-50/20 to-indigo-50/20 border-b border-slate-50" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:370:                  <Badge className="bg-blue-600 text-white border-0 text-[9px] font-black uppercase tracking-wider rounded px-1.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:391:                    <Wrench className="h-4 w-4 text-blue-650" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:446:                  <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:491:                <User className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:505:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:515:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:525:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:535:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:545:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:555:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:565:                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono text-slate-700"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:637:                <Lock className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:657:                      twoFactor ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:685:                        <Laptop className="h-4 w-4 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:712:                <UserCheck className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:732:                      connectedGoogle ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:752:                      connectedApple ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\profile\page.tsx:764:                <SettingsIcon className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:319:            <Badge className="bg-blue-50/80 text-blue-600 text-[10px] uppercase font-bold tracking-widest rounded-full border-blue-100/30 px-2.5 py-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:330:            className="rounded-xl font-bold text-xs h-10 px-5 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:360:                className="pl-9 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-white"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:404:                      <User className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:430:                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:440:                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:451:                          className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-750"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:462:                      <Layout className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:473:                            blue: "bg-blue-500",
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:474:                            indigo: "bg-indigo-500",
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:528:                      <Bell className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:544:                            emailNotifications ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:561:                            pushNotifications ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:578:                            smsNotifications ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:595:                            warrantyAlerts ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:612:                            maintenanceAlerts ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:629:                            bookingAlerts ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:646:                            aiRecommendations ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:660:                      <Lock className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:692:                            twoFactor ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:728:                      <ShieldCheck className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:739:                        <button type="button" className="w-10 h-5.5 rounded-full bg-blue-600 relative cursor-pointer">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:765:                      <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:810:                              smartSuggestions ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:827:                              autoMaintenance ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:844:                              applianceMonitoring ? "bg-blue-600" : "bg-slate-200"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:859:                      <Share2 className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:880:                            integrationGoogle ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:890:                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-blue-600 mt-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:905:                            integrationCloudinary ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:915:                          <span className="p-2 rounded-xl bg-white border border-slate-100 text-blue-600 mt-0.5">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:930:                            integrationCalendar ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:955:                            integrationWhatsApp ? "text-slate-500 border-slate-250 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:969:                      <Globe className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:1042:                      <HardDrive className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:1054:                          <div className="h-full bg-blue-500" style={{ width: "12%" }} title="Images: 1.2 GB" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\settings\page.tsx:1062:                        <div className="space-y-0.5 border-l-2 border-l-blue-500 pl-2">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:215:          <span className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:244:            color: "text-blue-500 bg-blue-50/50 border-blue-100/50" 
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:266:        <div className="flex items-center gap-3 w-full lg:max-w-md bg-[#F8F9FB] px-4 py-2.5 rounded-xl border border-[#ECECEC] focus-within:border-blue-600 transition-colors">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:318:            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-blue-50 text-blue-600 mb-5 border border-blue-100">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:365:                        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\dashboard\warranty-vault\page.tsx:448:            <div className="h-10 w-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-100/50 flex items-center justify-center">
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:47:  --color-blue-50: #FBE9E3;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:48:  --color-blue-100: #F5D5CB;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:49:  --color-blue-200: #EFA693;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:50:  --color-blue-300: #E87A5F;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:51:  --color-blue-400: #E85D3F;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:52:  --color-blue-500: #E85D3F;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:53:  --color-blue-600: #E85D3F;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:54:  --color-blue-700: #D94E32;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:55:  --color-blue-800: #BD3D23;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:56:  --color-blue-900: #7A2716;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\globals.css:57:  --color-blue-950: #3F140B;
+C:\Users\shive\Desktop\Dwellix\frontend\src\app\manifest.ts:11:    theme_color: "#2563EB",
+C:\Users\shive\Desktop\Dwellix\frontend\src\components\common\command-palette.tsx:93:        icon: <Bot className="h-4.5 w-4.5 text-indigo-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\components\common\command-palette.tsx:101:        icon: <ShoppingBag className="h-4.5 w-4.5 text-blue-600" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\components\common\command-palette.tsx:137:        icon: <Cpu className="h-4.5 w-4.5 text-blue-500" />
+C:\Users\shive\Desktop\Dwellix\frontend\src\components\ui\badge.tsx:16:        info: "border-transparent bg-blue-500/15 text-blue-600 hover:bg-blue-500/20",
+C:\Users\shive\Desktop\Dwellix\frontend\src\features\authentication\auth-forms.tsx:320:          <Button asChild className="h-11 px-6 bg-blue-600 text-white hover:bg-blue-700">
+C:\Users\shive\Desktop\Dwellix\frontend\src\features\home\ai-showcase.tsx:227:              <Badge variant="info" className="px-3 py-1 text-xs font-semibold tracking-wide border-blue-500/10">
+C:\Users\shive\Desktop\Dwellix\frontend\src\features\home\hero.tsx:59:              <Badge variant="info" className="px-3 py-1 text-xs font-semibold tracking-wide border-blue-500/10">
+C:\Users\shive\Desktop\Dwellix\frontend\src\features\home\meet-dwellix.tsx:104:              <Badge variant="info" className="px-3 py-1 text-xs font-semibold tracking-wide border-blue-500/10">
+C:\Users\shive\Desktop\Dwellix\frontend\src\features\home\testimonials.tsx:45:    gradient: "from-blue-500 to-indigo-600",

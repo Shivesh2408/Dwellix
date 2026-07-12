@@ -312,7 +312,7 @@ export default function NewBookingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -339,7 +339,7 @@ export default function NewBookingPage() {
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Bookings</span>
             </button>
-            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-foreground">
               Book Technician
             </h1>
             <p className="text-xs sm:text-sm text-slate-550 max-w-xl">
@@ -349,7 +349,7 @@ export default function NewBookingPage() {
 
           {/* Location Selector (Mock design using cities list) */}
           <div className="flex items-center gap-2 bg-white border border-slate-100 px-3 py-1.5 rounded-2xl shadow-sm self-start md:self-auto">
-            <MapPin className="h-4 w-4 text-blue-600" />
+            <MapPin className="h-4 w-4 text-primary" />
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
@@ -368,12 +368,12 @@ export default function NewBookingPage() {
           <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Scheduled Jobs</span>
-              <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+              <span className="p-1.5 rounded-xl bg-primary-soft text-primary">
                 <CalendarIcon className="h-4 w-4" />
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{statistics.upcoming}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{statistics.upcoming}</div>
               <div className="text-[10px] text-slate-400 font-medium font-sans">Active dispatches</div>
             </div>
           </div>
@@ -386,7 +386,7 @@ export default function NewBookingPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{statistics.completed}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{statistics.completed}</div>
               <div className="text-[10px] text-slate-400 font-medium">Completed jobs</div>
             </div>
           </div>
@@ -399,7 +399,7 @@ export default function NewBookingPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{statistics.available}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{statistics.available}</div>
               <div className="text-[10px] text-slate-400 font-medium">Verified local techs</div>
             </div>
           </div>
@@ -412,7 +412,7 @@ export default function NewBookingPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading flex items-baseline gap-1">
+              <div className="text-2xl font-bold text-foreground font-heading flex items-baseline gap-1">
                 <span>{statistics.rating}</span>
                 <span className="text-xs text-slate-450">/5</span>
               </div>
@@ -430,12 +430,12 @@ export default function NewBookingPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search technicians by name, specialization, or town..."
-              className="pl-10 h-11 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-[#F8F9FB] border-0"
+              className="pl-10 h-11 rounded-2xl border-slate-150 focus:ring-primary focus:border-primary text-xs sm:text-sm bg-background border-0"
             />
           </div>
 
           <div className="flex flex-wrap gap-2.5">
-            <div className="flex items-center gap-1.5 bg-[#F8F9FB] rounded-2xl px-3 border border-slate-100">
+            <div className="flex items-center gap-1.5 bg-background rounded-2xl px-3 border border-slate-100">
               <Filter className="h-3.5 w-3.5 text-slate-400" />
               <select
                 value={selectedSpec}
@@ -466,11 +466,11 @@ export default function NewBookingPage() {
           </div>
         ) : filteredTechnicians.length === 0 ? (
           <div className="text-center py-16 max-w-md mx-auto space-y-5 bg-white border border-slate-100 rounded-[24px] p-8 shadow-sm">
-            <div className="h-16 w-16 rounded-2xl bg-[#F8F9FB] border border-slate-100 text-slate-450 flex items-center justify-center mx-auto shadow-inner">
-              <User className="h-8 w-8 text-blue-500" />
+            <div className="h-16 w-16 rounded-2xl bg-background border border-slate-100 text-slate-450 flex items-center justify-center mx-auto shadow-inner">
+              <User className="h-8 w-8 text-primary" />
             </div>
             <div className="space-y-2">
-              <h3 className="text-sm font-bold text-slate-900">No technicians found</h3>
+              <h3 className="text-sm font-bold text-foreground">No technicians found</h3>
               <p className="text-xs text-slate-400 leading-relaxed font-medium">
                 Try loosening your filters or search keywords to check available repair operators.
               </p>
@@ -493,7 +493,7 @@ export default function NewBookingPage() {
                       className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     {tech.verified && (
-                      <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase bg-white/90 backdrop-blur-md text-blue-600 shadow-sm border border-slate-100/30">
+                      <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase bg-white/90 backdrop-blur-md text-primary shadow-sm border border-slate-100/30">
                         <ShieldCheck className="h-3 w-3" />
                         <span>Verified</span>
                       </span>
@@ -507,7 +507,7 @@ export default function NewBookingPage() {
                   {/* Technician Info */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-blue-600 font-extrabold tracking-widest uppercase">
+                      <span className="text-[10px] text-primary font-extrabold tracking-widest uppercase">
                         {tech.specialization}
                       </span>
                       <div className="flex items-center gap-0.5 text-amber-500 font-bold text-xs">
@@ -517,7 +517,7 @@ export default function NewBookingPage() {
                       </div>
                     </div>
 
-                    <h3 className="font-heading font-extrabold text-slate-900 text-base sm:text-lg">
+                    <h3 className="font-heading font-extrabold text-foreground text-base sm:text-lg">
                       {tech.name}
                     </h3>
 
@@ -541,7 +541,7 @@ export default function NewBookingPage() {
                 <div className="pt-4 border-t border-slate-50 flex items-center justify-between mt-5 gap-4">
                   <div className="space-y-0.5">
                     <span className="text-[9px] text-slate-400 uppercase font-extrabold block">Hourly Fee</span>
-                    <span className="text-slate-900 font-extrabold text-base sm:text-lg font-heading flex items-baseline">
+                    <span className="text-foreground font-extrabold text-base sm:text-lg font-heading flex items-baseline">
                       ₹{tech.hourlyRate}
                       <span className="text-[10px] text-slate-400 font-medium">/hr</span>
                     </span>
@@ -549,7 +549,7 @@ export default function NewBookingPage() {
 
                   <Button
                     onClick={() => handleOpenBooking(tech)}
-                    className="rounded-xl font-bold text-xs h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-all transform hover:scale-[1.01]"
+                    className="rounded-xl font-bold text-xs h-10 px-4 bg-primary hover:bg-primary-hover text-white cursor-pointer transition-all transform hover:scale-[1.01]"
                   >
                     Book Now
                   </Button>
@@ -584,7 +584,7 @@ export default function NewBookingPage() {
               {/* Header drawer actions */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="space-y-0.5">
-                  <h3 className="text-base font-extrabold text-slate-900 font-heading">Schedule Service</h3>
+                  <h3 className="text-base font-extrabold text-foreground font-heading">Schedule Service</h3>
                   <p className="text-[11px] text-slate-450 font-semibold uppercase">Reserve Appointment</p>
                 </div>
                 <button
@@ -614,8 +614,8 @@ export default function NewBookingPage() {
                 </div>
                 <div className="space-y-0.5 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-base">{selectedTech.name}</h4>
-                    {selectedTech.verified && <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />}
+                    <h4 className="font-bold text-foreground text-sm sm:text-base">{selectedTech.name}</h4>
+                    {selectedTech.verified && <ShieldCheck className="h-3.5 w-3.5 text-primary" />}
                   </div>
                   <p className="text-[11px] text-slate-450 font-medium uppercase tracking-wide">
                     {selectedTech.specialization} &bull; {selectedTech.city}
@@ -637,7 +637,7 @@ export default function NewBookingPage() {
                   </label>
                   {loadingAppliances ? (
                     <div className="h-10 rounded-xl border border-slate-150 bg-slate-50 flex items-center px-3 text-xs text-slate-400 font-medium">
-                      <Loader2 className="h-4 w-4 animate-spin text-blue-650 mr-2" />
+                      <Loader2 className="h-4 w-4 animate-spin text-primary-hover mr-2" />
                       <span>Retrieving logged appliances...</span>
                     </div>
                   ) : appliances.length === 0 ? (
@@ -649,7 +649,7 @@ export default function NewBookingPage() {
                     <select
                       value={applianceId}
                       onChange={(e) => setApplianceId(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary text-slate-700"
                     >
                       {appliances.map((app) => (
                         <option key={app.id} value={app.id}>
@@ -668,7 +668,7 @@ export default function NewBookingPage() {
                   <select
                     value={serviceType}
                     onChange={(e) => setServiceType(e.target.value)}
-                    className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+                    className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary text-slate-700"
                   >
                     <option value="Maintenance">Maintenance</option>
                     <option value="Repair Check">Repair Check</option>
@@ -739,7 +739,7 @@ export default function NewBookingPage() {
                             onClick={() => setSelectedDate(cell)}
                             className={`h-8 rounded-xl text-[11px] font-bold transition-all cursor-pointer flex items-center justify-center ${
                               isSelected
-                                ? "bg-blue-600 text-white shadow-sm font-extrabold"
+                                ? "bg-primary text-white shadow-sm font-extrabold"
                                 : isPast
                                 ? "text-slate-300 cursor-not-allowed opacity-50"
                                 : "text-slate-700 hover:bg-slate-200 bg-white border border-slate-100"
@@ -753,7 +753,7 @@ export default function NewBookingPage() {
                   </div>
 
                   {selectedDate && (
-                    <div className="text-[11px] text-blue-600 font-bold flex items-center gap-1.5 mt-1 bg-blue-50/50 p-2 rounded-xl border border-blue-100/30">
+                    <div className="text-[11px] text-primary font-bold flex items-center gap-1.5 mt-1 bg-primary-soft/50 p-2 rounded-xl border border-primary/20/30">
                       <CheckCircle2 className="h-3.5 w-3.5" />
                       Selected: {selectedDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                     </div>
@@ -781,11 +781,11 @@ export default function NewBookingPage() {
                           onClick={() => setBookingTime(slot)}
                           className={`h-9 px-3 border rounded-xl font-semibold transition-all text-left flex items-center gap-1.5 cursor-pointer ${
                             isActive
-                              ? "border-blue-600 bg-blue-50/50 text-blue-700 ring-1 ring-blue-500"
+                              ? "border-primary bg-primary-soft/50 text-primary-hover ring-1 ring-primary/40"
                               : "border-slate-200 text-slate-600 hover:bg-slate-50"
                           }`}
                         >
-                          <Clock className={`h-3.5 w-3.5 ${isActive ? "text-blue-600 animate-pulse" : "text-slate-400"}`} />
+                          <Clock className={`h-3.5 w-3.5 ${isActive ? "text-primary animate-pulse" : "text-slate-400"}`} />
                           <span>{slot.split(" ")[0]} {slot.split(" ")[1]}</span>
                         </button>
                       );
@@ -803,7 +803,7 @@ export default function NewBookingPage() {
                     onChange={(e) => setProblemDescription(e.target.value)}
                     placeholder="Describe issue symptoms, appliance model codes or active leaks..."
                     rows={3}
-                    className="w-full rounded-xl border border-slate-200 bg-white text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-750 leading-relaxed resize-none font-sans"
+                    className="w-full rounded-xl border border-slate-200 bg-white text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-primary text-slate-750 leading-relaxed resize-none font-sans"
                   />
                 </div>
 
@@ -855,7 +855,7 @@ export default function NewBookingPage() {
                       />
                       {invoiceFileName ? (
                         <div className="relative w-full text-center space-y-1">
-                          <FileText className="h-4.5 w-4.5 text-blue-600 mx-auto" />
+                          <FileText className="h-4.5 w-4.5 text-primary mx-auto" />
                           <span className="text-[8px] font-bold text-slate-700 truncate max-w-[80px] block mx-auto">
                             {invoiceFileName}
                           </span>
@@ -885,7 +885,7 @@ export default function NewBookingPage() {
                 <div className="pt-4 border-t border-slate-100 space-y-4">
                   <div className="flex items-center justify-between text-xs sm:text-sm">
                     <span className="text-slate-500 font-semibold">Estimated Billing Quote</span>
-                    <span className="font-extrabold text-blue-600 text-base sm:text-lg flex items-center font-heading">
+                    <span className="font-extrabold text-primary text-base sm:text-lg flex items-center font-heading">
                       <IndianRupee className="h-4 w-4" />
                       <span>{parseFloat(estimatedCost).toLocaleString()}</span>
                     </span>
@@ -903,7 +903,7 @@ export default function NewBookingPage() {
                     <Button
                       type="submit"
                       disabled={submitting || appliances.length === 0 || !selectedDate}
-                      className="flex-1 rounded-xl text-xs font-bold h-10 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer flex items-center justify-center gap-1.5"
+                      className="flex-1 rounded-xl text-xs font-bold h-10 bg-primary hover:bg-primary-hover text-white cursor-pointer flex items-center justify-center gap-1.5"
                     >
                       {submitting ? (
                         <>

@@ -153,7 +153,7 @@ export default function NotificationsPage() {
       case "Maintenance":
         return "text-amber-700 bg-amber-50 border-amber-100/50";
       case "Booking":
-        return "text-blue-700 bg-blue-50 border-blue-100/50";
+        return "text-primary-hover bg-primary-soft border-primary/20/50";
       case "Marketplace":
         return "text-pink-700 bg-pink-50 border-pink-100/50";
       case "System":
@@ -167,12 +167,12 @@ export default function NotificationsPage() {
     if (category === "AI Alerts") return <Sparkles className="h-4 w-4 text-purple-650" />;
     if (category === "Warranty") return <ShieldCheck className="h-4 w-4 text-emerald-600" />;
     if (category === "Maintenance") return <Wrench className="h-4 w-4 text-amber-600" />;
-    if (category === "Booking") return <Calendar className="h-4 w-4 text-blue-600" />;
+    if (category === "Booking") return <Calendar className="h-4 w-4 text-primary" />;
     if (category === "Marketplace") return <ShoppingBag className="h-4 w-4 text-pink-650" />;
 
     if (t === "WARNING") return <AlertTriangle className="h-4 w-4 text-amber-600" />;
     if (t === "ALERT" || t === "ERROR") return <AlertOctagon className="h-4 w-4 text-rose-600" />;
-    return <Info className="h-4 w-4 text-blue-600" />;
+    return <Info className="h-4 w-4 text-primary" />;
   };
 
   // Map priority tags
@@ -187,7 +187,7 @@ export default function NotificationsPage() {
     if (t === "SUCCESS") {
       return <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-emerald-50 border border-emerald-150 text-emerald-600">Success</span>;
     }
-    return <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-blue-50 border border-blue-150 text-blue-600">Info</span>;
+    return <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-primary-soft border border-primary/20 text-primary">Info</span>;
   };
 
   // Contextual actions
@@ -204,7 +204,7 @@ export default function NotificationsPage() {
     if (category === "Maintenance" || category === "Booking") {
       return (
         <Link href="/dashboard/bookings/new" className="w-full sm:w-auto">
-          <Button size="sm" variant="outline" className="text-[10px] font-bold h-7.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border-0 cursor-pointer">
+          <Button size="sm" variant="outline" className="text-[10px] font-bold h-7.5 px-3 bg-primary-soft hover:bg-primary-soft/80 text-primary-hover border-0 cursor-pointer">
             Book Technician
           </Button>
         </Link>
@@ -285,7 +285,7 @@ export default function NotificationsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-6 text-left">
+      <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-6 text-left">
         <div className="space-y-2 animate-pulse">
           <div className="h-8 bg-slate-200 rounded-md w-48" />
           <div className="h-4 bg-slate-200 rounded-md w-72" />
@@ -301,9 +301,9 @@ export default function NotificationsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4">
         <AlertOctagon className="h-10 w-10 text-rose-500" />
-        <div className="text-base font-extrabold text-slate-900 font-heading">Error Loading Alerts Log</div>
+        <div className="text-base font-extrabold text-foreground font-heading">Error Loading Alerts Log</div>
         <p className="text-xs text-slate-500 text-center leading-relaxed">{error}</p>
         <Button onClick={fetchNotifications} size="sm" className="bg-slate-900 text-white rounded-xl px-5 h-9 font-bold cursor-pointer">
           Retry Connection
@@ -313,15 +313,15 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header Block */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-5 border-b border-slate-100">
           <div className="space-y-1.5">
-            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-slate-900 flex items-center gap-2.5">
+            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-foreground flex items-center gap-2.5">
               <span>Inbox</span>
               {totalUnreadCount > 0 && (
-                <span className="px-2 py-0.5 rounded-lg text-xs font-black bg-blue-600 text-white animate-pulse">
+                <span className="px-2 py-0.5 rounded-lg text-xs font-black bg-primary text-white animate-pulse">
                   {totalUnreadCount} New
                 </span>
               )}
@@ -338,7 +338,7 @@ export default function NotificationsPage() {
                 onClick={handleMarkAllRead}
                 className="h-9 px-4.5 rounded-xl text-xs font-bold border-slate-200 text-slate-700 bg-white hover:bg-slate-50 gap-1.5 cursor-pointer transition-colors"
               >
-                <CheckCircle2 className="h-4 w-4 text-blue-500" />
+                <CheckCircle2 className="h-4 w-4 text-primary" />
                 <span>Mark All Read</span>
               </Button>
             )}
@@ -362,7 +362,7 @@ export default function NotificationsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search notifications title, body, or error codes..."
-              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-white shadow-sm"
+              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-primary focus:border-primary text-xs sm:text-sm bg-white shadow-sm"
             />
           </div>
 
@@ -399,11 +399,11 @@ export default function NotificationsPage() {
         {/* Empty Inbox Board */}
         {filteredNotifications.length === 0 ? (
           <Card className="flex flex-col items-center justify-center p-16 text-center border-dashed border-2 border-slate-150 bg-white rounded-[24px] shadow-sm space-y-4">
-            <div className="h-16 w-16 items-center justify-center rounded-2xl bg-[#F8F9FB] border border-slate-100 text-slate-400 flex mx-auto shadow-inner animate-pulse">
-              <Bell className="h-8 w-8 text-blue-550" />
+            <div className="h-16 w-16 items-center justify-center rounded-2xl bg-background border border-slate-100 text-slate-400 flex mx-auto shadow-inner animate-pulse">
+              <Bell className="h-8 w-8 text-primary" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-sm font-bold text-slate-900">Inbox is empty</h3>
+              <h3 className="text-sm font-bold text-foreground">Inbox is empty</h3>
               <p className="text-xs text-slate-450 mt-1 max-w-xs leading-relaxed font-semibold">
                 No notifications logged under the current category. You&apos;re completely up to date!
               </p>
@@ -440,7 +440,7 @@ export default function NotificationsPage() {
                             }
                           }}
                           className={`group relative bg-white border border-slate-100/80 rounded-[24px] p-5 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row gap-4 items-start md:items-center justify-between overflow-hidden cursor-grab active:cursor-grabbing select-none ${
-                            !item.read ? "border-l-4 border-l-blue-600 bg-blue-50/15" : ""
+                            !item.read ? "border-l-4 border-l-primary bg-primary-soft/15" : ""
                           }`}
                         >
                           <div className="flex gap-4 items-start flex-grow">
@@ -452,11 +452,11 @@ export default function NotificationsPage() {
                             {/* Details */}
                             <div className="space-y-1 flex-1 pr-4">
                               <div className="flex flex-wrap items-center gap-2">
-                                <h3 className="text-sm font-extrabold text-slate-900">
+                                <h3 className="text-sm font-extrabold text-foreground">
                                   {item.title}
                                 </h3>
                                 {!item.read && (
-                                  <span className="h-2 w-2 rounded-full bg-blue-600 animate-ping" />
+                                  <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
                                 )}
                               </div>
                               <p className="text-xs text-slate-550 leading-relaxed max-w-xl">
@@ -490,7 +490,7 @@ export default function NotificationsPage() {
                               className="h-8 w-8 p-0 rounded-xl hover:bg-slate-50 border border-slate-100 text-slate-450 hover:text-slate-800 cursor-pointer"
                               title={item.read ? "Mark as Unread" : "Mark as Read"}
                             >
-                              <Check className={`h-4 w-4 ${item.read ? "text-slate-400" : "text-blue-600 font-black"}`} />
+                              <Check className={`h-4 w-4 ${item.read ? "text-slate-400" : "text-primary font-black"}`} />
                             </Button>
 
                             <Button
@@ -538,7 +538,7 @@ export default function NotificationsPage() {
               {/* Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="space-y-0.5">
-                  <h3 className="text-base font-extrabold text-slate-900 font-heading">Inbox Preferences</h3>
+                  <h3 className="text-base font-extrabold text-foreground font-heading">Inbox Preferences</h3>
                   <p className="text-[11px] text-slate-450 font-bold uppercase tracking-wider">Notification Channels</p>
                 </div>
                 <button
@@ -569,7 +569,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefEmail(!prefEmail)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefEmail ? "bg-blue-600" : "bg-slate-200"
+                          prefEmail ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -595,7 +595,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefPush(!prefPush)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefPush ? "bg-blue-600" : "bg-slate-200"
+                          prefPush ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -621,7 +621,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefSMS(!prefSMS)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefSMS ? "bg-blue-600" : "bg-slate-200"
+                          prefSMS ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -652,7 +652,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefWarranty(!prefWarranty)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefWarranty ? "bg-blue-600" : "bg-slate-200"
+                          prefWarranty ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -678,7 +678,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefAI(!prefAI)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefAI ? "bg-blue-600" : "bg-slate-200"
+                          prefAI ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -704,7 +704,7 @@ export default function NotificationsPage() {
                         type="button"
                         onClick={() => setPrefBooking(!prefBooking)}
                         className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                          prefBooking ? "bg-blue-600" : "bg-slate-200"
+                          prefBooking ? "bg-primary" : "bg-slate-200"
                         }`}
                       >
                         <span

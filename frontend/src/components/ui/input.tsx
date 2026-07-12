@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={inputType}
           className={cn(
-            "flex h-11 w-full rounded-[18px] border border-[#ECECEC]  bg-white  px-4 py-2 text-sm text-slate-900  ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:border-blue-600 disabled:cursor-not-allowed disabled:opacity-50 shadow-xs transition-all duration-300",
+            "flex h-11 w-full rounded-[14px] border border-border bg-card px-4 py-2 text-sm text-foreground ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 shadow-sm transition-all duration-300",
             isSearch && "pl-10",
             isPassword && "pr-10",
             error && "border-destructive focus-visible:ring-destructive focus-visible:border-destructive",

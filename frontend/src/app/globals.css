@@ -38,40 +38,50 @@
   --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-error: #EF4444;
-  --color-dark: #0F172A;
+  --color-dark: #2B2421;
+
+  --color-primary-hover: #D94E32;
+  --color-primary-soft: #FBE9E3;
+
+
+
+  /* Warm, restrained shadows */
+  --shadow-sm: 0 4px 12px rgba(63, 43, 35, 0.04);
+  --shadow-md: 0 8px 30px rgba(63, 43, 35, 0.06);
+  --shadow-lg: 0 16px 50px rgba(63, 43, 35, 0.08);
 }
 
 @layer base {
   :root {
-    --background: 220 20% 98%; /* #F8F9FB */
-    --foreground: 0 0% 6.7%; /* #111111 */
+    --background: 33 31% 95.5%; /* #F8F4EF Warm Cream */
+    --foreground: 18 13.2% 14.9%; /* #2B2421 Primary Text (Warm Charcoal) */
 
-    --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 0 0% 6.7%;
+    --card: 34 100% 98.6%; /* #FFFCF8 Elevated Surface */
+    --card-foreground: 18 13.2% 14.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 6.7%;
+    --popover: 34 100% 98.6%; /* #FFFCF8 */
+    --popover-foreground: 18 13.2% 14.9%;
 
-    --primary: 221.2 83.2% 53.3%; /* #2563EB */
+    --primary: 11 80.1% 57.8%; /* #E85D3F Primary Coral */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 10% 96%;
-    --secondary-foreground: 0 0% 6.7%;
+    --secondary: 32 32.5% 92.4%; /* #F2ECE5 Secondary Surface */
+    --secondary-foreground: 18 13.2% 14.9%;
 
-    --muted: 220 10% 94%;
-    --muted-foreground: 223 8% 47%; /* #6E7380 */
+    --muted: 32 32.5% 92.4%;
+    --muted-foreground: 22.5 7.4% 42.7%; /* #756B65 Secondary Text */
 
-    --accent: 220 10% 94%;
-    --accent-foreground: 0 0% 6.7%;
+    --accent: 11 80.1% 57.8%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.3% 60.2%; /* #EF4444 */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 222 47% 11% / 0.08; /* rgba(15,23,42,0.08) */
-    --input: 222 47% 11% / 0.08;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 27 26.5% 87.1%; /* #E7DDD5 Standard Border */
+    --input: 27 26.5% 87.1%;
+    --ring: 11 80.1% 57.8%;
 
-    --radius: 1.5rem; /* 24px (20-28px range) */
+    --radius: 1.5rem; /* 24px default card radius */
   }
 }
 
@@ -99,8 +109,8 @@
   }
 
   ::selection {
-    background-color: rgba(37, 99, 235, 0.15);
-    color: #2563EB;
+    background-color: rgba(232, 93, 63, 0.15);
+    color: #E85D3F;
   }
 
   ::-webkit-scrollbar {
@@ -113,12 +123,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(63, 43, 35, 0.08);
     border-radius: 99px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(63, 43, 35, 0.15);
   }
 }
 
@@ -145,16 +155,16 @@
 
 /* Premium SaaS Redesign utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 252, 248, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(63, 43, 35, 0.04);
 }
 
 .shadow-premium {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01), 
-              0 4px 16px rgba(0, 0, 0, 0.015), 
-              0 12px 32px rgba(0, 0, 0, 0.015);
+  box-shadow: 0 1px 2px rgba(63, 43, 35, 0.01), 
+              0 4px 16px rgba(63, 43, 35, 0.03), 
+              0 16px 50px rgba(63, 43, 35, 0.06);
 }
 
 .hover-lift {
@@ -163,7 +173,7 @@
 
 .hover-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 
-              0 8px 24px rgba(0, 0, 0, 0.03), 
-              0 16px 48px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 2px rgba(63, 43, 35, 0.02), 
+              0 8px 24px rgba(63, 43, 35, 0.03), 
+              0 16px 48px rgba(63, 43, 35, 0.03);
 }

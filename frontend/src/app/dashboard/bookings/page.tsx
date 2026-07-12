@@ -79,7 +79,7 @@ export default function BookingsPage() {
       case "COMPLETED":
         return "text-emerald-700 bg-emerald-50/80 border-emerald-100/50";
       case "CONFIRMED":
-        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
+        return "text-primary-hover bg-primary-soft/80 border-primary/20/50";
       case "IN_PROGRESS":
         return "text-purple-700 bg-purple-50/80 border-purple-100/50";
       case "CANCELLED":
@@ -101,8 +101,8 @@ export default function BookingsPage() {
         );
       case "CONFIRMED":
         return (
-          <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide rounded-full bg-blue-50 border border-blue-150 text-blue-700">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+          <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide rounded-full bg-primary-soft border border-primary/20 text-primary-hover">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-soft0 animate-pulse" />
             Confirmed
           </span>
         );
@@ -208,16 +208,16 @@ export default function BookingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-blue-50/80 border border-blue-100/50 text-blue-600">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-primary-soft/80 border border-primary/20/50 text-primary">
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>Dwellix Elite Care</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-foreground">
               Service Bookings
             </h1>
             <p className="text-xs sm:text-sm text-slate-550 max-w-xl">
@@ -226,7 +226,7 @@ export default function BookingsPage() {
           </div>
 
           <Link href="/dashboard/bookings/new">
-            <Button className="rounded-2xl font-semibold text-xs sm:text-sm h-11 px-5 gap-2 flex items-center shadow-lg bg-blue-600 hover:bg-blue-700 text-white transition-all transform hover:scale-[1.02] cursor-pointer">
+            <Button className="rounded-2xl font-semibold text-xs sm:text-sm h-11 px-5 gap-2 flex items-center shadow-lg bg-primary hover:bg-primary-hover text-white transition-all transform hover:scale-[1.02] cursor-pointer">
               <Plus className="h-4.5 w-4.5" />
               <span>Book New Service</span>
             </Button>
@@ -242,12 +242,12 @@ export default function BookingsPage() {
           >
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Upcoming Visits</span>
-              <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+              <span className="p-1.5 rounded-xl bg-primary-soft text-primary">
                 <Calendar className="h-4 w-4" />
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{stats.upcoming}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{stats.upcoming}</div>
               <div className="text-[10px] text-slate-400 font-medium">Scheduled dispatches</div>
             </div>
           </motion.div>
@@ -265,7 +265,7 @@ export default function BookingsPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{stats.completed}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{stats.completed}</div>
               <div className="text-[10px] text-slate-400 font-medium">Resolved issues</div>
             </div>
           </motion.div>
@@ -283,7 +283,7 @@ export default function BookingsPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading">{stats.available}</div>
+              <div className="text-2xl font-bold text-foreground font-heading">{stats.available}</div>
               <div className="text-[10px] text-slate-400 font-medium">Technicians nearby</div>
             </div>
           </motion.div>
@@ -301,7 +301,7 @@ export default function BookingsPage() {
               </span>
             </div>
             <div className="space-y-0.5">
-              <div className="text-2xl font-bold text-slate-900 font-heading flex items-baseline gap-1">
+              <div className="text-2xl font-bold text-foreground font-heading flex items-baseline gap-1">
                 <span>{stats.rating > 0 ? stats.rating : "N/A"}</span>
                 {stats.rating > 0 && <span className="text-xs text-slate-400">/5</span>}
               </div>
@@ -319,12 +319,12 @@ export default function BookingsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by appliance, service type, or technician..."
-              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm bg-[#F8F9FB] border-0"
+              className="pl-10 h-10 rounded-2xl border-slate-150 focus:ring-primary focus:border-primary text-xs sm:text-sm bg-background border-0"
             />
           </div>
 
           <div className="flex flex-wrap gap-2.5 font-sans">
-            <div className="flex items-center gap-1.5 bg-[#F8F9FB] rounded-2xl px-3 border border-slate-100">
+            <div className="flex items-center gap-1.5 bg-background rounded-2xl px-3 border border-slate-100">
               <Filter className="h-3.5 w-3.5 text-slate-400" />
               <select
                 value={statusFilter}
@@ -340,7 +340,7 @@ export default function BookingsPage() {
               </select>
             </div>
 
-            <div className="flex items-center gap-1.5 bg-[#F8F9FB] rounded-2xl px-3 border border-slate-100">
+            <div className="flex items-center gap-1.5 bg-background rounded-2xl px-3 border border-slate-100">
               <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
               <select
                 value={sortBy}
@@ -392,17 +392,17 @@ export default function BookingsPage() {
         {/* Empty State */}
         {!loading && !error && filteredBookings.length === 0 && (
           <div className="text-center py-16 max-w-md mx-auto space-y-5 bg-white border border-slate-100 rounded-[24px] p-8 shadow-sm">
-            <div className="h-16 w-16 rounded-2xl bg-[#F8F9FB] border border-slate-100 text-slate-400 flex items-center justify-center mx-auto shadow-inner">
-              <Wrench className="h-8 w-8 text-blue-500" />
+            <div className="h-16 w-16 rounded-2xl bg-background border border-slate-100 text-slate-400 flex items-center justify-center mx-auto shadow-inner">
+              <Wrench className="h-8 w-8 text-primary" />
             </div>
             <div className="space-y-2">
-              <h3 className="text-sm font-bold text-slate-900">No services scheduled</h3>
+              <h3 className="text-sm font-bold text-foreground">No services scheduled</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Connect with our premium pool of appliance repair experts. Keep your home running smoothly.
               </p>
             </div>
             <Link href="/dashboard/bookings/new">
-              <Button className="rounded-xl font-bold text-xs h-10 px-5 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer mt-1">
+              <Button className="rounded-xl font-bold text-xs h-10 px-5 bg-primary hover:bg-primary-hover text-white cursor-pointer mt-1">
                 Book Technician Now
               </Button>
             </Link>
@@ -436,7 +436,7 @@ export default function BookingsPage() {
                               <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">
                                 {booking.brand} &bull; {booking.model}
                               </span>
-                              <h3 className="font-heading font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors text-sm sm:text-base truncate mt-0.5">
+                              <h3 className="font-heading font-extrabold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base truncate mt-0.5">
                                 {booking.applianceName}
                               </h3>
                             </div>
@@ -452,7 +452,7 @@ export default function BookingsPage() {
                           <div className="space-y-2 pt-2">
                             <div className="flex items-center justify-between text-[10px] font-bold tracking-wide uppercase text-slate-400">
                               <span>Tracking Status</span>
-                              <span className="text-blue-600 font-extrabold">
+                              <span className="text-primary font-extrabold">
                                 {getProgressPercentage(booking.status)}%
                               </span>
                             </div>
@@ -461,7 +461,7 @@ export default function BookingsPage() {
                                 initial={{ width: 0 }}
                                 animate={{ width: `${getProgressPercentage(booking.status)}%` }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="h-full bg-blue-600 rounded-full"
+                                className="h-full bg-primary rounded-full"
                               />
                             </div>
                             <div className="flex justify-between text-[9px] font-medium text-slate-400 mt-1">
@@ -501,7 +501,7 @@ export default function BookingsPage() {
 
                           <div className="col-span-2 pt-3 border-t border-slate-50/50 flex items-center justify-between text-xs text-slate-800 font-bold">
                             <span>Estimated Budget</span>
-                            <span className="text-blue-600 font-extrabold text-sm sm:text-base">
+                            <span className="text-primary font-extrabold text-sm sm:text-base">
                               ₹{booking.estimatedCost.toLocaleString()}
                             </span>
                           </div>
@@ -532,12 +532,12 @@ export default function BookingsPage() {
                       >
                         {/* Left Appliance & Tech Meta */}
                         <div className="flex items-center gap-4 flex-1">
-                          <div className="h-12 w-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-600 transition-colors">
+                          <div className="h-12 w-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary-soft group-hover:border-primary/20 group-hover:text-primary transition-colors">
                             <Wrench className="h-5 w-5" />
                           </div>
                           <div className="space-y-0.5 max-w-xs sm:max-w-md">
                             <div className="flex items-center gap-2">
-                              <h3 className="font-heading font-extrabold text-slate-900 text-sm sm:text-base">
+                              <h3 className="font-heading font-extrabold text-foreground text-sm sm:text-base">
                                 {booking.applianceName}
                               </h3>
                               <span className={`px-2 py-0.5 border text-[9px] font-extrabold uppercase rounded-full ${getStatusColor(booking.status)}`}>
@@ -562,7 +562,7 @@ export default function BookingsPage() {
                           </div>
                           <div className="space-y-0.5">
                             <span className="text-[9px] text-slate-400 uppercase font-bold block">Cost Paid</span>
-                            <span className="text-slate-900 font-extrabold">₹{booking.estimatedCost.toLocaleString()}</span>
+                            <span className="text-foreground font-extrabold">₹{booking.estimatedCost.toLocaleString()}</span>
                           </div>
                         </div>
 
@@ -581,7 +581,7 @@ export default function BookingsPage() {
                           <Link href={`/dashboard/bookings/new?technician=${encodeURIComponent(booking.technicianName || "")}`} className="flex-1 sm:flex-initial">
                             <button
                               onClick={(e) => e.stopPropagation()}
-                              className="w-full flex items-center justify-center gap-1.5 h-9 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold cursor-pointer transition-colors"
+                              className="w-full flex items-center justify-center gap-1.5 h-9 px-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white text-[11px] font-bold cursor-pointer transition-colors"
                             >
                               <span>Rebook</span>
                               <ChevronRight className="h-3.5 w-3.5" />

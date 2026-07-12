@@ -166,7 +166,7 @@ export default function BookingDetailsPage() {
       case "COMPLETED":
         return "text-emerald-700 bg-emerald-50/80 border-emerald-100/50";
       case "CONFIRMED":
-        return "text-blue-700 bg-blue-50/80 border-blue-100/50";
+        return "text-primary-hover bg-primary-soft/80 border-primary/20/50";
       case "IN_PROGRESS":
         return "text-purple-700 bg-purple-50/80 border-purple-100/50";
       case "CANCELLED":
@@ -240,8 +240,8 @@ export default function BookingDetailsPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400 bg-[#F8F9FB] font-sans">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600 mb-3" />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400 bg-background font-sans">
+        <Loader2 className="h-8 w-8 animate-spin text-primary mb-3" />
         <span className="text-xs font-semibold">Retrieving booking dispatch record...</span>
       </div>
     );
@@ -249,7 +249,7 @@ export default function BookingDetailsPage() {
 
   if (error || !booking) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] py-16 px-4 font-sans text-left">
+      <div className="min-h-screen bg-background py-16 px-4 font-sans text-left">
         <div className="max-w-xl mx-auto p-6 rounded-[24px] bg-rose-50 border border-rose-100 text-rose-850 text-xs md:text-sm font-medium flex items-start gap-4 shadow-sm">
           <AlertTriangle className="h-5 w-5 text-rose-500 flex-shrink-0 mt-0.5" />
           <div className="space-y-1.5 flex-1">
@@ -265,7 +265,7 @@ export default function BookingDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -327,7 +327,7 @@ export default function BookingDetailsPage() {
                 className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-6"
               >
                 <div className="space-y-1">
-                  <h2 className="text-base font-extrabold text-slate-900">Modify Booking</h2>
+                  <h2 className="text-base font-extrabold text-foreground">Modify Booking</h2>
                   <p className="text-xs text-slate-400">Update scheduling slots or descriptions for this service dispatch.</p>
                 </div>
 
@@ -345,7 +345,7 @@ export default function BookingDetailsPage() {
                       <select
                         value={serviceType}
                         onChange={(e) => setServiceType(e.target.value)}
-                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary text-slate-700"
                       >
                         <option value="Maintenance">Maintenance</option>
                         <option value="Repair Check">Repair Check</option>
@@ -360,7 +360,7 @@ export default function BookingDetailsPage() {
                       <select
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700"
+                        className="w-full h-10 rounded-xl border border-slate-200 bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary text-slate-700"
                       >
                         <option value="PENDING">PENDING</option>
                         <option value="CONFIRMED">CONFIRMED</option>
@@ -376,7 +376,7 @@ export default function BookingDetailsPage() {
                         type="date"
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
-                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-primary/20 bg-slate-50/50"
                       />
                     </div>
 
@@ -386,7 +386,7 @@ export default function BookingDetailsPage() {
                         type="text"
                         value={bookingTime}
                         onChange={(e) => setBookingTime(e.target.value)}
-                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-primary/20 bg-slate-50/50"
                       />
                     </div>
 
@@ -396,7 +396,7 @@ export default function BookingDetailsPage() {
                         type="text"
                         value={technicianName}
                         onChange={(e) => setTechnicianName(e.target.value)}
-                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-primary/20 bg-slate-50/50"
                       />
                     </div>
 
@@ -406,7 +406,7 @@ export default function BookingDetailsPage() {
                         type="text"
                         value={technicianPhone}
                         onChange={(e) => setTechnicianPhone(e.target.value)}
-                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-primary/20 bg-slate-50/50"
                       />
                     </div>
 
@@ -416,7 +416,7 @@ export default function BookingDetailsPage() {
                         type="number"
                         value={estimatedCost}
                         onChange={(e) => setEstimatedCost(e.target.value)}
-                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-blue-500 bg-slate-50/50"
+                        className="h-10 rounded-xl text-xs border-slate-200 focus-visible:ring-primary/20 bg-slate-50/50"
                       />
                     </div>
                   </div>
@@ -427,7 +427,7 @@ export default function BookingDetailsPage() {
                       value={problemDescription}
                       onChange={(e) => setProblemDescription(e.target.value)}
                       rows={4}
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50/50 text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-700 leading-relaxed resize-none font-sans"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50/50 text-xs p-3.5 focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 leading-relaxed resize-none font-sans"
                     />
                   </div>
 
@@ -443,7 +443,7 @@ export default function BookingDetailsPage() {
                     <Button
                       type="submit"
                       disabled={submitting}
-                      className="rounded-xl text-xs font-bold h-9 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                      className="rounded-xl text-xs font-bold h-9 bg-primary hover:bg-primary-hover text-white cursor-pointer"
                     >
                       {submitting ? "Saving..." : "Save Changes"}
                     </Button>
@@ -469,10 +469,10 @@ export default function BookingDetailsPage() {
 
                   {/* Appliance Description */}
                   <div className="space-y-2">
-                    <div className="text-[10px] text-blue-600 font-extrabold uppercase tracking-wider bg-blue-50/50 px-2.5 py-1 rounded-lg w-fit">
+                    <div className="text-[10px] text-primary font-extrabold uppercase tracking-wider bg-primary-soft/50 px-2.5 py-1 rounded-lg w-fit">
                       {booking.brand} &bull; {booking.model}
                     </div>
-                    <h2 className="text-xl sm:text-2xl font-heading font-extrabold text-slate-900">
+                    <h2 className="text-xl sm:text-2xl font-heading font-extrabold text-foreground">
                       {booking.serviceType} checkup for {booking.applianceName}
                     </h2>
                   </div>
@@ -482,7 +482,7 @@ export default function BookingDetailsPage() {
                     <div className="space-y-1">
                       <span className="text-slate-400 block text-[10px] font-extrabold uppercase tracking-wider">Assigned Tech</span>
                       <span className="font-bold text-slate-800 flex items-center gap-2">
-                        <span className="h-6 w-6 rounded-full bg-blue-550/10 text-blue-600 flex items-center justify-center font-bold text-[10px]">
+                        <span className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-[10px]">
                           {booking.technicianName ? booking.technicianName.charAt(0) : "?"}
                         </span>
                         <span>{booking.technicianName || "Unassigned"}</span>
@@ -515,7 +515,7 @@ export default function BookingDetailsPage() {
 
                     <div className="col-span-2 pt-4 border-t border-slate-50 flex items-center justify-between">
                       <span className="text-slate-400 text-[10px] font-extrabold uppercase tracking-wider">Estimated Budget</span>
-                      <span className="font-extrabold text-blue-600 text-base sm:text-xl flex items-center gap-0.5 font-heading">
+                      <span className="font-extrabold text-primary text-base sm:text-xl flex items-center gap-0.5 font-heading">
                         <IndianRupee className="h-4.5 w-4.5" />
                         <span>{booking.estimatedCost.toLocaleString()}</span>
                       </span>
@@ -538,7 +538,7 @@ export default function BookingDetailsPage() {
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-6">
               <div className="flex items-center gap-2 pb-2 border-b border-slate-50">
-                <Activity className="h-4 w-4 text-blue-600" />
+                <Activity className="h-4 w-4 text-primary" />
                 <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-450">Dispatch Progress</h3>
               </div>
 

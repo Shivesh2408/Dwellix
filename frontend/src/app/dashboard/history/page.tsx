@@ -83,7 +83,7 @@ export default function DiagnosisHistoryPage() {
           <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-primary/10 text-primary rounded-full">
             Visual Insights
           </span>
-          <h1 className="text-xl md:text-3xl font-heading font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-xl md:text-3xl font-heading font-extrabold tracking-tight text-foreground">
             Diagnosis History
           </h1>
           <p className="text-xs md:text-sm text-slate-500">
@@ -154,7 +154,7 @@ export default function DiagnosisHistoryPage() {
                   <div className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">
                     {record.brand || "Unknown Brand"}
                   </div>
-                  <h3 className="font-heading font-extrabold text-sm md:text-base text-slate-900 group-hover:text-primary transition-colors">
+                  <h3 className="font-heading font-extrabold text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
                     {record.applianceType || "Appliance Issue"}
                   </h3>
                 </div>
@@ -199,7 +199,7 @@ export default function DiagnosisHistoryPage() {
               <div className="flex items-center justify-between p-5 border-b border-slate-100 flex-shrink-0">
                 <div className="flex items-center gap-2">
                   <Bot className="h-5 w-5 text-primary" />
-                  <span className="font-heading font-extrabold text-slate-900 text-sm md:text-base">
+                  <span className="font-heading font-extrabold text-foreground text-sm md:text-base">
                     Diagnostic Analysis
                   </span>
                 </div>
@@ -250,9 +250,9 @@ export default function DiagnosisHistoryPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-indigo-50/30 border border-indigo-100/50 flex items-center justify-between text-xs md:text-sm">
-                      <div className="flex items-center gap-2 text-indigo-950 font-bold">
-                        <Wrench className="h-4 w-4 text-indigo-600" />
+                    <div className="p-4 rounded-2xl bg-primary-soft/30 border border-primary/20/50 flex items-center justify-between text-xs md:text-sm">
+                      <div className="flex items-center gap-2 text-foreground font-bold">
+                        <Wrench className="h-4 w-4 text-primary" />
                         <span>Professional Repair Status</span>
                       </div>
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border ${
@@ -287,7 +287,7 @@ export default function DiagnosisHistoryPage() {
                   {selectedRecord.possibleCauses && selectedRecord.possibleCauses.length > 0 && (
                     <div className="space-y-1.5 pt-2">
                       <h4 className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                        <Layers className="h-3.5 w-3.5 text-indigo-500" />
+                        <Layers className="h-3.5 w-3.5 text-primary" />
                         <span>Likely Underlying Causes</span>
                       </h4>
                       <ul className="list-disc pl-5 space-y-1 text-slate-700">

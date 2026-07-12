@@ -317,7 +317,7 @@ export function SignupForm() {
         title="Account created successfully!"
         description="Your Dwellix account has been created. You can now return to the login screen and sign in to get started with your home management."
         action={
-          <Button asChild className="h-11 px-6 bg-blue-600 text-white hover:bg-blue-700">
+          <Button asChild className="h-11 px-6 bg-primary text-white hover:bg-primary-hover">
             <Link href="/auth/login">Continue to Login</Link>
           </Button>
         }

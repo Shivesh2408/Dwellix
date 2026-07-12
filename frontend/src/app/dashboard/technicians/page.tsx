@@ -133,7 +133,7 @@ export default function TechnicianMarketplacePage() {
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
         <div>
-          <h1 className="text-xl md:text-2xl font-heading font-extrabold text-slate-900 flex items-center gap-2">
+          <h1 className="text-xl md:text-2xl font-heading font-extrabold text-foreground flex items-center gap-2">
             <Wrench className="h-6 w-6 text-primary" />
             <span>Certified Technicians</span>
           </h1>
@@ -268,7 +268,7 @@ export default function TechnicianMarketplacePage() {
             <Wrench className="h-7 w-7 opacity-50 text-primary" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-sm font-bold text-slate-900">No technicians found</h3>
+            <h3 className="text-sm font-bold text-foreground">No technicians found</h3>
             <p className="text-xs text-slate-450 leading-relaxed">
               No matching technician profiles match your city, specialization, or rating filter selections.
             </p>
@@ -298,7 +298,7 @@ export default function TechnicianMarketplacePage() {
                     </div>
                     <div className="space-y-0.5 min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <h4 className="font-heading font-extrabold text-slate-900 text-base leading-tight truncate">
+                        <h4 className="font-heading font-extrabold text-foreground text-base leading-tight truncate">
                           {tech.name}
                         </h4>
                         {tech.verified && (
@@ -335,7 +335,7 @@ export default function TechnicianMarketplacePage() {
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] text-slate-400 block font-bold uppercase">Hourly Rate</span>
-                      <span className="font-extrabold text-slate-900 text-sm">₹{tech.hourlyRate}/hr</span>
+                      <span className="font-extrabold text-foreground text-sm">₹{tech.hourlyRate}/hr</span>
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] text-slate-400 block font-bold uppercase">Availability</span>
@@ -389,7 +389,7 @@ export default function TechnicianMarketplacePage() {
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <h2 className="text-base font-heading font-extrabold text-slate-900 flex items-center gap-2">
+                <h2 className="text-base font-heading font-extrabold text-foreground flex items-center gap-2">
                   <User className="h-5 w-5 text-primary" />
                   <span>Technician Profile Detail</span>
                 </h2>
@@ -483,7 +483,7 @@ export default function TechnicianMarketplacePage() {
                 <div className="p-4 rounded-3xl border border-slate-100 space-y-2">
                   <span className="text-[10px] text-slate-400 font-bold uppercase block">Ratings & Feedback Overview</span>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-extrabold text-slate-900">{selectedTech.rating}</span>
+                    <span className="text-3xl font-extrabold text-foreground">{selectedTech.rating}</span>
                     <div className="flex flex-col">
                       <div className="flex items-center text-amber-400">
                         <Star className="h-3 w-3 fill-current" />

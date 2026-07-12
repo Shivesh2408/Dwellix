@@ -68,7 +68,7 @@ export default function UploadsDemoPage() {
           <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-primary/10 text-primary rounded-full">
             Cloudinary Integration
           </span>
-          <h1 className="text-xl md:text-3xl font-heading font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-xl md:text-3xl font-heading font-extrabold tracking-tight text-foreground">
             Media Uploads
           </h1>
           <p className="text-xs md:text-sm text-slate-500">

@@ -42,7 +42,7 @@ const testimonials: TestimonialItem[] = [
     role: "Homeowner",
     review: "Dwellix helped me organize every appliance, invoice and warranty in one place. The AI diagnosis even saved me an unnecessary repair visit.",
     initials: "RS",
-    gradient: "from-blue-500 to-indigo-600",
+    gradient: "from-primary to-primary-hover",
   },
   {
     name: "Ananya Gupta",

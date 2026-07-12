@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Home, Folder, Sparkles, CalendarDays, ShieldCheck, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { UserPlus, Home, PlusCircle, Sparkles, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -19,33 +20,27 @@ interface StepItem {
 const steps: StepItem[] = [
   {
     number: "01",
-    title: "Create Your Home",
-    description: "Sign up and add your home, rooms and appliances in just a few minutes.",
-    icon: Home,
+    title: "Create Your Dwellix Account",
+    description: "Sign up in seconds to secure your personal dashboard and home management profile.",
+    icon: UserPlus,
   },
   {
     number: "02",
-    title: "Organize Everything",
-    description: "Store invoices, warranties and appliance information securely in one place.",
-    icon: Folder,
+    title: "Set Up Your Home",
+    description: "Enter your home details to establish a customized health profile and location base.",
+    icon: Home,
   },
   {
     number: "03",
-    title: "Ask Dwellix AI",
-    description: "Describe any appliance issue and receive an instant diagnosis with intelligent questions.",
-    icon: Sparkles,
+    title: "Add Rooms and Appliances",
+    description: "Register appliances by room, uploading receipts, manuals, or active warranty coverages.",
+    icon: PlusCircle,
   },
   {
     number: "04",
-    title: "Book a Technician",
-    description: "Choose a verified technician, schedule a visit and track the booking live.",
-    icon: CalendarDays,
-  },
-  {
-    number: "05",
-    title: "Maintain Your Home",
-    description: "Receive reminders, monitor your Health Score and access history anytime.",
-    icon: ShieldCheck,
+    title: "Manage, Diagnose, and Request Services",
+    description: "Monitor status, run AI-guided troubleshooting, or book a certified technician directly.",
+    icon: Sparkles,
   },
 ];
 
@@ -86,7 +81,7 @@ const cardVariants = {
 
 export function HowItWorks() {
   return (
-    <Section id="how-it-works" variant="default" spacing="lg" className="bg-white border-t border-border/40 overflow-hidden">
+    <Section id="how-it-works" variant="default" spacing="lg" className="bg-background border-t border-border/40 overflow-hidden scroll-mt-28">
       <Container className="flex flex-col gap-16 items-center">
         
         <motion.div
@@ -110,7 +105,7 @@ export function HowItWorks() {
           <div className="relative w-full max-w-7xl flex justify-center py-4">
             
             {/* Desktop Horizontal Timeline Line */}
-            <div className="absolute top-[2.25rem] left-[10%] right-[10%] h-0.5 bg-border/40 -z-10 hidden lg:block" aria-hidden="true">
+            <div className="absolute top-[2.25rem] left-[12%] right-[12%] h-0.5 bg-border/40 -z-10 hidden lg:block" aria-hidden="true">
               <motion.div
                 initial={{ width: "0%" }}
                 whileInView={{ width: "100%" }}
@@ -134,7 +129,7 @@ export function HowItWorks() {
             {/* Grid Container */}
             <motion.div 
               variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-6 w-full relative md:pl-16 lg:pl-0"
+              className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-6 w-full relative md:pl-16 lg:pl-0"
             >
               {steps.map((step) => {
                 const Icon = step.icon;
@@ -146,15 +141,15 @@ export function HowItWorks() {
                   >
                     
                     {/* Step Icon circle (acts as node on timeline) */}
-                    <div className="absolute md:-left-[2.85rem] lg:left-1/2 lg:-translate-x-1/2 top-0 lg:-top-2 flex h-10 w-10 items-center justify-center rounded-full border-2 border-border bg-white text-muted-foreground group-hover:border-primary group-hover:text-primary group-hover:scale-105 transition-all duration-300 shadow-xs z-10">
+                    <div className="absolute md:-left-[2.85rem] lg:left-1/2 lg:-translate-x-1/2 top-0 lg:-top-2 flex h-10 w-10 items-center justify-center rounded-full border-2 border-border bg-card text-muted-foreground group-hover:border-primary group-hover:text-primary group-hover:scale-105 transition-all duration-300 shadow-sm z-10">
                       <Icon className="h-4.5 w-4.5" />
                     </div>
 
                     {/* Card Container */}
                     <motion.div
-                      whileHover={{ y: -4, borderColor: "rgba(37,99,235,0.4)" }}
+                      whileHover={{ y: -4, borderColor: "rgba(232, 93, 63, 0.4)" }}
                       transition={{ duration: 0.2 }}
-                      className="mt-6 md:mt-0 lg:mt-12 flex flex-col gap-3 p-5 rounded-xl border border-border bg-white text-card-foreground shadow-xs hover:shadow-md transition-all duration-300 w-full text-left"
+                      className="mt-6 md:mt-0 lg:mt-12 flex flex-col gap-3 p-5 rounded-xl border border-border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all duration-300 w-full text-left"
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold text-primary bg-primary/5 border border-primary/10 rounded-md px-1.5 py-0.5">
@@ -189,13 +184,22 @@ export function HowItWorks() {
             </Heading>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-              <Button className="font-semibold w-full sm:w-auto h-[48px] px-6 text-sm gap-1.5 group shadow-xs">
-                Create Free Account
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Button>
-              <Button variant="outline" className="font-semibold w-full sm:w-auto h-[48px] px-6 text-sm bg-transparent border-border/80 text-muted-foreground hover:text-foreground">
-                Explore Features
-              </Button>
+              <Link href="/auth/signup" passHref className="w-full sm:w-auto">
+                <Button className="font-semibold w-full sm:w-auto h-[48px] px-6 text-sm gap-1.5 group shadow-xs">
+                  Get Started
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Button>
+              </Link>
+              <Link href="/auth/signup" passHref className="w-full sm:w-auto">
+                <Button className="font-semibold w-full sm:w-auto h-[48px] px-6 text-sm shadow-xs">
+                  Create Your Home
+                </Button>
+              </Link>
+              <a href="#features" className="w-full sm:w-auto">
+                <Button variant="outline" className="font-semibold w-full sm:w-auto h-[48px] px-6 text-sm bg-transparent border-border/80 text-muted-foreground hover:text-foreground">
+                  Explore Features
+                </Button>
+              </a>
             </div>
           </motion.div>
         </motion.div>

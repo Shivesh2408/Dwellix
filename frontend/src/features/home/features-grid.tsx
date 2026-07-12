@@ -3,8 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { 
-  Sparkles, ShieldCheck, Receipt, Wrench, MapPin, 
-  Calendar, Bell, Activity, ChevronRight, ArrowRight 
+  Sparkles, ShieldCheck, Wrench, Calendar, Bell, LayoutDashboard, Home,
+  ChevronRight, ArrowRight 
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
@@ -22,52 +22,40 @@ interface FeatureCard {
 
 const featureCards: FeatureCard[] = [
   {
-    title: "AI Diagnosis",
-    description: "Diagnose appliance problems before booking a technician.",
+    title: "AI-Assisted Diagnostics",
+    description: "Describe appliance or home issues and receive structured troubleshooting guidance instantly.",
     icon: Sparkles,
-    href: "#ai-diagnosis",
+    href: "#features",
   },
   {
-    title: "Warranty Vault",
-    description: "Store and access warranties securely.",
+    title: "Home & Appliance Management",
+    description: "Maintain a centralized, organized view of rooms, appliances, and important home assets.",
+    icon: Home,
+    href: "#features",
+  },
+  {
+    title: "Warranty & Document Vault",
+    description: "Store and organize appliance-related warranty information, invoices, and documents securely.",
     icon: ShieldCheck,
-    href: "#warranty-vault",
+    href: "#features",
   },
   {
-    title: "Invoice Vault",
-    description: "Keep every invoice organized digitally.",
-    icon: Receipt,
-    href: "#invoice-vault",
-  },
-  {
-    title: "Service Marketplace",
-    description: "Book trusted technicians with confidence.",
-    icon: Wrench,
-    href: "#marketplace",
-  },
-  {
-    title: "Live Tracking",
-    description: "Track technicians in real time.",
-    icon: MapPin,
-    href: "#live-tracking",
-  },
-  {
-    title: "Maintenance Timeline",
-    description: "View complete maintenance history.",
-    icon: Calendar,
-    href: "#timeline",
-  },
-  {
-    title: "Smart Notifications",
-    description: "Receive reminders before problems occur.",
+    title: "Maintenance Reminders",
+    description: "Keep track of recurring maintenance checklists and get notified of upcoming appliance care.",
     icon: Bell,
-    href: "#notifications",
+    href: "#features",
   },
   {
-    title: "Home Health Score",
-    description: "Understand the overall condition of your home.",
-    icon: Activity,
-    href: "#health-score",
+    title: "Service Booking",
+    description: "Request professional home services from certified technicians through the Dwellix workflow.",
+    icon: Wrench,
+    href: "#features",
+  },
+  {
+    title: "Smart Home Dashboard",
+    description: "Get a consolidated view of your home's active health metrics, coverages, and recent status updates.",
+    icon: LayoutDashboard,
+    href: "#features",
   },
 ];
 
@@ -107,7 +95,7 @@ const cardVariants = {
 
 export function FeaturesGrid() {
   return (
-    <Section id="features" variant="secondary" spacing="lg" className="bg-slate-50 border-t border-border/40 overflow-hidden">
+    <Section id="features" variant="secondary" spacing="lg" className="bg-secondary border-t border-border/40 overflow-hidden scroll-mt-28">
       <Container>
         <motion.div
           variants={sectionRevealVariants}
@@ -138,9 +126,9 @@ export function FeaturesGrid() {
                 <motion.div
                   key={feat.title}
                   variants={cardVariants}
-                  whileHover={{ y: -4, borderColor: "rgba(37,99,235,0.4)" }}
+                  whileHover={{ y: -4, borderColor: "rgba(232, 93, 63, 0.4)" }}
                   transition={{ duration: 0.2 }}
-                  className="flex flex-col items-start gap-4 p-6 rounded-xl border border-border bg-white text-card-foreground shadow-xs hover:shadow-md transition-all duration-300 group"
+                  className="flex flex-col items-start gap-4 p-6 rounded-xl border border-border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all duration-300 group"
                 >
                   {/* Icon block (Rotate/Scale on hover) */}
                   <motion.div 
@@ -180,7 +168,7 @@ export function FeaturesGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="w-full max-w-5xl bg-white border border-border/80 rounded-2xl p-8 md:p-10 shadow-md flex flex-col md:flex-row items-center justify-between gap-8 text-left"
+            className="w-full max-w-5xl bg-card border border-border rounded-2xl p-8 md:p-10 shadow-md flex flex-col md:flex-row items-center justify-between gap-8 text-left"
           >
             {/* Left CTA text */}
             <div className="flex flex-col gap-2 max-w-xl text-center md:text-left">

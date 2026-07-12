@@ -17,10 +17,10 @@ export function DashboardHero({ userName }: { userName: string }) {
   const firstName = userName?.split(" ")[0] || "Alex";
   return (
     <div className="text-left space-y-1 mb-8">
-      <h2 className="text-3xl font-heading font-extrabold tracking-tight text-slate-900">
+      <h2 className="text-3xl font-heading font-extrabold tracking-tight text-foreground">
         Good morning, {firstName} 👋
       </h2>
-      <p className="text-sm text-slate-500 font-medium">Here&apos;s what&apos;s happening with your home today.</p>
+      <p className="text-sm text-muted-foreground font-medium">Here&apos;s what&apos;s happening with your home today.</p>
     </div>
   );
 }
@@ -41,19 +41,19 @@ export function DashboardStats({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 text-left">
       {/* Stat 1: Total Appliances */}
-      <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Appliances</span>
+      <Card className="rounded-[24px] border border-border bg-card p-5 shadow-sm flex flex-col justify-between min-h-[130px]">
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Total Appliances</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{appliancesCount ?? 0}</div>
-          <p className="text-[10px] text-slate-400 font-bold">Registered</p>
+          <div className="text-3.5xl font-heading font-extrabold text-foreground">{appliancesCount ?? 0}</div>
+          <p className="text-[10px] text-muted-foreground font-bold">Registered</p>
         </div>
       </Card>
 
       {/* Stat 2: Active Warranties */}
-      <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Active Warranties</span>
+      <Card className="rounded-[24px] border border-border bg-card p-5 shadow-sm flex flex-col justify-between min-h-[130px]">
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Active Warranties</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{activeWarranties ?? 0}</div>
+          <div className="text-3.5xl font-heading font-extrabold text-foreground">{activeWarranties ?? 0}</div>
           <p className="text-[10px] text-emerald-500 font-bold flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Valid & Active
           </p>
@@ -61,10 +61,10 @@ export function DashboardStats({
       </Card>
 
       {/* Stat 3: Expiring Soon */}
-      <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Expiring Soon</span>
+      <Card className="rounded-[24px] border border-border bg-card p-5 shadow-sm flex flex-col justify-between min-h-[130px]">
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Expiring Soon</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">{expiringWarranties ?? 0}</div>
+          <div className="text-3.5xl font-heading font-extrabold text-foreground">{expiringWarranties ?? 0}</div>
           <p className="text-[10px] text-red-500 font-bold flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> Within 30 days
           </p>
@@ -72,19 +72,19 @@ export function DashboardStats({
       </Card>
 
       {/* Stat 4: Total Value */}
-      <Card className="rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between min-h-[130px]">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Value</span>
+      <Card className="rounded-[24px] border border-border bg-card p-5 shadow-sm flex flex-col justify-between min-h-[130px]">
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Total Value</span>
         <div className="mt-2 space-y-0.5">
-          <div className="text-3.5xl font-heading font-extrabold text-slate-900">
+          <div className="text-3.5xl font-heading font-extrabold text-foreground">
             ₹{new Intl.NumberFormat("en-IN").format(totalValue ?? 0)}
           </div>
-          <p className="text-[10px] text-slate-400 font-bold">Covered Value</p>
+          <p className="text-[10px] text-muted-foreground font-bold">Covered Value</p>
         </div>
       </Card>
 
       {/* Stat 5: Home Health Score (Dark Card) */}
-      <Card className="rounded-[24px] bg-[#0A0E1A] p-5 shadow-lg flex flex-col justify-between min-h-[130px] text-white">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Home Health Score</span>
+      <Card className="rounded-[24px] bg-[#2B2421] border border-[#3F332E]/30 p-5 shadow-lg flex flex-col justify-between min-h-[130px] text-white">
+        <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider block">Home Health Score</span>
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="flex items-center gap-2.5">
             <div className="relative h-11 w-11 flex items-center justify-center flex-shrink-0">
@@ -118,13 +118,13 @@ export function DashboardStats({
 
 export function ApplianceHealthCard({ score }: { score: number }) {
   return (
-    <Card className="rounded-[24px] border border-slate-200/60 bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-left flex flex-col justify-between min-h-[290px]">
-      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider block">Appliance Health Overview</h3>
+    <Card className="rounded-[24px] border border-border bg-card p-6 shadow-sm text-left flex flex-col justify-between min-h-[290px]">
+      <h3 className="text-xs font-bold text-foreground uppercase tracking-wider block">Appliance Health Overview</h3>
       <div className="flex items-center justify-between gap-6 py-4 flex-grow">
         {/* Circular progress bar */}
         <div className="relative h-28 w-28 flex items-center justify-center flex-shrink-0">
           <svg className="transform -rotate-90 w-full h-full">
-            <circle cx="56" cy="56" r="46" className="stroke-slate-100" strokeWidth="8" fill="transparent" />
+            <circle cx="56" cy="56" r="46" className="stroke-secondary" strokeWidth="8" fill="transparent" />
             <circle
               cx="56"
               cy="56"
@@ -138,28 +138,28 @@ export function ApplianceHealthCard({ score }: { score: number }) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-heading font-extrabold text-slate-900 leading-none">{score}%</span>
+            <span className="text-3xl font-heading font-extrabold text-foreground leading-none">{score}%</span>
             <span className="text-[9px] font-bold uppercase text-emerald-500 tracking-wider mt-1.5">Excellent</span>
           </div>
         </div>
 
         {/* Legend matching mockup values */}
-        <div className="space-y-2.5 text-xs font-semibold text-slate-650 flex-grow">
+        <div className="space-y-2.5 text-xs font-semibold text-muted-foreground flex-grow">
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-500" /> Excellent</span>
-            <span className="text-slate-900 font-extrabold">{score >= 90 ? 1 : 0}</span>
+            <span className="text-foreground font-extrabold">{score >= 90 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-blue-500" /> Good</span>
-            <span className="text-slate-900 font-extrabold">{score >= 75 && score < 90 ? 1 : 0}</span>
+            <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-primary/60" /> Good</span>
+            <span className="text-foreground font-extrabold">{score >= 75 && score < 90 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-amber-500" /> Fair</span>
-            <span className="text-slate-900 font-extrabold">{score >= 50 && score < 75 ? 1 : 0}</span>
+            <span className="text-foreground font-extrabold">{score >= 50 && score < 75 ? 1 : 0}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-rose-500" /> Attention</span>
-            <span className="text-slate-900 font-extrabold">{score < 50 ? 1 : 0}</span>
+            <span className="text-foreground font-extrabold">{score < 50 ? 1 : 0}</span>
           </div>
         </div>
       </div>
@@ -186,29 +186,29 @@ interface MaintenanceItem {
 
 export function UpcomingMaintenanceCard({ maintenanceItems }: { maintenanceItems: MaintenanceItem[] }) {
   return (
-    <Card className="rounded-[24px] border border-slate-200/60 bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-left flex flex-col justify-between min-h-[290px]">
+    <Card className="rounded-[24px] border border-border bg-card p-6 shadow-sm text-left flex flex-col justify-between min-h-[290px]">
       <div className="flex justify-between items-center">
-        <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider block">Upcoming Maintenance</h3>
-        <Link href="/dashboard/maintenance" className="text-xs text-blue-600 font-bold hover:underline">View all</Link>
+        <h3 className="text-xs font-bold text-foreground uppercase tracking-wider block">Upcoming Maintenance</h3>
+        <Link href="/dashboard/maintenance" className="text-xs text-primary font-bold hover:underline">View all</Link>
       </div>
       <div className="space-y-4 py-2 mt-4 flex-grow flex flex-col justify-center">
         {maintenanceItems.length > 0 ? (
           maintenanceItems.slice(0, 3).map((item, idx) => (
             <div key={idx} className="flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="h-8.5 w-8.5 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+                <div className="h-8.5 w-8.5 rounded-xl bg-primary-soft flex items-center justify-center text-primary flex-shrink-0">
                   <Wrench className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-800 leading-tight">{item.applianceName}</h4>
-                  <p className="text-[10px] text-slate-400 font-medium mt-0.5">{item.taskName}</p>
+                  <h4 className="text-xs font-bold text-foreground leading-tight">{item.applianceName}</h4>
+                  <p className="text-[10px] text-muted-foreground font-medium mt-0.5">{item.taskName}</p>
                 </div>
               </div>
-              <span className="text-[10px] text-slate-400 font-bold">{item.date ? formatIndianDate(item.date) : ""}</span>
+              <span className="text-[10px] text-muted-foreground font-bold">{item.date ? formatIndianDate(item.date) : ""}</span>
             </div>
           ))
         ) : (
-          <p className="text-xs text-slate-400 font-medium text-center">No pending maintenance.</p>
+          <p className="text-xs text-muted-foreground font-medium text-center">No pending maintenance.</p>
         )}
       </div>
     </Card>
@@ -217,24 +217,24 @@ export function UpcomingMaintenanceCard({ maintenanceItems }: { maintenanceItems
 
 export function AIInsightCard() {
   return (
-    <Card className="rounded-[24px] border border-slate-200/60 bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-left flex flex-col justify-between min-h-[290px] relative overflow-hidden">
+    <Card className="rounded-[24px] border border-border bg-card p-6 shadow-sm text-left flex flex-col justify-between min-h-[290px] relative overflow-hidden">
       <div className="flex justify-between items-center">
-        <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider block">AI Insight</h3>
-        <Badge className="bg-blue-100 text-blue-600 border-none rounded-full text-[8px] font-bold uppercase">New</Badge>
+        <h3 className="text-xs font-bold text-foreground uppercase tracking-wider block">AI Insight</h3>
+        <Badge className="bg-primary-soft text-primary border-none rounded-full text-[8px] font-bold uppercase">New</Badge>
       </div>
       <div className="flex items-center justify-between gap-4 py-2 mt-4 flex-grow">
         <div className="space-y-3.5 max-w-[200px]">
-          <h4 className="text-xs font-bold text-slate-800 leading-snug">
+          <h4 className="text-xs font-bold text-foreground leading-snug">
             Your Samsung Air Conditioner is performing better than usual this week.
           </h4>
-          <p className="text-[10px] text-slate-450 font-medium">
+          <p className="text-[10px] text-muted-foreground font-medium">
             Energy consumption reduced by 12% compared to last week.
           </p>
-          <Link href="/dashboard/ai-assistant" className="text-xs text-blue-600 font-extrabold hover:underline flex items-center gap-1 pt-1.5">
+          <Link href="/dashboard/ai-assistant" className="text-xs text-primary font-extrabold hover:underline flex items-center gap-1 pt-1.5">
             View Full Insights <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
-        <div className="h-20 w-20 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500 shadow-xxs flex-shrink-0 self-center">
+        <div className="h-20 w-20 rounded-2xl bg-primary-soft flex items-center justify-center text-primary shadow-xxs flex-shrink-0 self-center">
           <Sparkles className="h-8 w-8 animate-pulse" />
         </div>
       </div>
@@ -332,18 +332,18 @@ export function DashboardContent({
         <h3 className="font-heading font-bold text-xl tracking-tight text-foreground text-left">Quick Actions</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[
-            { title: "Diagnose Appliance", action: onDiagnoseClick, bg: "bg-blue-600 text-white hover:bg-blue-700" },
-            { title: "Book Technician", action: onBookClick, bg: "bg-white text-foreground border border-border hover:bg-slate-50" },
-            { title: "Upload Invoice", action: onUploadInvoiceClick, bg: "bg-white text-foreground border border-border hover:bg-slate-50" },
-            { title: "Add Appliance", action: onAddApplianceClick, bg: "bg-white text-foreground border border-border hover:bg-slate-50" },
-            { title: "View Marketplace", action: onViewMarketplaceClick, bg: "bg-white text-foreground border border-border hover:bg-slate-50" }
+            { title: "Diagnose Appliance", action: onDiagnoseClick, bg: "bg-primary text-white hover:bg-primary-hover shadow-sm border border-transparent" },
+            { title: "Book Technician", action: onBookClick, bg: "bg-card text-foreground border border-border hover:bg-secondary shadow-sm" },
+            { title: "Upload Invoice", action: onUploadInvoiceClick, bg: "bg-card text-foreground border border-border hover:bg-secondary shadow-sm" },
+            { title: "Add Appliance", action: onAddApplianceClick, bg: "bg-card text-foreground border border-border hover:bg-secondary shadow-sm" },
+            { title: "View Marketplace", action: onViewMarketplaceClick, bg: "bg-card text-foreground border border-border hover:bg-secondary shadow-sm" }
           ].map((act, idx) => (
             <motion.button
               key={idx}
               whileHover={{ y: -2 }}
               onClick={act.action}
               className={cn(
-                "p-4 rounded-[20px] flex flex-col justify-between items-start text-left cursor-pointer transition-all duration-200 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] h-[100px]",
+                "p-4 rounded-[20px] flex flex-col justify-between items-start text-left cursor-pointer transition-all duration-200 shadow-sm h-[100px]",
                 act.bg
               )}
             >

@@ -210,7 +210,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-6 text-left font-sans">
+      <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-6 text-left font-sans">
         <div className="space-y-2 animate-pulse">
           <div className="h-8 bg-slate-200 rounded-md w-48" />
           <div className="h-4 bg-slate-200 rounded-md w-72" />
@@ -230,9 +230,9 @@ export default function ProfilePage() {
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4 font-sans">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-12 max-w-md mx-auto text-left gap-4 font-sans">
         <AlertOctagon className="h-10 w-10 text-rose-500" />
-        <div className="text-base font-extrabold text-slate-900 font-heading">Error Loading Profile</div>
+        <div className="text-base font-extrabold text-foreground font-heading">Error Loading Profile</div>
         <p className="text-xs text-slate-500 text-center leading-relaxed">{error || "User data is missing."}</p>
         <Button onClick={fetchProfileAndStats} size="sm" className="bg-slate-900 text-white rounded-xl px-5 h-9 font-bold cursor-pointer">
           Retry Connection
@@ -242,7 +242,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 text-left font-sans relative overflow-x-hidden">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -262,10 +262,10 @@ export default function ProfilePage() {
         {/* Top Header Deck */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="space-y-1">
-            <Badge className="bg-blue-50/80 text-blue-600 text-[10px] uppercase font-bold tracking-widest rounded-full border-blue-100/30 px-2.5 py-0.5">
+            <Badge className="bg-primary-soft/80 text-primary text-[10px] uppercase font-bold tracking-widest rounded-full border-primary/20/30 px-2.5 py-0.5">
               Personal Account
             </Badge>
-            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-4xl font-heading font-extrabold tracking-tight text-foreground">
               My Profile
             </h1>
           </div>
@@ -290,7 +290,7 @@ export default function ProfilePage() {
                 </Button>
                 <Button
                   onClick={handleSaveChanges}
-                  className="rounded-xl font-bold text-xs h-10 px-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors flex items-center gap-1.5"
+                  className="rounded-xl font-bold text-xs h-10 px-4 bg-primary hover:bg-primary-hover text-white cursor-pointer transition-colors flex items-center gap-1.5"
                 >
                   <Check className="h-3.5 w-3.5" />
                   <span>Save Changes</span>
@@ -318,7 +318,7 @@ export default function ProfilePage() {
             {/* Hero Profile Card */}
             <Card className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm flex flex-col items-center text-center space-y-5 relative overflow-hidden">
               {/* Profile Background Banner effect */}
-              <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-r from-blue-50/20 to-indigo-50/20 border-b border-slate-50" />
+              <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-r from-primary-soft/10 to-primary-soft/25 border-b border-slate-50" />
               
               {/* Photo Block with Uploader */}
               <div className="relative mt-4">
@@ -350,7 +350,7 @@ export default function ProfilePage() {
               {/* Identity & Status */}
               <div className="space-y-1.5 w-full">
                 <div className="flex items-center justify-center gap-1.5">
-                  <h3 className="text-lg font-extrabold text-slate-900 font-heading leading-tight truncate">
+                  <h3 className="text-lg font-extrabold text-foreground font-heading leading-tight truncate">
                     {profile.fullName}
                   </h3>
                   <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100/50 rounded-full text-[9px] font-black uppercase py-0.5 px-2">
@@ -367,7 +367,7 @@ export default function ProfilePage() {
               <div className="w-full pt-4 border-t border-slate-50 grid grid-cols-2 gap-3 text-left">
                 <div className="space-y-0.5">
                   <span className="text-[9px] text-slate-400 uppercase font-extrabold">Membership</span>
-                  <Badge className="bg-blue-600 text-white border-0 text-[9px] font-black uppercase tracking-wider rounded px-1.5">
+                  <Badge className="bg-primary text-white border-0 text-[9px] font-black uppercase tracking-wider rounded px-1.5">
                     Pro tier
                   </Badge>
                 </div>
@@ -388,9 +388,9 @@ export default function ProfilePage() {
                 <div className="bg-slate-50 border border-slate-100/30 p-3.5 rounded-2xl space-y-1">
                   <div className="flex items-center justify-between text-slate-400">
                     <span className="text-[10px] font-bold uppercase tracking-wider">Appliances</span>
-                    <Wrench className="h-4 w-4 text-blue-650" />
+                    <Wrench className="h-4 w-4 text-primary-hover" />
                   </div>
-                  <div className="text-xl font-bold text-slate-900 font-heading">{appliancesCount}</div>
+                  <div className="text-xl font-bold text-foreground font-heading">{appliancesCount}</div>
                 </div>
 
                 <div className="bg-slate-50 border border-slate-100/30 p-3.5 rounded-2xl space-y-1">
@@ -398,7 +398,7 @@ export default function ProfilePage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider">Warranties</span>
                     <ShieldCheck className="h-4 w-4 text-emerald-650" />
                   </div>
-                  <div className="text-xl font-bold text-slate-900 font-heading">{activeWarrantiesCount}</div>
+                  <div className="text-xl font-bold text-foreground font-heading">{activeWarrantiesCount}</div>
                 </div>
 
                 <div className="bg-slate-50 border border-slate-100/30 p-3.5 rounded-2xl space-y-1">
@@ -406,7 +406,7 @@ export default function ProfilePage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider">Bookings</span>
                     <Calendar className="h-4 w-4 text-purple-650" />
                   </div>
-                  <div className="text-xl font-bold text-slate-900 font-heading">{bookingsCount}</div>
+                  <div className="text-xl font-bold text-foreground font-heading">{bookingsCount}</div>
                 </div>
 
                 <div className="bg-slate-50 border border-slate-100/30 p-3.5 rounded-2xl space-y-1">
@@ -414,7 +414,7 @@ export default function ProfilePage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider">AI Chats</span>
                     <Sparkles className="h-4 w-4 text-amber-650 animate-pulse" />
                   </div>
-                  <div className="text-xl font-bold text-slate-900 font-heading">{aiConversationsCount}</div>
+                  <div className="text-xl font-bold text-foreground font-heading">{aiConversationsCount}</div>
                 </div>
               </div>
             </Card>
@@ -443,7 +443,7 @@ export default function ProfilePage() {
                   whileHover={{ scale: 1.02 }}
                   className="p-3 bg-slate-50 border border-slate-100 rounded-2xl flex items-center gap-2"
                 >
-                  <span className="p-1.5 rounded-xl bg-blue-50 text-blue-600">
+                  <span className="p-1.5 rounded-xl bg-primary-soft text-primary">
                     <Zap className="h-4 w-4" />
                   </span>
                   <div className="space-y-0.5">
@@ -488,8 +488,8 @@ export default function ProfilePage() {
             {/* Personal Information Form/Card */}
             <Card className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-6 text-left">
               <div className="flex items-center gap-2 border-b border-slate-50 pb-3">
-                <User className="h-4.5 w-4.5 text-blue-600" />
-                <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
+                <User className="h-4.5 w-4.5 text-primary" />
+                <h3 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                   Personal Information
                 </h3>
               </div>
@@ -502,7 +502,7 @@ export default function ProfilePage() {
                       type="text"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-700"
                     />
                   </div>
 
@@ -512,7 +512,7 @@ export default function ProfilePage() {
                       type="text"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-mono text-slate-700"
                     />
                   </div>
 
@@ -522,7 +522,7 @@ export default function ProfilePage() {
                       type="text"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-700"
                     />
                   </div>
 
@@ -532,7 +532,7 @@ export default function ProfilePage() {
                       type="text"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-700"
                     />
                   </div>
 
@@ -542,7 +542,7 @@ export default function ProfilePage() {
                       type="text"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-700"
                     />
                   </div>
 
@@ -552,7 +552,7 @@ export default function ProfilePage() {
                       type="text"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-semibold text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-semibold text-slate-700"
                     />
                   </div>
 
@@ -562,7 +562,7 @@ export default function ProfilePage() {
                       type="text"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
-                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono text-slate-700"
+                      className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50/50 text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary font-mono text-slate-700"
                     />
                   </div>
                 </form>
@@ -634,8 +634,8 @@ export default function ProfilePage() {
             {/* Security & Credentials Card */}
             <Card className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-5 text-left">
               <div className="flex items-center gap-2 border-b border-slate-50 pb-3">
-                <Lock className="h-4.5 w-4.5 text-blue-600" />
-                <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
+                <Lock className="h-4.5 w-4.5 text-primary" />
+                <h3 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                   Security credentials
                 </h3>
               </div>
@@ -654,7 +654,7 @@ export default function ProfilePage() {
                       showToast(twoFactor ? "Two factor auth deactivated." : "Two factor auth activated.");
                     }}
                     className={`w-10 h-5.5 rounded-full transition-colors relative cursor-pointer flex-shrink-0 ${
-                      twoFactor ? "bg-blue-600" : "bg-slate-200"
+                      twoFactor ? "bg-primary" : "bg-slate-200"
                     }`}
                   >
                     <span
@@ -682,7 +682,7 @@ export default function ProfilePage() {
                   <div className="border border-slate-100/80 rounded-2xl overflow-hidden divide-y divide-slate-100 text-xs font-sans">
                     <div className="flex items-center justify-between p-3 bg-slate-50/50">
                       <div className="flex items-center gap-2.5">
-                        <Laptop className="h-4 w-4 text-blue-600" />
+                        <Laptop className="h-4 w-4 text-primary" />
                         <div>
                           <span className="font-bold text-slate-800 block">MacBook Pro &bull; Chrome</span>
                           <span className="text-[10px] text-slate-400">Mumbai, IN &bull; Current Session</span>
@@ -709,8 +709,8 @@ export default function ProfilePage() {
             {/* Connected Accounts */}
             <Card className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-4 text-left">
               <div className="flex items-center gap-2 border-b border-slate-50 pb-3">
-                <UserCheck className="h-4.5 w-4.5 text-blue-600" />
-                <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
+                <UserCheck className="h-4.5 w-4.5 text-primary" />
+                <h3 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                   Connected Accounts
                 </h3>
               </div>
@@ -729,7 +729,7 @@ export default function ProfilePage() {
                       showToast(connectedGoogle ? "Google login disconnected." : "Google login linked.");
                     }}
                     className={`text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg border cursor-pointer ${
-                      connectedGoogle ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                      connectedGoogle ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-primary text-white border-primary"
                     }`}
                   >
                     {connectedGoogle ? "Disconnect" : "Link"}
@@ -749,7 +749,7 @@ export default function ProfilePage() {
                       showToast(connectedApple ? "Apple sign-in disconnected." : "Apple sign-in linked.");
                     }}
                     className={`text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg border cursor-pointer ${
-                      connectedApple ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-blue-600 text-white border-blue-600"
+                      connectedApple ? "text-slate-450 border-slate-200 hover:bg-slate-100" : "bg-primary text-white border-primary"
                     }`}
                   >
                     {connectedApple ? "Disconnect" : "Link"}
@@ -761,8 +761,8 @@ export default function ProfilePage() {
             {/* Preferences Options Card */}
             <Card className="bg-white border border-slate-100 rounded-[24px] p-6 shadow-sm space-y-4 text-left">
               <div className="flex items-center gap-2 border-b border-slate-50 pb-3">
-                <SettingsIcon className="h-4.5 w-4.5 text-blue-600" />
-                <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
+                <SettingsIcon className="h-4.5 w-4.5 text-primary" />
+                <h3 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                   System Preferences
                 </h3>
               </div>

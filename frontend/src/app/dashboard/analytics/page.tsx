@@ -293,7 +293,7 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB] text-left">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-background text-left">
         <div className="flex justify-between items-center">
           <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse" />
           <div className="h-10 w-64 bg-slate-200 rounded-xl animate-pulse" />
@@ -311,11 +311,11 @@ export default function AnalyticsPage() {
 
   if (error) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-[#F8F9FB] text-left gap-4">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-background text-left gap-4">
         <div className="h-16 w-16 rounded-[22px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500 mb-2">
           <ShieldAlert className="h-8 w-8" />
         </div>
-        <h2 className="text-xl font-bold text-slate-900 mb-1">Error Loading Analytics</h2>
+        <h2 className="text-xl font-bold text-foreground mb-1">Error Loading Analytics</h2>
         <p className="text-sm text-slate-500 mb-4">{error}</p>
         <Button onClick={fetchData} className="rounded-xl px-6 bg-black text-white hover:bg-black/90">Retry Sync</Button>
       </div>
@@ -324,11 +324,11 @@ export default function AnalyticsPage() {
 
   if (!loading && !error && appliances.length === 0) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[70vh] flex flex-col items-center justify-center bg-[#F8F9FB] text-center gap-5 font-sans">
-        <div className="h-20 w-20 rounded-[28px] bg-blue-50 text-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/5 mb-2">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[70vh] flex flex-col items-center justify-center bg-background text-center gap-5 font-sans">
+        <div className="h-20 w-20 rounded-[28px] bg-primary-soft text-primary flex items-center justify-center shadow-lg shadow-primary/5 mb-2">
           <Activity className="h-10 w-10 animate-pulse" />
         </div>
-        <h2 className="text-2xl font-extrabold text-slate-900 font-heading">No Analytics Available</h2>
+        <h2 className="text-2xl font-extrabold text-foreground font-heading">No Analytics Available</h2>
         <p className="text-xs sm:text-sm text-slate-550 max-w-md leading-relaxed">
           Please add appliances and log active warranties to view operational cost breakdowns, monthly energy loads, and warranty coverages.
         </p>
@@ -340,7 +340,7 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto p-4 md:p-10 space-y-10 bg-[#F8F9FB] min-h-screen text-left font-sans print:bg-white print:p-0">
+    <div className="max-w-[1400px] mx-auto p-4 md:p-10 space-y-10 bg-background min-h-screen text-left font-sans print:bg-white print:p-0">
       
       {/* Toast Alert */}
       <AnimatePresence>
@@ -360,10 +360,10 @@ export default function AnalyticsPage() {
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 print:hidden">
         <div className="space-y-1">
-          <span className="px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-widest bg-blue-50 text-blue-600 rounded-md border border-blue-100/50">
+          <span className="px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-widest bg-primary-soft text-primary rounded-md border border-primary/20/50">
             Performance Insights
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mt-4 leading-none">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground mt-4 leading-none">
             Executive Analytics
           </h1>
           <p className="text-sm md:text-base font-medium text-slate-500 mt-3">
@@ -374,12 +374,12 @@ export default function AnalyticsPage() {
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Date Picker */}
-          <div className="flex items-center gap-2 bg-white border border-[#ECECEC] rounded-xl px-3 py-2 shadow-xs">
+          <div className="flex items-center gap-2 bg-white border border-border rounded-xl px-3 py-2 shadow-xs">
             <Calendar className="h-4 w-4 text-slate-500" />
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="text-xs font-bold text-slate-900 bg-transparent border-0 outline-none cursor-pointer"
+              className="text-xs font-bold text-foreground bg-transparent border-0 outline-none cursor-pointer"
             >
               <option value="30">Last 30 Days</option>
               <option value="90">Last 90 Days</option>
@@ -391,7 +391,7 @@ export default function AnalyticsPage() {
           <Button
             onClick={handleExportCSV}
             variant="outline"
-            className="h-10 rounded-xl font-bold text-xs border-[#ECECEC] text-[#111111] hover:bg-white cursor-pointer shadow-xs flex items-center gap-2"
+            className="h-10 rounded-xl font-bold text-xs border-border text-foreground hover:bg-white cursor-pointer shadow-xs flex items-center gap-2"
           >
             <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
             <span>Export CSV</span>
@@ -401,7 +401,7 @@ export default function AnalyticsPage() {
           <Button
             onClick={handleExportPDF}
             variant="outline"
-            className="h-10 rounded-xl font-bold text-xs border-[#ECECEC] text-[#111111] hover:bg-white cursor-pointer shadow-xs flex items-center gap-2"
+            className="h-10 rounded-xl font-bold text-xs border-border text-foreground hover:bg-white cursor-pointer shadow-xs flex items-center gap-2"
           >
             <PdfIcon className="h-4 w-4 text-red-500" />
             <span>Print Report</span>
@@ -424,9 +424,9 @@ export default function AnalyticsPage() {
         <Card className="p-6">
           <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Total Appliances</span>
-            <Layers className="h-5 w-5 text-blue-600" />
+            <Layers className="h-5 w-5 text-primary" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">
             {computedMetrics.totalDevices}
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
@@ -441,7 +441,7 @@ export default function AnalyticsPage() {
             <span>Maintenance Cost</span>
             <Wrench className="h-5 w-5 text-amber-500" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">
             ₹{new Intl.NumberFormat("en-IN").format(computedMetrics.totalMaintenanceCost)}
           </div>
           <div className="flex items-center gap-1.5 text-slate-500 font-bold text-xs mt-3">
@@ -455,7 +455,7 @@ export default function AnalyticsPage() {
             <span>Warranty Savings</span>
             <ShieldCheck className="h-5 w-5 text-emerald-500" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">
             ₹{new Intl.NumberFormat("en-IN").format(computedMetrics.warrantySavings)}
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
@@ -468,9 +468,9 @@ export default function AnalyticsPage() {
         <Card className="p-6">
           <div className="flex items-center justify-between text-slate-500 font-bold text-xs uppercase tracking-wider mb-4">
             <span>Home Health Index</span>
-            <Activity className="h-5 w-5 text-indigo-500" />
+            <Activity className="h-5 w-5 text-primary" />
           </div>
-          <div className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">
             {computedMetrics.avgHealth}%
           </div>
           <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs mt-3">
@@ -487,8 +487,8 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900">Monthly Maintenance Cost</h3>
-              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/50">Cost Trend</span>
+              <h3 className="text-lg font-extrabold text-foreground">Monthly Maintenance Cost</h3>
+              <span className="text-xs font-bold text-primary bg-primary-soft px-2.5 py-1 rounded-md border border-primary/20/50">Cost Trend</span>
             </div>
             <p className="text-xs font-medium text-slate-500">Historical tracking of scheduled servicing and technical dispatches.</p>
           </div>
@@ -498,8 +498,8 @@ export default function AnalyticsPage() {
               <AreaChart data={monthlyCostData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2563EB" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#E85D3F" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="#E85D3F" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#27272A" : "#F1F5F9"} />
@@ -507,10 +507,10 @@ export default function AnalyticsPage() {
                 <YAxis stroke={isDark ? "#52525B" : "#94A3B8"} fontSize={11} tickLine={false} axisLine={false} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: isDark ? "#18181B" : "#111827", border: isDark ? "1px solid #27272A" : "0", borderRadius: "12px", color: "#F9FAFB" }}
-                  itemStyle={{ color: "#3B82F6", fontWeight: "bold" }}
+                  itemStyle={{ color: "#E85D3F", fontWeight: "bold" }}
                   labelStyle={{ color: "#9CA3AF" }}
                 />
-                <Area type="monotone" dataKey="amount" stroke="#2563EB" strokeWidth={2.5} fillOpacity={1} fill="url(#colorAmount)" />
+                <Area type="monotone" dataKey="amount" stroke="#E85D3F" strokeWidth={2.5} fillOpacity={1} fill="url(#colorAmount)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -519,7 +519,7 @@ export default function AnalyticsPage() {
         {/* Donut Chart: Warranty Expiry Status */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Warranty Coverages</h3>
+            <h3 className="text-lg font-extrabold text-foreground mb-2">Warranty Coverages</h3>
             <p className="text-xs font-medium text-slate-500">Realtime distribution of coverages across all home devices.</p>
           </div>
 
@@ -548,7 +548,7 @@ export default function AnalyticsPage() {
             {/* Center Label */}
             <div className="absolute flex flex-col items-center justify-center">
               <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Covered</span>
-              <span className="text-3xl font-black text-slate-900 leading-none">
+              <span className="text-3xl font-black text-foreground leading-none">
                 {warrantyDistribution.find(d => d.name === "Covered")?.value || 0}
               </span>
             </div>
@@ -576,7 +576,7 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900">Monthly Energy Usage</h3>
+              <h3 className="text-lg font-extrabold text-foreground">Monthly Energy Usage</h3>
               <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100/50">Utility Loads</span>
             </div>
             <p className="text-xs font-medium text-slate-500">Simulated hourly power consumption (kWh) metrics per timeline sector.</p>
@@ -605,7 +605,7 @@ export default function AnalyticsPage() {
         {/* Pie Chart: Appliance Health Distribution */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Device Health Distribution</h3>
+            <h3 className="text-lg font-extrabold text-foreground mb-2">Device Health Distribution</h3>
             <p className="text-xs font-medium text-slate-500">Proportion of optimal, moderate and faulty status diagnostics.</p>
           </div>
 
@@ -654,8 +654,8 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-2 p-8 flex flex-col justify-between min-h-[420px]">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-extrabold text-slate-900">AI Health Score Trend</h3>
-              <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100/50">Gemini Tracking</span>
+              <h3 className="text-lg font-extrabold text-foreground">AI Health Score Trend</h3>
+              <span className="text-xs font-bold text-primary bg-primary-soft px-2.5 py-1 rounded-md border border-primary/20/50">Gemini Tracking</span>
             </div>
             <p className="text-xs font-medium text-slate-500">Historical curve of overall smart home performance index ratings.</p>
           </div>
@@ -678,7 +678,7 @@ export default function AnalyticsPage() {
         {/* Bookings & Maintenance Records list */}
         <Card className="p-8 flex flex-col justify-between min-h-[420px]">
           <div>
-            <h3 className="text-lg font-extrabold text-slate-900 mb-2">Service Bookings</h3>
+            <h3 className="text-lg font-extrabold text-foreground mb-2">Service Bookings</h3>
             <p className="text-xs font-medium text-slate-500">Recent technician scheduling requests and service operations log.</p>
           </div>
 
@@ -690,9 +690,9 @@ export default function AnalyticsPage() {
               </div>
             ) : (
               bookings.map((booking) => (
-                <div key={booking.id} className="p-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl flex items-center justify-between gap-3 text-xs">
+                <div key={booking.id} className="p-3 bg-background border border-border rounded-xl flex items-center justify-between gap-3 text-xs">
                   <div className="text-left space-y-0.5">
-                    <span className="font-extrabold text-slate-900 block truncate max-w-[150px]">
+                    <span className="font-extrabold text-foreground block truncate max-w-[150px]">
                       {booking.issueDescription || "General Maintenance Check"}
                     </span>
                     <span className="text-[10px] text-slate-400 block font-medium">

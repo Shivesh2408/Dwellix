@@ -224,7 +224,7 @@ export function AIShowcase() {
               variants={contentVariants}
             >
               {/* Small Badge */}
-              <Badge variant="info" className="px-3 py-1 text-xs font-semibold tracking-wide border-blue-500/10">
+              <Badge variant="info" className="px-3 py-1 text-xs font-semibold tracking-wide border-primary/10">
                 AI Powered Assistance
               </Badge>
 

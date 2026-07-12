@@ -156,7 +156,7 @@ export default function AppliancesPage() {
             transition={{ duration: 1, ease: "easeOut" }}
           />
         </svg>
-        <span className="absolute text-[9px] font-extrabold text-[#111111]">{score}</span>
+        <span className="absolute text-[9px] font-extrabold text-foreground">{score}</span>
       </div>
     );
   };
@@ -173,7 +173,7 @@ export default function AppliancesPage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB]">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-background">
         <div className="h-12 w-64 bg-slate-200 rounded-xl animate-pulse" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1,2,3,4].map(i => <div key={i} className="h-28 bg-slate-200 rounded-[24px] animate-pulse" />)}
@@ -187,11 +187,11 @@ export default function AppliancesPage() {
 
   if (error) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-[#F8F9FB]">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-[60vh] flex flex-col items-center justify-center bg-background">
         <div className="h-16 w-16 rounded-[22px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500 mb-4">
           <AlertTriangle className="h-8 w-8" />
         </div>
-        <h2 className="text-xl font-bold text-[#111111] mb-2">Error Loading Appliances</h2>
+        <h2 className="text-xl font-bold text-foreground mb-2">Error Loading Appliances</h2>
         <p className="text-sm text-[#6B7280] mb-6">{error}</p>
         <Button onClick={fetchAppliances} className="rounded-xl px-6 bg-black text-white hover:bg-black/90">Retry</Button>
       </div>
@@ -199,7 +199,7 @@ export default function AppliancesPage() {
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 bg-[#F8F9FB] min-h-screen text-left font-sans">
+    <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 bg-background min-h-screen text-left font-sans">
       
       {/* Toast Alert */}
       <AnimatePresence>
@@ -219,10 +219,10 @@ export default function AppliancesPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <span className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest bg-blue-50 text-blue-600 rounded-md border border-blue-100/50">
+          <span className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest bg-primary-soft text-primary rounded-md border border-primary/20/50">
             Appliance Management
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#111111] mt-4 leading-none">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground mt-4 leading-none">
             Appliance Fleet
           </h1>
           <p className="text-[#6B7280] mt-3 text-sm md:text-base font-medium max-w-xl">
@@ -239,46 +239,46 @@ export default function AppliancesPage() {
 
       {/* Statistics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
+        <div className="bg-white border border-border rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
           <div className="flex items-center gap-3 text-[#6B7280] font-bold text-xs uppercase tracking-wider mb-3">
-            <Layers className="h-4 w-4 text-blue-600" />
+            <Layers className="h-4 w-4 text-primary" />
             Total Devices
           </div>
-          <div className="text-3xl md:text-4xl font-black text-[#111111] tracking-tighter">{stats.total}</div>
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">{stats.total}</div>
         </div>
-        <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
+        <div className="bg-white border border-border rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
           <div className="flex items-center gap-3 text-[#6B7280] font-bold text-xs uppercase tracking-wider mb-3">
             <Activity className="h-4 w-4 text-emerald-500" />
             Healthy
           </div>
-          <div className="text-3xl md:text-4xl font-black text-[#111111] tracking-tighter">{stats.healthy}</div>
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">{stats.healthy}</div>
         </div>
-        <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
+        <div className="bg-white border border-border rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
           <div className="flex items-center gap-3 text-[#6B7280] font-bold text-xs uppercase tracking-wider mb-3">
             <Wrench className="h-4 w-4 text-rose-500" />
             Needs Service
           </div>
-          <div className="text-3xl md:text-4xl font-black text-[#111111] tracking-tighter">{stats.needsService}</div>
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">{stats.needsService}</div>
         </div>
-        <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
+        <div className="bg-white border border-border rounded-[24px] p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 transition-transform">
           <div className="flex items-center gap-3 text-[#6B7280] font-bold text-xs uppercase tracking-wider mb-3">
-            <ShieldCheck className="h-4 w-4 text-indigo-500" />
+            <ShieldCheck className="h-4 w-4 text-primary" />
             Active Warranty
           </div>
-          <div className="text-3xl md:text-4xl font-black text-[#111111] tracking-tighter">{stats.warrantyActive}</div>
+          <div className="text-3xl md:text-4xl font-black text-foreground tracking-tighter">{stats.warrantyActive}</div>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.01)] flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-5">
-        <div className="flex-1 flex items-center gap-3 bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-4 py-2.5 focus-within:border-blue-600 transition-colors">
+      <div className="bg-white border border-border rounded-[24px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.01)] flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-5">
+        <div className="flex-1 flex items-center gap-3 bg-background border border-border rounded-xl px-4 py-2.5 focus-within:border-primary transition-colors">
           <Search className="h-4.5 w-4.5 text-[#6B7280] shrink-0" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search appliances, brands, models..."
-            className="bg-transparent border-0 outline-none text-sm w-full text-[#111111] placeholder:text-[#6B7280]"
+            className="bg-transparent border-0 outline-none text-sm w-full text-foreground placeholder:text-[#6B7280]"
           />
         </div>
 
@@ -288,7 +288,7 @@ export default function AppliancesPage() {
             <select
               value={roomFilter}
               onChange={(e) => setRoomFilter(e.target.value)}
-              className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2.5 outline-none cursor-pointer"
+              className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2.5 outline-none cursor-pointer"
             >
               <option value="all">All Rooms</option>
               {rooms.map((room) => <option key={room} value={room}>{room}</option>)}
@@ -300,7 +300,7 @@ export default function AppliancesPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2.5 outline-none cursor-pointer"
+              className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2.5 outline-none cursor-pointer"
             >
               <option value="all">All Warranties</option>
               <option value="covered">Covered</option>
@@ -313,7 +313,7 @@ export default function AppliancesPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="text-xs font-semibold text-[#111111] bg-white border border-[#ECECEC] rounded-xl px-3 py-2.5 outline-none cursor-pointer"
+              className="text-xs font-semibold text-foreground bg-white border border-border rounded-xl px-3 py-2.5 outline-none cursor-pointer"
             >
               <option value="name">Sort by Name</option>
               <option value="health">Sort by Health</option>
@@ -329,12 +329,12 @@ export default function AppliancesPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-24 bg-white border-dashed border-2 border-[#ECECEC] rounded-[32px] shadow-sm max-w-2xl mx-auto"
+            className="text-center py-24 bg-white border-dashed border-2 border-border rounded-[32px] shadow-sm max-w-2xl mx-auto"
           >
-            <div className="h-16 w-16 rounded-[22px] bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-6">
+            <div className="h-16 w-16 rounded-[22px] bg-primary-soft border border-primary/20 text-primary flex items-center justify-center mx-auto mb-6">
               <Layers className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-extrabold text-[#111111] mb-2">No Appliances Found</h3>
+            <h3 className="text-xl font-extrabold text-foreground mb-2">No Appliances Found</h3>
             <p className="text-sm text-[#6B7280] max-w-sm mx-auto mb-6 font-medium leading-relaxed">
               Register new appliances to monitor health status, track warranties, and view diagnostic logs.
             </p>
@@ -356,11 +356,11 @@ export default function AppliancesPage() {
                 key={appliance.id}
                 variants={cardVariants}
                 whileHover={{ y: -6, boxShadow: "0 24px 48px rgba(0,0,0,0.06)" }}
-                className="group bg-white border border-[#ECECEC] rounded-[28px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] transition-all cursor-pointer flex flex-col min-h-[460px] relative"
+                className="group bg-white border border-border rounded-[28px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] transition-all cursor-pointer flex flex-col min-h-[460px] relative"
                 onClick={() => router.push(`/dashboard/appliances/${appliance.id}`)}
               >
                 {/* Photo Area */}
-                <div className="h-[220px] w-full bg-[#F8F9FB] relative flex items-center justify-center border-b border-[#ECECEC] overflow-hidden">
+                <div className="h-[220px] w-full bg-background relative flex items-center justify-center border-b border-border overflow-hidden">
                   {appliance.photoFileName ? (
                     <img
                       src={appliance.photoFileName}
@@ -380,14 +380,14 @@ export default function AppliancesPage() {
                     <span className={`px-3 py-1.5 rounded-lg text-[9px] font-extrabold uppercase tracking-wider border shadow-sm backdrop-blur-md ${
                       appliance.warrantyStatus.toLowerCase() === "covered" 
                       ? "bg-emerald-500/90 text-white border-emerald-400" 
-                      : "bg-white/90 text-[#111111] border-[#ECECEC]"
+                      : "bg-white/90 text-foreground border-border"
                     }`}>
                       {appliance.warrantyStatus}
                     </span>
                   </div>
 
                   {/* Floating Action Top Right (Health Ring) */}
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-2xl p-1 shadow-sm border border-[#ECECEC]">
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-2xl p-1 shadow-sm border border-border">
                     <HealthRing score={appliance.healthScore} />
                   </div>
                 </div>
@@ -395,10 +395,10 @@ export default function AppliancesPage() {
                 {/* Details Area */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100/50 px-2 py-0.5 rounded-md font-extrabold uppercase tracking-widest w-max mb-3">
+                    <div className="text-[10px] text-primary bg-primary-soft border border-primary/20/50 px-2 py-0.5 rounded-md font-extrabold uppercase tracking-widest w-max mb-3">
                       {appliance.brand}
                     </div>
-                    <h3 className="font-extrabold text-xl text-[#111111] line-clamp-1 leading-tight group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-extrabold text-xl text-foreground line-clamp-1 leading-tight group-hover:text-primary transition-colors">
                       {appliance.name}
                     </h3>
                     <p className="text-xs text-[#6B7280] font-medium mt-1 truncate">
@@ -412,24 +412,24 @@ export default function AppliancesPage() {
                         <Layers className="h-3.5 w-3.5" />
                         <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Location</span>
                       </div>
-                      <div className="text-[#111111] font-semibold">{appliance.roomName}</div>
+                      <div className="text-foreground font-semibold">{appliance.roomName}</div>
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5 mb-1">
                         <Calendar className="h-3.5 w-3.5" />
                         <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Purchased</span>
                       </div>
-                      <div className="text-[#111111] font-semibold">{appliance.purchaseDate}</div>
+                      <div className="text-foreground font-semibold">{appliance.purchaseDate}</div>
                     </div>
                   </div>
 
                   {/* Maintenance Indicator */}
-                  <div className="mt-5 p-3 rounded-xl bg-[#F8F9FB] border border-[#ECECEC] flex items-center justify-between text-xs font-semibold">
+                  <div className="mt-5 p-3 rounded-xl bg-background border border-border flex items-center justify-between text-xs font-semibold">
                     <div className="flex items-center gap-2 text-[#6B7280]">
                       <Wrench className="h-4 w-4" />
                       <span>Last Serviced</span>
                     </div>
-                    <span className="text-[#111111]">{appliance.lastMaintenance}</span>
+                    <span className="text-foreground">{appliance.lastMaintenance}</span>
                   </div>
                 </div>
 
@@ -442,13 +442,13 @@ export default function AppliancesPage() {
                     </Button>
                   </Link>
                   <Link href="/onboarding/appliances" onClick={(e) => e.stopPropagation()}>
-                    <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-[#ECECEC] text-[#111111] hover:bg-slate-50 transition-colors shadow-sm" title="Edit">
+                    <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-border text-foreground hover:bg-slate-50 transition-colors shadow-sm" title="Edit">
                       <Edit2 className="h-4 w-4" />
                     </button>
                   </Link>
                   <button
                     onClick={(e) => handleDelete(appliance.id, e)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-[#ECECEC] text-[#111111] hover:bg-rose-50 hover:text-rose-600 hover:border-rose-100 transition-colors shadow-sm"
+                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-border text-foreground hover:bg-rose-50 hover:text-rose-600 hover:border-rose-100 transition-colors shadow-sm"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />

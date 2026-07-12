@@ -106,7 +106,7 @@ const cardVariants = {
 
 export function Pricing() {
   return (
-    <Section id="pricing" variant="default" spacing="lg" className="bg-white border-t border-border/40 overflow-hidden">
+    <Section id="pricing" variant="default" spacing="lg" className="bg-background border-t border-border/40 overflow-hidden scroll-mt-28">
       <Container className="flex flex-col gap-16 items-center">
         
         <motion.div
@@ -138,7 +138,7 @@ export function Pricing() {
                 variants={cardVariants}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
-                className={`flex flex-col gap-6 p-6 sm:p-8 rounded-2xl border bg-white shadow-xs hover:shadow-md transition-all duration-300 relative ${
+                className={`flex flex-col gap-6 p-6 sm:p-8 rounded-2xl border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all duration-300 relative ${
                   plan.isPopular 
                     ? "border-primary shadow-sm ring-1 ring-primary/10" 
                     : "border-border"
@@ -168,7 +168,7 @@ export function Pricing() {
                   <Button 
                     variant={plan.isPopular ? "default" : "outline"} 
                     className={`w-full font-bold text-xs h-10 shadow-xs ${
-                      !plan.isPopular ? "border-border/80 text-muted-foreground hover:text-foreground hover:bg-slate-50" : ""
+                      !plan.isPopular ? "border-border/80 text-muted-foreground hover:text-foreground hover:bg-secondary" : ""
                     }`}
                   >
                     {plan.buttonText}

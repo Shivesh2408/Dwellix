@@ -31,10 +31,10 @@ const drawerVariants = cva(
   {
     variants: {
       side: {
-        top: "inset-x-0 top-0 border-b border-[#ECECEC] data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
-        bottom: "inset-x-0 bottom-0 border-t border-[#ECECEC] data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom rounded-t-[28px]",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r border-[#ECECEC] data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm rounded-r-[28px] shadow-2xl",
-        right: "inset-y-0 right-0 h-full w-3/4 border-l border-[#ECECEC] data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm rounded-l-[28px] shadow-2xl",
+        top: "inset-x-0 top-0 border-b border-border data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+        bottom: "inset-x-0 bottom-0 border-t border-border data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom rounded-t-[28px]",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm rounded-r-[28px] shadow-2xl",
+        right: "inset-y-0 right-0 h-full w-3/4 border-l border-border data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm rounded-l-[28px] shadow-2xl",
       },
     },
     defaultVariants: {

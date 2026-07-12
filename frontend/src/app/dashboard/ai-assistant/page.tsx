@@ -86,7 +86,7 @@ const PRESETS = [
     desc: "cooling or airflow anomalies",
     prompt: "My air conditioner is blowing warm air instead of cool air. How can I diagnose and troubleshoot this?",
     icon: Droplet,
-    color: "bg-blue-50/50 border-blue-100 text-blue-600"
+    color: "bg-primary-soft/50 border-primary/20 text-primary"
   },
   {
     label: "Check fridge cooling",
@@ -132,7 +132,7 @@ function CodeBlock({ language, value }: { language: string; value: string }) {
   };
 
   return (
-    <div className="relative my-4 overflow-hidden rounded-2xl border border-[#ECECEC] bg-slate-900 text-slate-150 font-mono text-xs md:text-sm shadow-md">
+    <div className="relative my-4 overflow-hidden rounded-2xl border border-border bg-slate-900 text-slate-150 font-mono text-xs md:text-sm shadow-md">
       <div className="flex items-center justify-between px-4 py-2 bg-slate-950 text-[10px] md:text-xs text-slate-450 border-b border-[#333333]/30">
         <span>{language ? language.toUpperCase() : "CODE"}</span>
         <button
@@ -178,7 +178,7 @@ const markdownComponents = {
   },
   table({ children }: React.ComponentPropsWithoutRef<"table">) {
     return (
-      <div className="my-4 overflow-x-auto rounded-2xl border border-[#ECECEC] shadow-sm max-w-full scrollbar-thin bg-white">
+      <div className="my-4 overflow-x-auto rounded-2xl border border-border shadow-sm max-w-full scrollbar-thin bg-white">
         <table className="min-w-full divide-y divide-[#ECECEC] text-xs md:text-sm">
           {children}
         </table>
@@ -195,26 +195,26 @@ const markdownComponents = {
     return <tr className="hover:bg-slate-50/50 transition-colors">{children}</tr>;
   },
   th({ children }: React.ComponentPropsWithoutRef<"th">) {
-    return <th className="px-4 py-3 text-left font-bold text-[#111111] border-b border-[#ECECEC]">{children}</th>;
+    return <th className="px-4 py-3 text-left font-bold text-foreground border-b border-border">{children}</th>;
   },
   td({ children }: React.ComponentPropsWithoutRef<"td">) {
     return <td className="px-4 py-3 text-[#6B7280]">{children}</td>;
   },
-  h1: ({ children }: React.ComponentPropsWithoutRef<"h1">) => <h1 className="text-xl md:text-2xl font-extrabold text-[#111111] mt-6 mb-2 tracking-tight">{children}</h1>,
-  h2: ({ children }: React.ComponentPropsWithoutRef<"h2">) => <h2 className="text-lg md:text-xl font-bold text-[#111111] mt-5 mb-2 tracking-tight">{children}</h2>,
-  h3: ({ children }: React.ComponentPropsWithoutRef<"h3">) => <h3 className="text-md md:text-lg font-bold text-[#111111] mt-4 mb-1.5 tracking-tight">{children}</h3>,
+  h1: ({ children }: React.ComponentPropsWithoutRef<"h1">) => <h1 className="text-xl md:text-2xl font-extrabold text-foreground mt-6 mb-2 tracking-tight">{children}</h1>,
+  h2: ({ children }: React.ComponentPropsWithoutRef<"h2">) => <h2 className="text-lg md:text-xl font-bold text-foreground mt-5 mb-2 tracking-tight">{children}</h2>,
+  h3: ({ children }: React.ComponentPropsWithoutRef<"h3">) => <h3 className="text-md md:text-lg font-bold text-foreground mt-4 mb-1.5 tracking-tight">{children}</h3>,
   ul: ({ children }: React.ComponentPropsWithoutRef<"ul">) => <ul className="list-disc pl-6 my-3 space-y-1.5 text-[#6B7280] text-xs md:text-sm">{children}</ul>,
   ol: ({ children }: React.ComponentPropsWithoutRef<"ol">) => <ol className="list-decimal pl-6 my-3 space-y-1.5 text-[#6B7280] text-xs md:text-sm">{children}</ol>,
   li: ({ children }: React.ComponentPropsWithoutRef<"li">) => <li className="leading-relaxed">{children}</li>,
   blockquote: ({ children }: React.ComponentPropsWithoutRef<"blockquote">) => (
-    <blockquote className="border-l-4 border-blue-600 bg-slate-50 pl-4 py-2.5 my-4 rounded-r-xl text-slate-650 italic text-xs md:text-sm">
+    <blockquote className="border-l-4 border-primary bg-slate-50 pl-4 py-2.5 my-4 rounded-r-xl text-slate-650 italic text-xs md:text-sm">
       {children}
     </blockquote>
   ),
-  hr: () => <hr className="my-6 border-t border-[#ECECEC]" />,
+  hr: () => <hr className="my-6 border-t border-border" />,
   p: ({ children }: React.ComponentPropsWithoutRef<"p">) => <p className="leading-relaxed my-2.5 text-[#6B7280] text-xs md:text-sm font-medium">{children}</p>,
   a: ({ href, children }: React.ComponentPropsWithoutRef<"a">) => (
-    <a href={href} className="text-blue-600 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">
+    <a href={href} className="text-primary hover:underline font-semibold" target="_blank" rel="noopener noreferrer">
       {children}
     </a>
   )
@@ -855,7 +855,7 @@ export default function AIAssistantPage() {
       <div className="space-y-1.5 mt-5">
         <h4 className="text-[10px] uppercase tracking-[0.15em] font-bold text-[#6B7280] px-3.5 py-1 flex items-center justify-between">
           <span>{title}</span>
-          {isPinnedSection && <Pin className="h-3 w-3 text-blue-600" />}
+          {isPinnedSection && <Pin className="h-3 w-3 text-primary" />}
         </h4>
         {list.map((c) => {
           const isPinned = pinnedIds.includes(c.id);
@@ -868,12 +868,12 @@ export default function AIAssistantPage() {
               }}
               className={`group flex items-center justify-between p-3 rounded-xl cursor-pointer text-xs transition-all duration-200 border ${
                 activeConversationId === c.id
-                  ? "bg-blue-50/50 border-blue-100 text-blue-600 font-semibold"
-                  : "border-transparent text-[#6B7280] hover:bg-slate-50 hover:text-[#111111]"
+                  ? "bg-primary-soft/50 border-primary/20 text-primary font-semibold"
+                  : "border-transparent text-[#6B7280] hover:bg-slate-50 hover:text-foreground"
               }`}
             >
               <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                <MessageSquare className="h-4 w-4 text-slate-400 shrink-0 group-hover:text-blue-500 transition-colors" />
+                <MessageSquare className="h-4 w-4 text-slate-400 shrink-0 group-hover:text-primary transition-colors" />
                 {editingId === c.id ? (
                   <input
                     type="text"
@@ -886,7 +886,7 @@ export default function AIAssistantPage() {
                     }}
                     autoFocus
                     onClick={(e) => e.stopPropagation()}
-                    className="w-full bg-white border border-[#ECECEC] px-1.5 py-0.5 rounded-lg outline-none text-xs"
+                    className="w-full bg-white border border-border px-1.5 py-0.5 rounded-lg outline-none text-xs"
                   />
                 ) : (
                   <span className="truncate pr-1">{c.title}</span>
@@ -901,14 +901,14 @@ export default function AIAssistantPage() {
                       setEditingId(c.id);
                       setEditTitle(c.title);
                     }}
-                    className="hover:text-blue-600 text-slate-450 p-0.5 transition-colors"
+                    className="hover:text-primary text-slate-450 p-0.5 transition-colors"
                     title="Rename"
                   >
                     <Edit2 className="h-3 w-3" />
                   </button>
                   <button
                     onClick={(e) => togglePin(c.id, e)}
-                    className={`p-0.5 transition-colors ${isPinned ? "text-blue-600 hover:text-slate-450" : "text-slate-450 hover:text-blue-600"}`}
+                    className={`p-0.5 transition-colors ${isPinned ? "text-primary hover:text-slate-450" : "text-slate-450 hover:text-primary"}`}
                     title={isPinned ? "Unpin" : "Pin"}
                   >
                     <Pin className="h-3 w-3" />
@@ -1019,33 +1019,33 @@ export default function AIAssistantPage() {
   const renderContextPanelContent = () => (
     <div className="space-y-6 text-left">
       {/* Home Overview */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+      <div className="bg-white border border-border rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
         <h3 className="text-[10px] font-bold text-[#6B7280] flex items-center gap-2 uppercase tracking-widest">
-          <Home className="h-4 w-4 text-blue-600" />
+          <Home className="h-4 w-4 text-primary" />
           <span>Home Summary</span>
         </h3>
         <div className="grid grid-cols-2 gap-3.5">
-          <div className="bg-[#F8F9FB] border border-[#ECECEC] rounded-xl p-3">
+          <div className="bg-background border border-border rounded-xl p-3">
             <span className="text-[9px] text-[#6B7280] block font-bold uppercase tracking-wider">Rooms</span>
-            <span className="text-base font-extrabold text-[#111111]">{aiContext?.roomsCount ?? 0}</span>
+            <span className="text-base font-extrabold text-foreground">{aiContext?.roomsCount ?? 0}</span>
           </div>
-          <div className="bg-[#F8F9FB] border border-[#ECECEC] rounded-xl p-3">
+          <div className="bg-background border border-border rounded-xl p-3">
             <span className="text-[9px] text-[#6B7280] block font-bold uppercase tracking-wider">Devices</span>
-            <span className="text-base font-extrabold text-[#111111]">{aiContext?.appliancesCount ?? 0}</span>
+            <span className="text-base font-extrabold text-foreground">{aiContext?.appliancesCount ?? 0}</span>
           </div>
-          <div className="bg-[#F8F9FB] border border-[#ECECEC] rounded-xl p-3">
+          <div className="bg-background border border-border rounded-xl p-3">
             <span className="text-[9px] text-[#6B7280] block font-bold uppercase tracking-wider">Active Coverages</span>
-            <span className="text-base font-extrabold text-[#111111]">{warrantyStats.active}</span>
+            <span className="text-base font-extrabold text-foreground">{warrantyStats.active}</span>
           </div>
-          <div className="bg-[#F8F9FB] border border-[#ECECEC] rounded-xl p-3">
+          <div className="bg-background border border-border rounded-xl p-3">
             <span className="text-[9px] text-[#6B7280] block font-bold uppercase tracking-wider">Services</span>
-            <span className="text-base font-extrabold text-[#111111]">{upcomingServicesCount}</span>
+            <span className="text-base font-extrabold text-foreground">{upcomingServicesCount}</span>
           </div>
         </div>
       </div>
 
       {/* Appliance Health Circle */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 text-center space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+      <div className="bg-white border border-border rounded-[24px] p-5 text-center space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
         <h3 className="text-[10px] font-bold text-[#6B7280] flex items-center justify-center gap-2 uppercase tracking-widest">
           <Activity className="h-4 w-4 text-emerald-500" />
           <span>System Health</span>
@@ -1057,7 +1057,7 @@ export default function AIAssistantPage() {
       </div>
 
       {/* Warranty Status */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+      <div className="bg-white border border-border rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
         <h3 className="text-[10px] font-bold text-[#6B7280] flex items-center gap-2 uppercase tracking-widest">
           <ShieldCheck className="h-4 w-4 text-emerald-500" />
           <span>Warranty Alerts</span>
@@ -1068,52 +1068,52 @@ export default function AIAssistantPage() {
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
               <span>Safe / Active</span>
             </span>
-            <span className="font-extrabold text-[#111111]">{warrantyStats.safe}</span>
+            <span className="font-extrabold text-foreground">{warrantyStats.safe}</span>
           </div>
           <div className="flex justify-between items-center text-xs font-medium">
             <span className="flex items-center gap-2 text-[#6B7280]">
               <span className="h-2 w-2 rounded-full bg-amber-500" />
               <span>Expiring Soon</span>
             </span>
-            <span className="font-extrabold text-[#111111]">{warrantyStats.expiring}</span>
+            <span className="font-extrabold text-foreground">{warrantyStats.expiring}</span>
           </div>
           <div className="flex justify-between items-center text-xs font-medium">
             <span className="flex items-center gap-2 text-[#6B7280]">
               <span className="h-2 w-2 rounded-full bg-rose-500" />
               <span>Expired Policies</span>
             </span>
-            <span className="font-extrabold text-[#111111]">{warrantyStats.expired}</span>
+            <span className="font-extrabold text-foreground">{warrantyStats.expired}</span>
           </div>
         </div>
       </div>
 
       {/* Recent Diagnostics / Upcoming Maintenance */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+      <div className="bg-white border border-border rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
         <h3 className="text-[10px] font-bold text-[#6B7280] flex items-center gap-2 uppercase tracking-widest">
           <Sparkles className="h-4 w-4 text-amber-500" />
           <span>Upcoming Maintenance</span>
         </h3>
         <div className="space-y-3.5 text-xs font-medium">
-          <div className="border-l-2 border-blue-600 pl-3 py-0.5">
-            <div className="font-bold text-[#111111]">HVAC System check</div>
+          <div className="border-l-2 border-primary pl-3 py-0.5">
+            <div className="font-bold text-foreground">HVAC System check</div>
             <div className="text-[10px] text-[#6B7280] mt-0.5">Health index at 94%</div>
           </div>
           <div className="border-l-2 border-emerald-500 pl-3 py-0.5">
-            <div className="font-bold text-[#111111]">RO Water Purifier</div>
+            <div className="font-bold text-foreground">RO Water Purifier</div>
             <div className="text-[10px] text-[#6B7280] mt-0.5">Filter status checks OK</div>
           </div>
         </div>
       </div>
 
       {/* Suggested Actions */}
-      <div className="bg-white border border-[#ECECEC] rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+      <div className="bg-white border border-border rounded-[24px] p-5 space-y-4 shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
         <h3 className="text-[10px] font-bold text-[#6B7280] uppercase tracking-widest">Quick AI Actions</h3>
         <div className="grid grid-cols-2 gap-2 text-[10px]">
           <Button
             type="button"
             onClick={() => handleOpenBookingModal("Routine system checkup")}
             variant="outline"
-            className="h-9 rounded-xl font-bold border-[#ECECEC] text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
+            className="h-9 rounded-xl font-bold border-border text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
           >
             Book Tech
           </Button>
@@ -1121,7 +1121,7 @@ export default function AIAssistantPage() {
             type="button"
             onClick={() => router.push("/onboarding/appliances")}
             variant="outline"
-            className="h-9 rounded-xl font-bold border-[#ECECEC] text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
+            className="h-9 rounded-xl font-bold border-border text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
           >
             Add Appliance
           </Button>
@@ -1129,7 +1129,7 @@ export default function AIAssistantPage() {
             type="button"
             onClick={() => router.push("/dashboard/warranty-vault")}
             variant="outline"
-            className="h-9 rounded-xl font-bold border-[#ECECEC] text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
+            className="h-9 rounded-xl font-bold border-border text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
           >
             Warranty Vault
           </Button>
@@ -1137,7 +1137,7 @@ export default function AIAssistantPage() {
             type="button"
             onClick={() => router.push("/dashboard/marketplace")}
             variant="outline"
-            className="h-9 rounded-xl font-bold border-[#ECECEC] text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
+            className="h-9 rounded-xl font-bold border-border text-[#6B7280] hover:bg-slate-50 hover:text-black transition-all text-[10px] px-2 cursor-pointer"
           >
             Marketplace
           </Button>
@@ -1147,7 +1147,7 @@ export default function AIAssistantPage() {
   );
 
   return (
-    <div className="flex h-[calc(100vh-100px)] w-full max-w-[1600px] mx-auto p-4 md:p-6 gap-6 relative overflow-hidden text-left bg-[#F8F9FB] font-sans">
+    <div className="flex h-[calc(100vh-100px)] w-full max-w-[1600px] mx-auto p-4 md:p-6 gap-6 relative overflow-hidden text-left bg-background font-sans">
       
       {/* Toast alert */}
       <AnimatePresence>
@@ -1165,8 +1165,8 @@ export default function AIAssistantPage() {
       </AnimatePresence>
 
       {/* LEFT SIDEBAR - Recent Chats */}
-      <div className="w-[300px] xl:w-[320px] shrink-0 border border-[#ECECEC] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] rounded-[24px] flex flex-col overflow-hidden hidden lg:flex">
-        <div className="p-5 border-b border-[#ECECEC] space-y-4 shrink-0">
+      <div className="w-[300px] xl:w-[320px] shrink-0 border border-border bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] rounded-[24px] flex flex-col overflow-hidden hidden lg:flex">
+        <div className="p-5 border-b border-border space-y-4 shrink-0">
           <Button
             onClick={handleNewChat}
             className="w-full rounded-2xl font-bold text-xs h-11 gap-2 flex items-center justify-center bg-black hover:bg-black/90 text-white cursor-pointer shadow-sm transition-all"
@@ -1175,14 +1175,14 @@ export default function AIAssistantPage() {
             <span>New Chat</span>
           </Button>
 
-          <div className="relative flex items-center bg-[#F8F9FB] border border-[#ECECEC] rounded-xl px-3.5 py-1.5 focus-within:border-blue-600 transition-colors">
+          <div className="relative flex items-center bg-background border border-border rounded-xl px-3.5 py-1.5 focus-within:border-primary transition-colors">
             <Search className="h-4 w-4 text-[#6B7280] mr-2 shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search chat history..."
-              className="bg-transparent border-0 outline-none text-xs w-full text-[#111111] placeholder:text-[#6B7280]"
+              className="bg-transparent border-0 outline-none text-xs w-full text-foreground placeholder:text-[#6B7280]"
             />
           </div>
         </div>
@@ -1206,35 +1206,35 @@ export default function AIAssistantPage() {
       </div>
 
       {/* CENTER WORKSPACE */}
-      <div className="flex-1 min-w-0 flex flex-col rounded-[24px] border border-[#ECECEC] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] overflow-hidden relative">
+      <div className="flex-1 min-w-0 flex flex-col rounded-[24px] border border-border bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] overflow-hidden relative">
         
         {/* Top bar header details */}
-        <div className="px-6 py-4 border-b border-[#ECECEC] bg-white flex items-center justify-between shrink-0 z-20">
+        <div className="px-6 py-4 border-b border-border bg-white flex items-center justify-between shrink-0 z-20">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="rounded-xl h-9 w-9 lg:hidden shrink-0 border border-[#ECECEC]"
+              className="rounded-xl h-9 w-9 lg:hidden shrink-0 border border-border"
             >
-              <Menu className="h-4.5 w-4.5 text-[#111111]" />
+              <Menu className="h-4.5 w-4.5 text-foreground" />
             </Button>
             <button
               onClick={handleBackToHome}
-              className="text-xs font-bold text-[#6B7280] hover:text-[#111111] flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="text-xs font-bold text-[#6B7280] hover:text-foreground flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               ← Dashboard Overview
             </button>
           </div>
 
-          <div className="text-sm font-extrabold text-[#111111] lg:hidden truncate max-w-[140px]">
+          <div className="text-sm font-extrabold text-foreground lg:hidden truncate max-w-[140px]">
             Dwellix AI
           </div>
 
           <div className="flex items-center gap-3">
             {aiContext && aiContext.homeName ? (
-              <div className="hidden lg:flex items-center gap-3 px-3 py-1.5 rounded-xl border border-[#ECECEC] bg-[#F8F9FB] text-[10px] font-bold text-[#6B7280] uppercase tracking-wider">
-                <Home className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+              <div className="hidden lg:flex items-center gap-3 px-3 py-1.5 rounded-xl border border-border bg-background text-[10px] font-bold text-[#6B7280] uppercase tracking-wider">
+                <Home className="h-3.5 w-3.5 text-primary shrink-0" />
                 <span>{aiContext.homeName}</span>
                 <ChevronDown className="h-3 w-3 text-slate-400 ml-1 shrink-0" />
               </div>
@@ -1259,16 +1259,16 @@ export default function AIAssistantPage() {
               variant="ghost"
               size="icon"
               onClick={() => setDrawerOpen(true)}
-              className="rounded-xl h-9 w-9 lg:hidden shrink-0 border border-[#ECECEC]"
+              className="rounded-xl h-9 w-9 lg:hidden shrink-0 border border-border"
             >
-              <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+              <Sparkles className="h-4.5 w-4.5 text-primary" />
             </Button>
 
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setDrawerOpen(true)}
-              className="hidden lg:flex xl:hidden text-xs text-blue-600 font-extrabold items-center gap-1 rounded-xl hover:bg-slate-50 cursor-pointer"
+              className="hidden lg:flex xl:hidden text-xs text-primary font-extrabold items-center gap-1 rounded-xl hover:bg-slate-50 cursor-pointer"
             >
               <span>Insights</span>
               <ChevronRight className="h-4 w-4" />
@@ -1277,7 +1277,7 @@ export default function AIAssistantPage() {
         </div>
 
         {/* Viewport chat log wrapper */}
-        <div className="flex-grow overflow-y-auto flex flex-col scrollbar-none bg-[#F8F9FB]/20">
+        <div className="flex-grow overflow-y-auto flex flex-col scrollbar-none bg-background/20">
           <AnimatePresence mode="wait">
             {messages.length === 0 ? (
               /* Suggestion prompt cards */
@@ -1289,13 +1289,13 @@ export default function AIAssistantPage() {
                 className="flex-1 flex flex-col items-center justify-center p-8 md:p-16 text-center max-w-3xl mx-auto w-full"
               >
                 <div className="relative mb-6 shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-indigo-500/20 rounded-full filter blur-xl opacity-60 animate-pulse scale-125" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-primary-hover/20 rounded-full filter blur-xl opacity-60 animate-pulse scale-125" />
                   <div className="relative h-20 w-20 rounded-[2.2rem] bg-black text-white flex items-center justify-center shadow-lg shadow-black/10">
                     <Bot className="h-10 w-10 text-white" />
                   </div>
                 </div>
 
-                <h1 className="text-3xl font-extrabold tracking-tight text-[#111111] mb-2 leading-none">
+                <h1 className="text-3xl font-extrabold tracking-tight text-foreground mb-2 leading-none">
                   How can I help you, {userInitials === "U" ? "Homeowner" : "Guest"}?
                 </h1>
                 <p className="text-sm text-[#6B7280] max-w-md mb-10 leading-relaxed font-medium">
@@ -1317,13 +1317,13 @@ export default function AIAssistantPage() {
                         key={idx}
                         whileHover={{ y: -3, boxShadow: "0 12px 24px rgba(0,0,0,0.03)" }}
                         onClick={() => handleSend(preset.prompt)}
-                        className="group p-4.5 rounded-[22px] border border-[#ECECEC] bg-white hover:border-blue-600/40 hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-pointer"
+                        className="group p-4.5 rounded-[22px] border border-border bg-white hover:border-primary/40 hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-pointer"
                       >
                         <div className={`h-10 w-10 rounded-xl ${preset.color} flex items-center justify-center shrink-0 border group-hover:scale-105 transition-transform duration-300`}>
                           <Icon className="h-5 w-5" />
                         </div>
                         <div className="space-y-0.5 min-w-0">
-                          <h3 className="text-xs font-extrabold text-[#111111] group-hover:text-blue-600 mb-0.5 truncate">
+                          <h3 className="text-xs font-extrabold text-foreground group-hover:text-primary mb-0.5 truncate">
                             {preset.label}
                           </h3>
                           <p className="text-[11px] text-[#6B7280] line-clamp-2 leading-relaxed font-medium">
@@ -1355,7 +1355,7 @@ export default function AIAssistantPage() {
                           {userInitials}
                         </div>
                       ) : (
-                        <div className="h-10 w-10 rounded-full bg-[#F8F9FB] border border-[#ECECEC] text-[#111111] flex items-center justify-center shrink-0 shadow-xs">
+                        <div className="h-10 w-10 rounded-full bg-background border border-border text-foreground flex items-center justify-center shrink-0 shadow-xs">
                           <Bot className="h-5.5 w-5.5" />
                         </div>
                       )}
@@ -1373,7 +1373,7 @@ export default function AIAssistantPage() {
                             className={`p-5 rounded-[24px] text-sm leading-relaxed text-left border ${
                               message.role === "user"
                                 ? "bg-black border-slate-950 text-white rounded-tr-none shadow-sm"
-                                : "bg-white border-[#ECECEC] text-[#111111] rounded-tl-none shadow-sm"
+                                : "bg-white border-border text-foreground rounded-tl-none shadow-sm"
                             }`}
                           >
                             {message.role === "assistant" && message.isTypingEnabled ? (
@@ -1407,10 +1407,10 @@ export default function AIAssistantPage() {
 
                         {/* Booking card recommendations */}
                         {message.role === "assistant" && !message.isTypingEnabled && shouldRecommendService(message.content) && !dismissedRecommendations.includes(message.id) && (
-                          <div className="mt-3 p-5 border border-blue-100 bg-blue-50/50 rounded-[22px] flex flex-col sm:flex-row sm:items-center justify-between gap-5 w-full max-w-xl shadow-xxs">
+                          <div className="mt-3 p-5 border border-primary/20 bg-primary-soft/50 rounded-[22px] flex flex-col sm:flex-row sm:items-center justify-between gap-5 w-full max-w-xl shadow-xxs">
                             <div className="space-y-1.5 text-left">
-                              <h4 className="font-extrabold text-blue-900 text-xs flex items-center gap-1.5">
-                                <Wrench className="h-4 w-4 text-blue-600 animate-pulse shrink-0" />
+                              <h4 className="font-extrabold text-primary text-xs flex items-center gap-1.5">
+                                <Wrench className="h-4 w-4 text-primary animate-pulse shrink-0" />
                                 <span>Certified Technician Dispatch</span>
                               </h4>
                               <p className="text-[11px] text-slate-500 font-medium">
@@ -1432,7 +1432,7 @@ export default function AIAssistantPage() {
                                   setDismissedRecommendations(prev => [...prev, message.id]);
                                 }}
                                 variant="outline"
-                                className="h-8.5 rounded-xl px-3.5 font-bold text-[10px] border-[#ECECEC] text-[#6B7280] cursor-pointer bg-white"
+                                className="h-8.5 rounded-xl px-3.5 font-bold text-[10px] border-border text-[#6B7280] cursor-pointer bg-white"
                               >
                                 Dismiss
                               </Button>
@@ -1447,16 +1447,16 @@ export default function AIAssistantPage() {
                               <button
                                 key={aIdx}
                                 onClick={() => handleActionClick(action.label)}
-                                className="flex items-start gap-3 p-3.5 rounded-[20px] border border-[#ECECEC] bg-white hover:bg-[#F8F9FB] hover:border-slate-400 transition-all text-left group cursor-pointer"
+                                className="flex items-start gap-3 p-3.5 rounded-[20px] border border-border bg-white hover:bg-background hover:border-slate-400 transition-all text-left group cursor-pointer"
                               >
-                                <div className="h-8 w-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                <div className="h-8 w-8 rounded-xl bg-primary-soft text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                                   {action.actionType === "book" && <Wrench className="h-4 w-4" />}
                                   {action.actionType === "reminder" && <ShieldCheck className="h-4 w-4" />}
                                   {action.actionType === "schedule" && <Activity className="h-4 w-4" />}
                                   {action.actionType === "note" && <FileText className="h-4 w-4" />}
                                 </div>
                                 <div>
-                                  <div className="font-extrabold text-[#111111] text-[11px] group-hover:text-blue-600 transition-colors">
+                                  <div className="font-extrabold text-foreground text-[11px] group-hover:text-primary transition-colors">
                                     {action.label}
                                   </div>
                                   <div className="text-[9px] text-[#6B7280] font-medium leading-normal line-clamp-1 mt-0.5">
@@ -1541,18 +1541,18 @@ export default function AIAssistantPage() {
                 {/* Shimmer loading checks */}
                 {loading && (
                   <div className="flex gap-5 max-w-2xl mr-auto">
-                    <div className="h-10 w-10 rounded-full bg-[#F8F9FB] border border-[#ECECEC] text-[#111111] flex items-center justify-center shrink-0 animate-pulse">
+                    <div className="h-10 w-10 rounded-full bg-background border border-border text-foreground flex items-center justify-center shrink-0 animate-pulse">
                       <Bot className="h-5.5 w-5.5" />
                     </div>
-                    <div className="p-5 rounded-[24px] rounded-tl-none bg-white border border-[#ECECEC] shadow-sm flex flex-col gap-3 min-w-[240px]">
+                    <div className="p-5 rounded-[24px] rounded-tl-none bg-white border border-border shadow-sm flex flex-col gap-3 min-w-[240px]">
                       <div className="flex items-center gap-1.5 text-xs text-[#6B7280] font-bold">
-                        <Sparkles className="h-4 w-4 text-blue-600 animate-pulse" />
+                        <Sparkles className="h-4 w-4 text-primary animate-pulse" />
                         <span>Dwellix is thinking...</span>
                       </div>
                       <div className="flex items-center gap-1 px-1.5 py-1">
-                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="h-2 w-2 bg-blue-600/70 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span className="h-2 w-2 bg-primary/70 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="h-2 w-2 bg-primary/70 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="h-2 w-2 bg-primary/70 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </div>
@@ -1586,7 +1586,7 @@ export default function AIAssistantPage() {
         </div>
 
         {/* Input panel prompt area */}
-        <div className="p-5 border-t border-[#ECECEC] bg-white shrink-0">
+        <div className="p-5 border-t border-border bg-white shrink-0">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -1602,20 +1602,20 @@ export default function AIAssistantPage() {
               className="hidden"
             />
 
-            <div className="relative rounded-[24px] bg-white border border-[#ECECEC] focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.01)] p-3.5 transition-all flex flex-col gap-2.5">
+            <div className="relative rounded-[24px] bg-card border border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 shadow-[0_8px_30px_rgb(0,0,0,0.01)] p-3.5 transition-all flex flex-col gap-2.5">
               
               {/* Attachment panel previews */}
               {selectedFile && (
                 <div className="flex flex-col gap-1.5 ml-2.5 self-start">
-                  <div className="flex items-center gap-3 p-2 bg-[#F8F9FB] border border-[#ECECEC] rounded-2xl max-w-xs relative">
+                  <div className="flex items-center gap-3 p-2 bg-background border border-border rounded-2xl max-w-xs relative">
                     {filePreview ? (
                       <img
                         src={filePreview}
                         alt="Preview"
-                        className="h-10 w-10 object-cover rounded-lg border border-[#ECECEC]"
+                        className="h-10 w-10 object-cover rounded-lg border border-border"
                       />
                     ) : (
-                      <div className="h-10 w-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">
+                      <div className="h-10 w-10 rounded-lg bg-primary-soft border border-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
                         PDF
                       </div>
                     )}
@@ -1662,11 +1662,11 @@ export default function AIAssistantPage() {
                 rows={1}
                 disabled={loading || isListening}
                 placeholder={isListening ? "Listening..." : "Ask Dwellix AI anything..."}
-                className="w-full px-4 py-2 bg-transparent text-sm resize-none overflow-y-auto leading-relaxed outline-none border-0 focus:ring-0 focus:border-0 scrollbar-none min-h-[44px] max-h-[160px] text-[#111111] placeholder:text-[#6B7280] font-medium"
+                className="w-full px-4 py-2 bg-transparent text-sm resize-none overflow-y-auto leading-relaxed outline-none border-0 focus:ring-0 focus:border-0 scrollbar-none min-h-[44px] max-h-[160px] text-foreground placeholder:text-[#6B7280] font-medium"
               />
               
               {/* Attachments / mic action footer */}
-              <div className="flex items-center justify-between border-t border-[#ECECEC]/70 pt-3 px-1.5">
+              <div className="flex items-center justify-between border-t border-border/70 pt-3 px-1.5">
                 <div className="flex items-center gap-1.5">
                   <Button
                     type="button"
@@ -1716,7 +1716,7 @@ export default function AIAssistantPage() {
       </div>
 
       {/* RIGHT CONTEXT PANEL */}
-      <div className="w-[320px] xl:w-[340px] shrink-0 border border-[#ECECEC] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] rounded-[24px] hidden xl:flex flex-col overflow-y-auto p-5 space-y-5 scrollbar-none">
+      <div className="w-[320px] xl:w-[340px] shrink-0 border border-border bg-white shadow-[0_12px_40px_rgba(0,0,0,0.02)] rounded-[24px] hidden xl:flex flex-col overflow-y-auto p-5 space-y-5 scrollbar-none">
         {renderContextPanelContent()}
       </div>
 
@@ -1738,10 +1738,10 @@ export default function AIAssistantPage() {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-50 flex flex-col p-6 overflow-y-auto xl:hidden"
             >
-              <div className="flex items-center justify-between pb-4 border-b border-[#ECECEC] mb-5 shrink-0 text-left">
+              <div className="flex items-center justify-between pb-4 border-b border-border mb-5 shrink-0 text-left">
                 <div>
-                  <h2 className="text-sm font-extrabold text-[#111111] flex items-center gap-2 uppercase tracking-widest">
-                    <Sparkles className="h-4.5 w-4.5 text-blue-600" />
+                  <h2 className="text-sm font-extrabold text-foreground flex items-center gap-2 uppercase tracking-widest">
+                    <Sparkles className="h-4.5 w-4.5 text-primary" />
                     <span>AI Context Insights</span>
                   </h2>
                 </div>
@@ -1751,7 +1751,7 @@ export default function AIAssistantPage() {
                   onClick={() => setDrawerOpen(false)}
                   className="rounded-full h-8 w-8 hover:bg-slate-50"
                 >
-                  <X className="h-4.5 w-4.5 text-[#111111]" />
+                  <X className="h-4.5 w-4.5 text-foreground" />
                 </Button>
               </div>
               {renderContextPanelContent()}
@@ -1776,9 +1776,9 @@ export default function AIAssistantPage() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 h-full w-72 bg-white z-50 flex flex-col p-5 md:hidden border-r border-[#ECECEC]"
+              className="fixed top-0 left-0 h-full w-72 bg-white z-50 flex flex-col p-5 md:hidden border-r border-border"
             >
-              <div className="flex items-center justify-between pb-4 border-b border-[#ECECEC] shrink-0">
+              <div className="flex items-center justify-between pb-4 border-b border-border shrink-0">
                 <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Chat History</span>
                 <Button
                   variant="ghost"
@@ -1827,11 +1827,11 @@ export default function AIAssistantPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-[28px] border border-[#ECECEC] p-6 max-w-lg w-full shadow-2xl space-y-5 text-left relative overflow-hidden"
+              className="bg-white rounded-[28px] border border-border p-6 max-w-lg w-full shadow-2xl space-y-5 text-left relative overflow-hidden"
             >
-              <div className="flex items-center justify-between pb-3.5 border-b border-[#ECECEC]">
-                <h3 className="text-base font-extrabold text-[#111111] flex items-center gap-1.5">
-                  <Wrench className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center justify-between pb-3.5 border-b border-border">
+                <h3 className="text-base font-extrabold text-foreground flex items-center gap-1.5">
+                  <Wrench className="h-5 w-5 text-primary" />
                   <span>AI Recommended Dispatch</span>
                 </h3>
                 <button
@@ -1853,7 +1853,7 @@ export default function AIAssistantPage() {
                     <select
                       value={bookingApplianceId}
                       onChange={(e) => setBookingApplianceId(e.target.value)}
-                      className="w-full h-11 rounded-xl border border-[#ECECEC] bg-white text-xs px-3 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 text-slate-700 font-semibold"
+                      className="w-full h-11 rounded-[14px] border border-border bg-card text-xs px-3 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-foreground font-semibold"
                     >
                       {actualAppliances.map((app) => (
                         <option key={app.id} value={app.id}>
@@ -1870,7 +1870,7 @@ export default function AIAssistantPage() {
                     <select
                       value={bookingServiceType}
                       onChange={(e) => setBookingServiceType(e.target.value)}
-                      className="w-full h-11 rounded-xl border border-[#ECECEC] bg-white text-xs px-3 focus:outline-none text-slate-700 font-semibold"
+                      className="w-full h-11 rounded-xl border border-border bg-white text-xs px-3 focus:outline-none text-slate-700 font-semibold"
                     >
                       <option value="Repair Check">Repair Check</option>
                       <option value="Maintenance">Maintenance</option>
@@ -1885,7 +1885,7 @@ export default function AIAssistantPage() {
                       type="number"
                       value={bookingCost}
                       onChange={(e) => setBookingCost(e.target.value)}
-                      className="h-11 rounded-xl text-xs border-[#ECECEC]"
+                      className="h-11 rounded-xl text-xs border-border"
                     />
                   </div>
 
@@ -1895,7 +1895,7 @@ export default function AIAssistantPage() {
                       type="date"
                       value={bookingDate}
                       onChange={(e) => setBookingDate(e.target.value)}
-                      className="h-11 rounded-xl text-xs border-[#ECECEC]"
+                      className="h-11 rounded-xl text-xs border-border"
                     />
                   </div>
 
@@ -1904,7 +1904,7 @@ export default function AIAssistantPage() {
                     <select
                       value={bookingTime}
                       onChange={(e) => setBookingTime(e.target.value)}
-                      className="w-full h-11 rounded-xl border border-[#ECECEC] bg-white text-xs px-3 focus:outline-none text-slate-700 font-semibold"
+                      className="w-full h-11 rounded-xl border border-border bg-white text-xs px-3 focus:outline-none text-slate-700 font-semibold"
                     >
                       <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
                       <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
@@ -1920,16 +1920,16 @@ export default function AIAssistantPage() {
                     value={bookingProblem}
                     onChange={(e) => setBookingProblem(e.target.value)}
                     rows={3}
-                    className="w-full rounded-xl border border-[#ECECEC] bg-white text-xs p-3.5 focus:outline-none text-slate-700 leading-relaxed resize-none font-medium"
+                    className="w-full rounded-xl border border-border bg-white text-xs p-3.5 focus:outline-none text-slate-700 leading-relaxed resize-none font-medium"
                   />
                 </div>
 
-                <div className="flex justify-end gap-2.5 pt-4 border-t border-[#ECECEC]">
+                <div className="flex justify-end gap-2.5 pt-4 border-t border-border">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setIsBookingModalOpen(false)}
-                    className="rounded-xl text-xs font-bold h-10 border-[#ECECEC] text-slate-700 hover:bg-slate-50 cursor-pointer bg-white"
+                    className="rounded-xl text-xs font-bold h-10 border-border text-slate-700 hover:bg-slate-50 cursor-pointer bg-white"
                   >
                     Cancel
                   </Button>

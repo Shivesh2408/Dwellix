@@ -16,11 +16,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Features", href: "#features", id: "features" },
-  { label: "How It Works", href: "#how-it-works", id: "how-it-works" },
-  { label: "Pricing", href: "#pricing", id: "pricing" },
-  { label: "Blog", href: "#blog", id: "blog" },
-  { label: "Contact", href: "#contact", id: "contact" },
+  { label: "Features", href: "/#features", id: "features" },
+  { label: "How It Works", href: "/#how-it-works", id: "how-it-works" },
+  { label: "Pricing", href: "/#pricing", id: "pricing" },
+  { label: "Resources", href: "/resources", id: "resources" },
+  { label: "About Us", href: "/about", id: "about" },
 ];
 
 export function Navbar() {
@@ -75,7 +75,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-border/60 py-2 shadow-xs"
+          ? "bg-card/95 backdrop-blur-md border-b border-border/60 py-2 shadow-xs"
           : "bg-transparent border-b border-transparent py-4"
       )}
     >
@@ -100,8 +100,7 @@ export function Navbar() {
               href={item.href}
               className={cn(
                 "text-sm font-medium transition-all duration-200 relative py-1",
-                item.id === "blog" && "opacity-50 cursor-not-allowed pointer-events-none",
-                activeSection === item.id && item.id !== "blog"
+                activeSection === item.id
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}            >
@@ -155,7 +154,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden border-b border-border/60 bg-white w-full absolute left-0 overflow-hidden"
+            className="md:hidden border-b border-border/60 bg-card w-full absolute left-0 overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-6 gap-5 border-t border-border/10" aria-label="Mobile Navigation">
               {navItems.map((item) => (
@@ -164,8 +163,7 @@ export function Navbar() {
                   href={item.href}
                   className={cn(
                     "text-base font-semibold transition-colors py-1 border-b border-border/5",
-                    item.id === "blog" && "opacity-50 cursor-not-allowed pointer-events-none",
-                    activeSection === item.id && item.id !== "blog" ? "text-primary" : "text-muted-foreground"
+                    activeSection === item.id ? "text-primary" : "text-muted-foreground"
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

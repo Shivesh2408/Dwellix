@@ -230,7 +230,7 @@ export default function HomesPage() {
         ) : (
           <div className="space-y-8">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-500">
+              <div className="h-14 w-14 rounded-2xl bg-primary-soft border border-primary/20 flex items-center justify-center text-primary">
                 <HomeIcon className="h-7 w-7" />
               </div>
               <div>

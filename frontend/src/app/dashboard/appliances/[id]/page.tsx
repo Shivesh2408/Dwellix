@@ -120,7 +120,7 @@ export default function ApplianceDetailsPage() {
         date: appliance.purchaseDate,
         description: `Registered purchase date for ${appliance.brand} ${appliance.model}.`,
         badge: "Purchase",
-        color: "bg-blue-600"
+        color: "bg-primary"
       },
       {
         type: "warranty",
@@ -128,7 +128,7 @@ export default function ApplianceDetailsPage() {
         date: appliance.purchaseDate,
         description: `Coverage status is currently ${appliance.warrantyStatus}. Expiration set to ${appliance.warrantyExpiry}.`,
         badge: appliance.warrantyStatus,
-        color: "bg-indigo-600"
+        color: "bg-primary"
       },
       {
         type: "invoice",
@@ -176,7 +176,7 @@ export default function ApplianceDetailsPage() {
         date: b.bookingDate,
         description: `Booking ID: ${b.id}. Description: ${b.problemDescription}. Status: ${b.status}`,
         badge: "BOOKING_CREATED",
-        color: "bg-blue-600"
+        color: "bg-primary"
       });
     });
 
@@ -195,7 +195,7 @@ export default function ApplianceDetailsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-[#F8F9FB]">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 min-h-screen bg-background">
         <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="h-[600px] bg-slate-200 rounded-[32px] animate-pulse" />
@@ -207,11 +207,11 @@ export default function ApplianceDetailsPage() {
 
   if (error || !appliance) {
     return (
-      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-screen flex flex-col items-center justify-center bg-[#F8F9FB]">
+      <div className="max-w-[1400px] mx-auto p-6 md:p-10 min-h-screen flex flex-col items-center justify-center bg-background">
         <div className="h-16 w-16 rounded-[24px] bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500 mb-4 shadow-sm">
           <AlertTriangle className="h-8 w-8" />
         </div>
-        <h2 className="text-xl font-bold text-[#111111] mb-2">Error Loading Profile</h2>
+        <h2 className="text-xl font-bold text-foreground mb-2">Error Loading Profile</h2>
         <p className="text-[#6B7280] mb-6">{error || "Appliance not found."}</p>
         <Button onClick={() => router.push("/dashboard/appliances")} className="rounded-xl px-6 bg-black text-white hover:bg-black/90 font-bold">
           Back to Fleet
@@ -221,7 +221,7 @@ export default function ApplianceDetailsPage() {
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 bg-[#F8F9FB] min-h-screen font-sans text-left pb-24">
+    <div className="max-w-[1400px] mx-auto p-6 md:p-10 space-y-10 bg-background min-h-screen font-sans text-left pb-24">
       {/* Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -238,12 +238,12 @@ export default function ApplianceDetailsPage() {
       </AnimatePresence>
 
       {/* Top Navigation Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#ECECEC] pb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border pb-8">
         <button
           onClick={() => router.push("/dashboard/appliances")}
-          className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#111111] transition-colors font-bold cursor-pointer group w-max"
+          className="flex items-center gap-2 text-sm text-[#6B7280] hover:text-foreground transition-colors font-bold cursor-pointer group w-max"
         >
-          <div className="h-8 w-8 rounded-full bg-white border border-[#ECECEC] flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+          <div className="h-8 w-8 rounded-full bg-white border border-border flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
             <ArrowLeft className="h-4 w-4" />
           </div>
           <span>Back to Fleet</span>
@@ -251,13 +251,13 @@ export default function ApplianceDetailsPage() {
 
         <div className="flex items-center gap-3 flex-wrap">
           <Link href="/onboarding/appliances">
-            <Button variant="outline" className="rounded-xl font-bold text-sm h-11 px-5 border-[#ECECEC] text-[#111111] hover:bg-white cursor-pointer shadow-sm">
+            <Button variant="outline" className="rounded-xl font-bold text-sm h-11 px-5 border-border text-foreground hover:bg-white cursor-pointer shadow-sm">
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Profile
             </Button>
           </Link>
           <Link href="/dashboard/uploads">
-            <Button className="rounded-xl font-bold text-sm h-11 px-5 bg-white border border-[#ECECEC] text-blue-600 hover:bg-blue-50 cursor-pointer shadow-sm">
+            <Button className="rounded-xl font-bold text-sm h-11 px-5 bg-white border border-border text-primary hover:bg-primary-soft cursor-pointer shadow-sm">
               <Camera className="h-4 w-4 mr-2" />
               Diagnose Issue
             </Button>
@@ -277,8 +277,8 @@ export default function ApplianceDetailsPage() {
         <div className="lg:col-span-1 space-y-8">
           
           {/* Main Visual Card */}
-          <div className="bg-white border border-[#ECECEC] rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] relative">
-            <div className="h-[280px] w-full bg-gradient-to-br from-[#F8F9FB] to-white flex items-center justify-center p-6 relative border-b border-[#ECECEC]">
+          <div className="bg-white border border-border rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] relative">
+            <div className="h-[280px] w-full bg-gradient-to-br from-[#F8F9FB] to-white flex items-center justify-center p-6 relative border-b border-border">
               {appliance.photoFileName ? (
                 <motion.img
                   initial={{ scale: 0.9, opacity: 0 }}
@@ -292,54 +292,54 @@ export default function ApplianceDetailsPage() {
                 <Bot className="h-20 w-20 text-slate-200" />
               )}
               
-              <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md rounded-[20px] p-2 shadow-sm border border-[#ECECEC]">
+              <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md rounded-[20px] p-2 shadow-sm border border-border">
                 <HealthRing score={appliance.healthScore} />
               </div>
             </div>
 
             <div className="p-8">
-              <div className="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-100 mb-4">
+              <div className="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-widest text-primary bg-primary-soft border border-primary/20 mb-4">
                 {appliance.brand}
               </div>
-              <h1 className="font-extrabold text-2xl md:text-3xl text-[#111111] leading-tight mb-2">
+              <h1 className="font-extrabold text-2xl md:text-3xl text-foreground leading-tight mb-2">
                 {appliance.name}
               </h1>
               <p className="text-sm font-medium text-[#6B7280]">
-                Model: <span className="text-[#111111]">{appliance.model}</span>
+                Model: <span className="text-foreground">{appliance.model}</span>
               </p>
             </div>
           </div>
 
           {/* Premium Specs Card */}
-          <div className="bg-white border border-[#ECECEC] rounded-[32px] p-8 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6">
-            <h3 className="text-lg font-extrabold text-[#111111] flex items-center gap-2 mb-6">
+          <div className="bg-white border border-border rounded-[32px] p-8 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6">
+            <h3 className="text-lg font-extrabold text-foreground flex items-center gap-2 mb-6">
               <Zap className="h-5 w-5 text-amber-500" />
               System Specifications
             </h3>
             
             <div className="space-y-4">
-              <div className="flex justify-between items-center p-4 rounded-2xl bg-[#F8F9FB] border border-[#ECECEC]">
+              <div className="flex justify-between items-center p-4 rounded-2xl bg-background border border-border">
                 <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Serial No.</span>
-                <span className="font-mono text-sm font-bold text-[#111111]">{serialNumber}</span>
+                <span className="font-mono text-sm font-bold text-foreground">{serialNumber}</span>
               </div>
               
-              <div className="flex justify-between items-center p-4 rounded-2xl bg-[#F8F9FB] border border-[#ECECEC]">
+              <div className="flex justify-between items-center p-4 rounded-2xl bg-background border border-border">
                 <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Location</span>
-                <span className="text-sm font-bold text-[#111111] flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-blue-500" />
+                <span className="text-sm font-bold text-foreground flex items-center gap-2">
+                  <Layers className="h-4 w-4 text-primary" />
                   {appliance.roomName}
                 </span>
               </div>
 
-              <div className="flex justify-between items-center p-4 rounded-2xl bg-[#F8F9FB] border border-[#ECECEC]">
+              <div className="flex justify-between items-center p-4 rounded-2xl bg-background border border-border">
                 <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Purchase</span>
-                <span className="text-sm font-bold text-[#111111] flex items-center gap-2">
+                <span className="text-sm font-bold text-foreground flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-emerald-500" />
                   {appliance.purchaseDate}
                 </span>
               </div>
 
-              <div className="flex justify-between items-center p-4 rounded-2xl bg-[#F8F9FB] border border-[#ECECEC]">
+              <div className="flex justify-between items-center p-4 rounded-2xl bg-background border border-border">
                 <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Warranty</span>
                 <span className={`px-3 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider ${
                   appliance.warrantyStatus.toLowerCase() === "covered" 
@@ -356,13 +356,13 @@ export default function ApplianceDetailsPage() {
         {/* Right Column: Timeline & Intelligence */}
         <div className="lg:col-span-2 space-y-8">
           
-          <div className="bg-white border border-[#ECECEC] rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] h-full flex flex-col">
+          <div className="bg-white border border-border rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] h-full flex flex-col">
             {/* Tabs Header */}
-            <div className="flex items-center gap-8 px-8 pt-8 border-b border-[#ECECEC]">
+            <div className="flex items-center gap-8 px-8 pt-8 border-b border-border">
               <button
                 onClick={() => setActiveTab("timeline")}
                 className={`pb-4 text-sm font-extrabold transition-all relative ${
-                  activeTab === "timeline" ? "text-[#111111]" : "text-[#6B7280] hover:text-[#111111]"
+                  activeTab === "timeline" ? "text-foreground" : "text-[#6B7280] hover:text-foreground"
                 }`}
               >
                 Lifecycle Timeline
@@ -373,7 +373,7 @@ export default function ApplianceDetailsPage() {
               <button
                 onClick={() => setActiveTab("notes")}
                 className={`pb-4 text-sm font-extrabold transition-all relative ${
-                  activeTab === "notes" ? "text-[#111111]" : "text-[#6B7280] hover:text-[#111111]"
+                  activeTab === "notes" ? "text-foreground" : "text-[#6B7280] hover:text-foreground"
                 }`}
               >
                 Service Notes
@@ -392,7 +392,7 @@ export default function ApplianceDetailsPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="relative border-l-2 border-[#ECECEC] ml-4 space-y-10 py-4"
+                    className="relative border-l-2 border-border ml-4 space-y-10 py-4"
                   >
                     {timelineEvents.map((evt, idx) => (
                       <div key={idx} className="relative pl-8 group">
@@ -407,15 +407,15 @@ export default function ApplianceDetailsPage() {
                           {evt.type === "booking_created" && <History className="h-3.5 w-3.5" />}
                         </span>
                         
-                        <div className="bg-[#F8F9FB] rounded-[24px] p-6 border border-[#ECECEC] shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-background rounded-[24px] p-6 border border-border shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                            <span className={`px-3 py-1 rounded-lg text-[9px] font-extrabold uppercase tracking-widest ${
-                              evt.type === "purchase" ? "bg-blue-100 text-blue-700" :
-                              evt.type === "warranty" ? "bg-indigo-100 text-indigo-700" :
+                             <span className={`px-3 py-1 rounded-lg text-[9px] font-extrabold uppercase tracking-widest ${
+                              evt.type === "purchase" ? "bg-primary-soft text-primary-hover" :
+                              evt.type === "warranty" ? "bg-primary-soft text-primary-hover" :
                               evt.type === "invoice" ? "bg-amber-100 text-amber-700" :
                               evt.type === "maintenance" ? "bg-emerald-100 text-emerald-700" :
                               evt.type === "technician" ? "bg-purple-100 text-purple-700" :
-                              evt.type === "booking_created" ? "bg-blue-100 text-blue-700" :
+                              evt.type === "booking_created" ? "bg-primary-soft text-primary-hover" :
                               "bg-rose-100 text-rose-700"
                             }`}>
                               {evt.badge}
@@ -423,11 +423,11 @@ export default function ApplianceDetailsPage() {
                             <span className="text-[11px] text-[#6B7280] font-bold uppercase tracking-wider">{evt.date}</span>
                           </div>
                           
-                          <h4 className="font-extrabold text-lg text-[#111111] mb-2">{evt.title}</h4>
+                          <h4 className="font-extrabold text-lg text-foreground mb-2">{evt.title}</h4>
                           <p className="text-[#6B7280] text-sm font-medium leading-relaxed">{evt.description}</p>
                           
                           {evt.imageUrl && (
-                            <div className="mt-6 max-w-sm rounded-[20px] overflow-hidden border border-[#ECECEC] shadow-sm">
+                            <div className="mt-6 max-w-sm rounded-[20px] overflow-hidden border border-border shadow-sm">
                               <img src={evt.imageUrl} alt="Scan preview" className="w-full h-auto object-cover" />
                             </div>
                           )}
@@ -445,15 +445,15 @@ export default function ApplianceDetailsPage() {
                     exit={{ opacity: 0, y: -10 }}
                     className="space-y-6"
                   >
-                    <div className="bg-[#F8F9FB] rounded-[24px] p-6 border border-[#ECECEC]">
-                      <h4 className="text-sm font-extrabold text-[#111111] mb-4">Add a Service Note</h4>
+                    <div className="bg-background rounded-[24px] p-6 border border-border">
+                      <h4 className="text-sm font-extrabold text-foreground mb-4">Add a Service Note</h4>
                       <form onSubmit={handleAddNote} className="flex gap-4">
                         <Input
                           type="text"
                           value={newNote}
                           onChange={(e) => setNewNote(e.target.value)}
                           placeholder="Log filter changes, observations, or repair details..."
-                          className="flex-1 h-12 rounded-[16px] text-sm font-medium border-[#ECECEC] focus:ring-black focus:border-black bg-white"
+                          className="flex-1 h-12 rounded-[16px] text-sm font-medium border-border focus:ring-black focus:border-black bg-white"
                         />
                         <Button type="submit" className="rounded-[16px] h-12 px-6 font-bold text-sm bg-black text-white hover:bg-black/90 cursor-pointer shadow-sm">
                           Save Note
@@ -463,11 +463,11 @@ export default function ApplianceDetailsPage() {
 
                     <div className="space-y-4">
                       {notes.map((note, idx) => (
-                        <div key={idx} className="p-6 border border-[#ECECEC] bg-white rounded-[24px] flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow">
-                          <div className="h-10 w-10 rounded-full bg-[#F8F9FB] flex items-center justify-center border border-[#ECECEC] shrink-0">
+                        <div key={idx} className="p-6 border border-border bg-white rounded-[24px] flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="h-10 w-10 rounded-full bg-background flex items-center justify-center border border-border shrink-0">
                             <Clock className="h-4 w-4 text-[#6B7280]" />
                           </div>
-                          <div className="text-sm text-[#111111] font-medium leading-relaxed pt-1 w-full">{note}</div>
+                          <div className="text-sm text-foreground font-medium leading-relaxed pt-1 w-full">{note}</div>
                         </div>
                       ))}
                     </div>
@@ -503,7 +503,7 @@ const HealthRing = ({ score }: { score: number }) => {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-black text-[#111111] tracking-tighter leading-none">{score}</span>
+        <span className="text-xl font-black text-foreground tracking-tighter leading-none">{score}</span>
         <span className="text-[8px] font-extrabold uppercase text-[#6B7280]">Score</span>
       </div>
     </div>
