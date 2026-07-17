@@ -1,42 +1,78 @@
-# Dwellix - AI-Powered Home Management Platform
+# Dwellix: AI-Powered Home Management Operating System
 
-Dwellix is a premium, modern web application designed to act as an operating system for your household. It simplifies home ownership by organizing appliances, digitizing receipts, tracking warranties, scheduling technician services, and leveraging a state-of-the-art AI Workspace to assist with issues, maintenance, and diagnostics.
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-green?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=flat-square&logo=postgresql)](https://www.postgresql.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+
+Dwellix is a premium, modern home management platform designed to serve as an operating system for residential home ownership. The platform optimizes household organization by structuring appliance catalogs, digitizing receipts, tracking warranties, automating scheduling, and using state-of-the-art AI Workspace tools for home issue diagnostics.
 
 ---
 
 ## 🚀 Key Features
 
-*   **Premium AI Assistant Workspace**: A chat interface styled after Claude/ChatGPT, featuring context panels, dynamic conversation history grouping, voice input recognition, and home parameters integration.
-*   **Appliance registry & Health Score**: A structured catalog of home appliances with computed health status, brand, model, and placement details.
-*   **Warranty & Invoice Vaults**: A secure digitizing pipeline using **Cloudinary** storage to host appliance invoices, specs, and warranties, alerting users when expiration dates draw near.
-*   **Maintenance Scheduler & Bookings**: Tracking technician dispatches, maintenance cycles, and scheduler timelines.
+*   **Premium AI Assistant Workspace**: Interactive chat interface styled after Claude/ChatGPT, featuring context panels, dynamic conversation history grouping, voice input recognition, and home parameters integration (powered by OpenRouter AI).
+*   **Appliance Registry & Health Score**: A structured catalog of home appliances with model numbers, placement details, and computed health status.
+*   **Warranty & Invoice Vaults**: A secure media storage pipeline using **Cloudinary** integration on the backend to host appliance invoices, specs, and warranties, alerting users when expiration dates draw near.
 *   **Interactive Onboarding Wizard**: A step-by-step custom wizard allowing users to setup their home configuration, rooms, and appliances upon registration.
+*   **Maintenance Scheduler & Bookings**: Real-time technician dispatching, maintenance cycle trackers, and schedule builders.
 
 ---
 
-## 🛠️ Technical Stack
+## 🛠️ Tech Stack
 
-### Frontend
-*   **Framework**: Next.js 16 (React 19, TypeScript)
-*   **Styling**: Tailwind CSS & Vanilla CSS custom modules
-*   **Animations**: Framer Motion
-*   **Utility & Icons**: Lucide React & Radix UI primitives
-*   **State Management**: React Context, Hooks, and Reducers
-
-### Backend
-*   **Framework**: Spring Boot 3 (Java 21)
-*   **Database**: PostgreSQL
-*   **Migration**: Flyway (SQL-based migrations)
-*   **Security**: Spring Security 6, Cookie-based JWT authentication, Google OAuth2 Login
-*   **Client**: Spring WebFlux (Reactive WebClient for asynchronous AI provider calls)
-
-### Cloud & APIs
-*   **AI Provider**: OpenRouter API (flexible models sequencing with fallback resilience)
-*   **Media Hosting**: Cloudinary SDK Integration
+*   **Frontend**: Next.js 16 (React 19, TypeScript), Tailwind CSS, Vanilla CSS custom modules, Framer Motion, Lucide React icons, Radix UI primitives.
+*   **Backend**: Spring Boot 3.5 (Java 21), Spring Security 6 (JWT cookie-based auth, Google OAuth2 Login), Spring WebFlux (Reactive WebClient for AI integrations), Flyway migrations.
+*   **Database**: PostgreSQL.
+*   **Cloud & Storage**: OpenRouter API (LLM integration), Cloudinary Java SDK (media hosting).
 
 ---
 
-## ⚙️ Configuration & Setup
+## 🗺️ Architecture Overview
+
+Dwellix separates concerns into an SPA frontend, a secure REST API backend, and cloud integrations. 
+
+### System Flow
+```mermaid
+graph TD
+    User([User Browser]) -->|Next.js client-side router| SPA[Next.js Frontend]
+    SPA -->|API Requests & Image Payloads| Gateway[Spring Security / JWT Filter]
+    Gateway -->|Validated Context| Controller[REST Controllers]
+    Controller -->|Service Logic| Services[Spring Boot Services]
+    Services -->|JPA Repositories| DB[(PostgreSQL Database)]
+    Services -->|Upload Media| Cloudinary[(Cloudinary Storage)]
+    Services -->|Reactive WebClient| OpenRouter[OpenRouter AI Provider]
+```
+
+---
+
+## 📁 Folder Structure
+
+```
+Dwellix/
+├── assets/             # Project static assets & illustrations
+├── backend/            # Spring Boot REST API
+│   ├── src/            # Java backend source code
+│   ├── pom.xml         # Maven build settings
+│   └── mvnw.cmd        # Maven wrapper executable
+├── branding/           # Project brand assets, logos, and styles
+├── database/           # Database schema representations
+├── deployment/         # Docker, Nginx, and monitoring configs
+├── docs/               # Detailed system documentation
+├── frontend/           # Next.js SPA
+│   ├── src/            # TSX components, pages, and features
+│   ├── public/         # Static client assets
+│   └── package.json    # npm configurations
+├── README.md           # This document
+├── LICENSE             # Project license
+└── render.yaml         # Multi-service deployment blueprints
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+Please refer to [docs/SETUP.md](file:///c:/Users/shive/Desktop/Dwellix/docs/SETUP.md) for full configuration parameters.
 
 ### Prerequisites
 *   Java Development Kit (JDK 21+)
@@ -49,41 +85,60 @@ Create a PostgreSQL database named `dwellix`:
 CREATE DATABASE dwellix;
 ```
 
-### 2. Environment Configuration
-Copy `.env.example` to `.env` in the backend and frontend directories:
-*   Configure the database URL, credentials, and JWT secret.
-*   Add API credentials for **Cloudinary** and **OpenRouter** (required for images and chat co-pilot features).
-*   Add **Google Client ID / Client Secret** (if testing Google login integration locally).
+### 2. Environment Configurations
+Setup the environment files:
+*   Configure the database URL, credentials, and JWT secrets in the environment variables.
+*   Configure API credentials for **Cloudinary** and **OpenRouter** (required for invoice storage and AI diagnostic workspace).
 
-### 3. Running the Backend
-Navigate to the `/backend` folder:
+### 3. Running Backend
+Navigate to `/backend` folder:
 ```bash
 # Build the application
 ./mvnw clean package -DskipTests
 
-# Start the Spring Boot Application
+# Start the Spring Boot REST API
 java -jar target/dwellix-backend-0.1.0.jar
 ```
 
-### 4. Running the Frontend
-Navigate to the `/frontend` folder:
+### 4. Running Frontend
+Navigate to `/frontend` folder:
 ```bash
-# Install dependencies
+# Install package dependencies
 npm install
 
-# Run the Next.js development server
+# Start Next.js client-side server
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your web browser.
+Access [http://localhost:3000](http://localhost:3000) to view the client application.
 
 ---
 
-## 🔒 Security & Best Practices
-*   **JWT Security**: Separate Access & Refresh tokens inside HttpOnly, SameSite cookies to protect credentials from XSS/CSRF vectors.
-*   **Rate Limiting**: Custom route interceptor constraints preventing endpoint request abuse.
-*   **Purity & Compile Checks**: Strict Next.js Turbopack compiler, type compliance, and ESLint purity requirements enforced at build time.
+## 🔑 Authentication Flow
+
+Dwellix implements a dual-token JWT security model designed to resist XSS and CSRF attacks:
+1.  **Access Token**: Transmitted in the response payload and maintained in memory by the Next.js client.
+2.  **Refresh Token**: Saved in an `HttpOnly`, `Secure`, `SameSite=None/Lax` cookie.
+3.  **Token Rotation**: Access tokens are automatically refreshed in the background before expiration using the HTTP-only cookie.
+4.  **Google OAuth2 Login**: Spring Security delegates authentication to Google and redirects back to the frontend with token configurations.
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📸 Project Screenshots
+
+| Dashboard Home | AI Chat Workspace |
+| :---: | :---: |
+| ![Dashboard Mockup](assets/mockups/dashboard_placeholder.png) | ![AI Assistant Mockup](assets/mockups/ai_workspace_placeholder.png) |
+
+---
+
+## 🌐 Deployment
+
+Dwellix is ready for multi-service hosting. The `render.yaml` blueprint automates the deployment of the Spring Boot REST API as a Docker container, mapping database and secret credentials dynamically. Next.js can be deployed on Vercel or Render. For local containerization settings, see [docs/DEPLOYMENT.md](file:///c:/Users/shive/Desktop/Dwellix/docs/DEPLOYMENT.md).
+
+---
+
+## 📜 License & Author
+
+Licensed under the [MIT License](LICENSE).
+
+Developed with ❤️ by Shivesh.
