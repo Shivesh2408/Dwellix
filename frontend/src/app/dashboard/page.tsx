@@ -159,54 +159,44 @@ export default function DashboardPage() {
   const { home, userName, appliancesCount } = data;
   const homeSelectorOptions = [home.homeName];
 
-  return (
-    <DashboardLayout
-      userName={userName}
-      homeName={home.homeName}
-      homeSelectorOptions={homeSelectorOptions}
-      selectedHome={home.homeName}
-      onLogout={handleLogout}
-    >
-      {appliancesCount === 0 ? (
-        /* SECTION 8 EMPTY STATE: PREMIUM ONBOARDING REMINDER */
-        <div className="flex flex-col items-center justify-center py-20 px-4 text-center max-w-xl mx-auto">
-          <div className="h-20 w-20 rounded-3xl bg-primary/10 text-primary flex items-center justify-center shadow-lg shadow-primary/5 mb-8 animate-pulse">
-            <Cpu className="h-10 w-10" />
-          </div>
-          <h2 className="font-heading font-extrabold text-3xl tracking-tight text-foreground mb-4">
-            Welcome to Your Dwellix Dashboard
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-            You successfully mapped your home, <strong>{home.homeName}</strong>. Now let’s add appliances to unlock the full health tracking, warranty alerts, and AI-powered recommendations.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-sm">
-            <Button
-              onClick={() => router.push("/onboarding/appliances")}
-              className="h-11 px-6 rounded-xl font-bold gap-2 text-sm shadow-md shadow-primary/20 flex-1"
-            >
-              <Plus className="h-4.5 w-4.5" />
-              <span>Add First Appliance</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/dashboard/marketplace")}
-              className="h-11 px-6 rounded-xl font-bold text-sm flex-1 border-border/80"
-            >
-              Browse Marketplace
-            </Button>
-          </div>
-        </div>
-      ) : (
-        /* ACTIVE DASHBOARD CONTENT */
-        <DashboardContent
-          data={data}
-          onDiagnoseClick={() => router.push("/dashboard/ai-assistant")}
-          onBookClick={() => router.push("/dashboard/bookings")}
-          onUploadInvoiceClick={() => router.push("/dashboard/warranty-vault")}
-          onAddApplianceClick={() => router.push("/dashboard/appliances")}
-          onViewMarketplaceClick={() => router.push("/dashboard/marketplace")}
-        />
-      )}
-    </DashboardLayout>
+  return appliancesCount === 0 ? (
+    /* SECTION 8 EMPTY STATE: PREMIUM ONBOARDING REMINDER */
+    <div className="flex flex-col items-center justify-center py-20 px-4 text-center max-w-xl mx-auto">
+      <div className="h-20 w-20 rounded-3xl bg-primary/10 text-primary flex items-center justify-center shadow-lg shadow-primary/5 mb-8 animate-pulse">
+        <Cpu className="h-10 w-10" />
+      </div>
+      <h2 className="font-heading font-extrabold text-3xl tracking-tight text-foreground mb-4">
+        Welcome to Your Dwellix Dashboard
+      </h2>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+        You successfully mapped your home, <strong>{home.homeName}</strong>. Now let’s add appliances to unlock the full health tracking, warranty alerts, and AI-powered recommendations.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-sm">
+        <Button
+          onClick={() => router.push("/onboarding/appliances")}
+          className="h-11 px-6 rounded-xl font-bold gap-2 text-sm shadow-md shadow-primary/20 flex-1"
+        >
+          <Plus className="h-4.5 w-4.5" />
+          <span>Add First Appliance</span>
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => router.push("/dashboard/marketplace")}
+          className="h-11 px-6 rounded-xl font-bold text-sm flex-1 border-border/80"
+        >
+          Browse Marketplace
+        </Button>
+      </div>
+    </div>
+  ) : (
+    /* ACTIVE DASHBOARD CONTENT */
+    <DashboardContent
+      data={data}
+      onDiagnoseClick={() => router.push("/dashboard/ai-assistant")}
+      onBookClick={() => router.push("/dashboard/bookings")}
+      onUploadInvoiceClick={() => router.push("/dashboard/warranty-vault")}
+      onAddApplianceClick={() => router.push("/dashboard/appliances")}
+      onViewMarketplaceClick={() => router.push("/dashboard/marketplace")}
+    />
   );
 }

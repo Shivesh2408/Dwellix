@@ -49,8 +49,8 @@ const sidebarItems: SidebarItem[] = [
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  userName: string;
-  homeName: string;
+  userName?: string;
+  homeName?: string;
   homeSelectorOptions?: string[];
   selectedHome?: string;
   onHomeChange?: (homeName: string) => void;
@@ -59,10 +59,10 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({
   children,
-  userName,
-  homeName,
-  homeSelectorOptions = [homeName],
-  selectedHome = homeName,
+  userName = "Alex Morgan",
+  homeName = "My Smart Home",
+  homeSelectorOptions = ["My Smart Home"],
+  selectedHome = "My Smart Home",
   onHomeChange,
   onLogout
 }: DashboardLayoutProps) {
@@ -73,7 +73,12 @@ export function DashboardLayout({
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
-  // Dynamic real-time notifications
+  const [userInfo, setUserInfo] = useState<{ userName: string; homeName: string }>({
+    userName: userName,
+    homeName: homeName
+  });
+
+  // Dynamic real-time notifications & user info
   interface NotificationItem {
     id: string;
     title: string;
@@ -88,10 +93,22 @@ export function DashboardLayout({
 
   useEffect(() => {
     let active = true;
-    const fetchNotifications = async () => {
+    const fetchDashboardInfo = async () => {
       try {
-        const data = await apiClient<{ notifications?: NotificationItem[] }>("/api/v1/dashboard");
+        const data = await apiClient<{ 
+          userName?: string; 
+          home?: { homeName?: string } | null;
+          notifications?: NotificationItem[];
+        }>("/api/v1/dashboard");
         if (!active) return;
+
+        if (data.userName || data.home?.homeName) {
+          setUserInfo({
+            userName: data.userName || "Alex Morgan",
+            homeName: data.home?.homeName || "My Smart Home"
+          });
+        }
+
         const list = data.notifications || [];
         setNotifications(list);
         
@@ -104,12 +121,12 @@ export function DashboardLayout({
           return newUnread;
         });
       } catch (err) {
-        console.error("Failed to load notifications in layout:", err);
+        console.error("Failed to load dashboard info in layout:", err);
       }
     };
 
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 15000);
+    fetchDashboardInfo();
+    const interval = setInterval(fetchDashboardInfo, 15000);
     return () => {
       active = false;
       clearInterval(interval);
@@ -197,14 +214,14 @@ export function DashboardLayout({
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background font-sans">
       {/* DESKTOP/TABLET SIDEBAR */}
-      <div className="hidden md:flex p-4 pr-0 h-full flex-col relative z-20 bg-background">
+      <div className="hidden md:flex py-2.5 pl-3 pr-0 h-full flex-col relative z-20 bg-background">
         <motion.aside
           animate={{ width: isCollapsed ? "80px" : "260px" }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col h-full bg-card border border-border rounded-[28px] shadow-sm relative"
         >
           {/* Sidebar Header */}
-          <div className={cn("flex items-center h-20 px-6 border-b border-border/60", isCollapsed ? "justify-center" : "justify-between")}>
+          <div className={cn("flex items-center h-14 px-6 border-b border-border/60", isCollapsed ? "justify-center" : "justify-between")}>
             {!isCollapsed && (
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl overflow-hidden bg-card border border-border/60 shadow-xs">
@@ -234,7 +251,7 @@ export function DashboardLayout({
             )}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="absolute -right-3 top-8 h-6 w-6 rounded-full border border-border/80 bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary shadow-xs transition-colors cursor-pointer z-30"
+              className="absolute -right-3 top-4 h-6 w-6 rounded-full border border-border/80 bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary shadow-xs transition-colors cursor-pointer z-30"
             >
               {isCollapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
             </button>
@@ -391,32 +408,32 @@ export function DashboardLayout({
       </AnimatePresence>
 
       {/* MAIN CONTENT AREA */}
-      <div className="flex-grow flex flex-col h-full overflow-hidden bg-background">
+      <div className="flex-grow flex flex-col h-full overflow-hidden bg-background p-2.5 md:py-2.5 md:pl-0 md:pr-3">
         {/* TOP HEADER */}
-        <header className="flex items-center justify-between h-20 px-4 md:px-8 border-b border-border/40 bg-card/85 backdrop-blur-md relative z-10">
-          <div className="flex items-center gap-4 flex-grow">
+        <header className="flex items-center justify-between h-14 px-3 sm:px-6 md:px-8 border border-border/60 bg-card/85 backdrop-blur-md rounded-2xl md:rounded-t-[28px] md:rounded-b-none relative z-10">
+          <div className="flex items-center gap-2.5 sm:gap-4 flex-grow min-w-0">
             <button
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="p-2 -mr-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary md:hidden transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary md:hidden transition-colors cursor-pointer shrink-0"
             >
               <Menu className="h-5 w-5" />
             </button>
             
-            {/* Search Input on left as shown in mockup */}
-            <div className="relative hidden md:block w-96 max-w-lg">
+            {/* Search Input - responsive across mobile, tablet, desktop */}
+            <div className="relative flex-1 max-w-xs sm:max-w-md">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="Search appliances, invoices, warranties..."
-                className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background text-foreground text-sm font-medium focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all"
+                placeholder="Search appliances, warranties..."
+                className="w-full h-9.5 pl-10 pr-3 sm:pr-4 rounded-xl border border-border bg-background text-foreground text-xs font-medium focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
           </div>
 
-          {/* Search, Notifications, Profile */}
-          <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
+          {/* Notifications, Profile */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             {/* Current Home Selector (Hidden/Discreet to match mockup visual style) */}
-            {homeSelectorOptions.length > 0 && (
+            {homeSelectorOptions && homeSelectorOptions.length > 0 && (
               <div className="relative hidden">
                 <select
                   value={selectedHome}
@@ -448,58 +465,70 @@ export function DashboardLayout({
                 )}
               </motion.button>
               
+              {/* Notifications Dropdown Panel */}
               <AnimatePresence>
                 {notificationsOpen && (
                   <>
-                    <div className="fixed inset-0 z-20" onClick={() => setNotificationsOpen(false)} />
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setNotificationsOpen(false)}
+                    />
                     <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-2 w-80 bg-card border border-border rounded-2xl shadow-xl z-30 p-4"
+                      className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-card border border-border shadow-xl z-50 overflow-hidden text-left"
                     >
-                      <div className="flex justify-between items-center pb-2 border-b border-border/40 mb-2">
-                        <span className="font-heading font-bold text-sm">Notifications</span>
-                        <span onClick={handleMarkAllRead} className="text-xs text-primary font-semibold hover:underline cursor-pointer select-none">Mark all read</span>
-                      </div>
-                      
-                      <div className="space-y-2 max-h-60 overflow-y-auto text-left scrollbar-none">
-                        {notifications.length === 0 ? (
-                          <div className="py-6 text-center text-xs text-slate-400 font-medium">
-                            No notifications yet.
-                          </div>
-                        ) : (
-                          notifications.map((n) => (
-                            <div 
-                              key={n.id} 
-                              onClick={() => {
-                                setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
-                                setUnreadCount(prev => Math.max(0, prev - (n.read ? 0 : 1)));
-                              }}
-                              className={cn(
-                                "p-2 rounded-lg transition-colors cursor-pointer border-b border-border/10  last:border-b-0",
-                                n.read ? "hover:bg-secondary " : "bg-primary-soft/40 hover:bg-secondary border-l-2 border-primary"
-                              )}
-                            >
-                              <div className="flex items-start justify-between gap-1.5">
-                                <div className="text-xs font-bold text-foreground">{n.title}</div>
-                                {!n.read && <span className="h-1.5 w-1.5 rounded-full bg-primary mt-1 shrink-0" />}
-                              </div>
-                              <div className="text-[10px] text-muted-foreground mt-0.5 leading-normal">{n.message}</div>
-                            </div>
-                          ))
+                      <div className="p-4 border-b border-border/60 flex items-center justify-between bg-card">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-heading font-bold text-sm text-foreground">Notifications</h4>
+                          {unreadCount > 0 && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-primary/10 text-primary">
+                              {unreadCount} new
+                            </span>
+                          )}
+                        </div>
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={handleMarkAllRead}
+                            className="text-xs text-primary font-bold hover:underline cursor-pointer"
+                          >
+                            Mark all read
+                          </button>
                         )}
                       </div>
 
-                      <div className="pt-2 border-t border-border/40 mt-2 text-center">
-                        <Link 
-                          href="/dashboard/notifications" 
-                          onClick={() => setNotificationsOpen(false)}
-                          className="text-xs text-primary font-bold hover:underline"
-                        >
-                          View all notifications
-                        </Link>
+                      <div className="max-h-80 overflow-y-auto divide-y divide-border/40 scrollbar-none">
+                        {notifications.length === 0 ? (
+                          <div className="p-6 text-center text-xs text-muted-foreground font-medium">
+                            No notifications yet.
+                          </div>
+                        ) : (
+                          notifications.map((item) => (
+                            <div
+                              key={item.id}
+                              className={cn(
+                                "p-4 transition-colors hover:bg-secondary/40 flex items-start gap-3",
+                                !item.read ? "bg-primary-soft/30" : ""
+                              )}
+                            >
+                              <span
+                                className={cn(
+                                  "h-2 w-2 rounded-full mt-1.5 flex-shrink-0",
+                                  !item.read ? "bg-primary" : "bg-muted-foreground/30"
+                                )}
+                              />
+                              <div className="space-y-1 flex-grow min-w-0">
+                                <p className="text-xs font-bold text-foreground leading-tight">{item.title}</p>
+                                <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">{item.message}</p>
+                                <span className="text-[9px] text-muted-foreground/70 font-semibold block pt-1">
+                                  {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                        )}
                       </div>
                     </motion.div>
                   </>
@@ -508,20 +537,20 @@ export function DashboardLayout({
             </div>
 
             {/* Profile Dropdown showing name and Premium Plan */}
-            <div className="flex items-center gap-3 cursor-pointer p-1 pr-2 rounded-xl">
+            <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer p-1 pr-1 sm:pr-2 rounded-xl">
               <div className="hidden sm:flex flex-col text-right">
-                <span className="text-xs font-bold text-foreground leading-tight">{userName || "Alex Morgan"}</span>
+                <span className="text-xs font-bold text-foreground leading-tight">{userInfo.userName || userName || "Alex Morgan"}</span>
                 <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Premium Plan</span>
               </div>
-              <div className="h-9 w-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm border border-border shadow-sm flex-shrink-0">
-                {userName.charAt(0)}
+              <div className="h-8.5 w-8.5 sm:h-9 sm:w-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs sm:text-sm border border-border shadow-sm shrink-0">
+                {(userInfo.userName || userName || "A").charAt(0)}
               </div>
             </div>
           </div>
         </header>
 
         {/* CENTER DASHBOARD CONTENT */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-none">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-none bg-card border-x border-b border-border/60 rounded-b-2xl md:rounded-b-[28px] shadow-sm">
           <div className="max-w-7xl mx-auto w-full">
             <AnimatePresence mode="wait">
               <motion.div
